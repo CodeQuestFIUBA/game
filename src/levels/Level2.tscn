@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://cnmgmgqijs2rp"]
+[gd_scene load_steps=13 format=3 uid="uid://cnmgmgqijs2rp"]
 
 [ext_resource type="PackedScene" uid="uid://tnj7qonnatx0" path="res://components/Player.tscn" id="1_2pt2k"]
 [ext_resource type="Script" path="res://levels/Level2.gd" id="1_jfttu"]
 [ext_resource type="Texture2D" uid="uid://decqcukp71tu0" path="res://sprites/TilesetInteriorFloor.png" id="1_vw5w1"]
 [ext_resource type="Texture2D" uid="uid://bir5x5ue54fb7" path="res://sprites/TilesetWallSimple.png" id="2_l610v"]
 [ext_resource type="PackedScene" uid="uid://ch11c3j5n3e67" path="res://components/Column.tscn" id="4_mrpfb"]
+[ext_resource type="PackedScene" uid="uid://dcomj51oo0cjp" path="res://components/ide.tscn" id="6_lwdci"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wm0dk"]
 texture = ExtResource("1_vw5w1")
@@ -471,6 +472,11 @@ position = Vector2(-4, 8)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Door"]
 position = Vector2(169.5, 13.75)
 shape = SubResource("RectangleShape2D_qcb8b")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="IDE" parent="CanvasLayer" instance=ExtResource("6_lwdci")]
+visible = false
 
 [connection signal="doorOpened" from="Player" to="." method="_on_player_door_opened"]
 [connection signal="body_shape_entered" from="Door" to="Player" method="_on_door_body_shape_entered"]
