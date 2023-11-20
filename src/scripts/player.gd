@@ -25,6 +25,11 @@ func update_animations():
 		$AnimationPlayer.play('idle_left');
 
 func _physics_process(delta):
+	var ide_nodes = get_tree().get_nodes_in_group("ide")
+	if ide_nodes.size() > 0:
+		var ide = ide_nodes[0] as Control
+		if ide.visible:
+			return
 	update_animations();
 	
 	var movement = GLOBAL.get_axis();
