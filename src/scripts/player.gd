@@ -40,3 +40,12 @@ func _physics_process(delta):
 func _on_door_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	if (body.name == "Player"):
 		doorOpened.emit()
+
+
+func move_player(arg):
+	update_animations();
+	var movement = GLOBAL.get_axis();
+	velocity.x = (movement.x + arg.right - arg.left) * SPEED
+	velocity.y = (movement.y + arg.down - arg.up) * SPEED
+	move_and_slide()
+

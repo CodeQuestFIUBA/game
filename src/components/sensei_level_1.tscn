@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://j71dlpufc40h"]
+
+[ext_resource type="Script" path="res://scripts/sensei_level_1.gd" id="1_0mocq"]
+[ext_resource type="Texture2D" uid="uid://c1ygepyi3vlht" path="res://assets/sensei.png" id="1_2np2c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qua56"]
+radius = 8.0
+
+[node name="SenseiLevel1" type="CharacterBody2D"]
+script = ExtResource("1_0mocq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_2np2c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qua56")
