@@ -18,11 +18,12 @@ config/icon="res://icon.svg"
 [autoload]
 
 GLOBAL="*res://scripts/global.gd"
+RoomEvents="*res://scripts/room_events.gd"
 
 [display]
 
-window/size/viewport_width=288
-window/size/viewport_height=162
+window/size/viewport_width=400
+window/size/viewport_height=224
 window/size/window_width_override=1024
 window/size/window_height_override=576
 window/stretch/mode="canvas_items"
