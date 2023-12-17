@@ -1,0 +1,35 @@
+[gd_scene load_steps=8 format=3 uid="uid://ktgompje250s"]
+
+[ext_resource type="PackedScene" uid="uid://by3klqkkeyrhh" path="res://levels/Lobby/Home.tscn" id="1_5j3d3"]
+[ext_resource type="PackedScene" uid="uid://nh5lwjilunkq" path="res://levels/Lobby/AdvancedLobby.tscn" id="2_fubv5"]
+[ext_resource type="PackedScene" uid="uid://barsv8fwtrw2p" path="res://levels/Lobby/BasicLobby.tscn" id="3_6tk88"]
+[ext_resource type="PackedScene" uid="uid://cu053fyxmd62s" path="res://levels/Lobby/Credits.tscn" id="4_euaqc"]
+[ext_resource type="PackedScene" uid="uid://bagso5udr8ryv" path="res://levels/Lobby/DifficultySelection.tscn" id="5_2177r"]
+[ext_resource type="PackedScene" uid="uid://b3i8il7toh6if" path="res://levels/Lobby/IntermediateLobby.tscn" id="6_urecu"]
+[ext_resource type="PackedScene" uid="uid://b0dtcgoptd4le" path="res://levels/Lobby/ModeSelection.tscn" id="7_uio8f"]
+
+[node name="Lobby" type="Node2D"]
+position = Vector2(200, 112)
+metadata/_edit_horizontal_guides_ = [224.0, 448.0, 672.0]
+metadata/_edit_vertical_guides_ = [400.0, 800.0, 1201.0]
+
+[node name="Home" parent="." instance=ExtResource("1_5j3d3")]
+position = Vector2(400, 448)
+
+[node name="AdvancedLevels" parent="." instance=ExtResource("2_fubv5")]
+position = Vector2(800, 448)
+
+[node name="BasicLevels" parent="." instance=ExtResource("3_6tk88")]
+position = Vector2(800, 0)
+
+[node name="Credits" parent="." instance=ExtResource("4_euaqc")]
+position = Vector2(0, 448)
+
+[node name="DifficultySelection" parent="." instance=ExtResource("5_2177r")]
+position = Vector2(800, 224)
+
+[node name="IntermediateLevels" parent="." instance=ExtResource("6_urecu")]
+position = Vector2(1200, 224)
+
+[node name="GameModeSelection" parent="." instance=ExtResource("7_uio8f")]
+position = Vector2(400, 224)
