@@ -1584,16 +1584,19 @@ polygon = PackedVector2Array(-1, 1, -1.00002, 113, 15, 113, 15, 17, 191, 17, 191
 
 [node name="PlayerDetector" type="Area2D" parent="."]
 position = Vector2(-199, -112)
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
 position = Vector2(200.5, 112.5)
 shape = SubResource("RectangleShape2D_6orb3")
 
 [node name="DoorUp" parent="." instance=ExtResource("8_frcil")]
-position = Vector2(-199, -112)
+position = Vector2(0, -104)
+
+[node name="Marker2D" parent="DoorUp" index="0"]
+position = Vector2(0, -32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorUp"]
-position = Vector2(199, 8)
 shape = SubResource("RectangleShape2D_tgp5c")
 
 [node name="BlockedRightDoor" type="StaticBody2D" parent="."]
@@ -1618,3 +1621,5 @@ rotation = 4.71239
 shape = SubResource("SegmentShape2D_ty38u")
 
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
+
+[editable path="DoorUp"]

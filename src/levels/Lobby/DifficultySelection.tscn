@@ -1444,7 +1444,7 @@ size = Vector2(367, 191)
 size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pyi06"]
-size = Vector2(10, 34)
+size = Vector2(8, 34)
 
 [node name="Home" type="Node2D"]
 script = ExtResource("1_ljboe")
@@ -1585,37 +1585,52 @@ polygon = PackedVector2Array(191, 1.00002, -1, 1, -1.00002, 97, 12, 91, 16, 85, 
 
 [node name="PlayerDetector" type="Area2D" parent="."]
 position = Vector2(-199, -112)
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
 position = Vector2(200.5, 112.5)
 shape = SubResource("RectangleShape2D_wettw")
 
 [node name="DoorUp" parent="." instance=ExtResource("8_pvy0u")]
-position = Vector2(-199, -112)
+position = Vector2(0, -104)
+
+[node name="Marker2D" parent="DoorUp" index="0"]
+position = Vector2(0, -32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorUp"]
-position = Vector2(199, 8)
 shape = SubResource("RectangleShape2D_615pg")
 
 [node name="DoorDown" parent="." instance=ExtResource("8_pvy0u")]
-position = Vector2(-199, -112)
+position = Vector2(0, 104)
+
+[node name="Marker2D" parent="DoorDown" index="0"]
+position = Vector2(0, 32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorDown"]
-position = Vector2(199, 216)
 shape = SubResource("RectangleShape2D_615pg")
 
 [node name="DoorRight" parent="." instance=ExtResource("8_pvy0u")]
-position = Vector2(-199, -112)
+position = Vector2(192, -8)
+
+[node name="Marker2D" parent="DoorRight" index="0"]
+position = Vector2(32, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorRight"]
-position = Vector2(391, 104)
 shape = SubResource("RectangleShape2D_615pg")
 
 [node name="DoorLeft" parent="." instance=ExtResource("8_pvy0u")]
-position = Vector2(-199, -112)
+position = Vector2(-195, 0)
+
+[node name="Marker2D" parent="DoorLeft" index="0"]
+position = Vector2(-22, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorLeft"]
-position = Vector2(2, 111)
+position = Vector2(-1, 1)
 shape = SubResource("RectangleShape2D_pyi06")
 
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
+
+[editable path="DoorUp"]
+[editable path="DoorDown"]
+[editable path="DoorRight"]
+[editable path="DoorLeft"]

@@ -1084,10 +1084,10 @@ sources/5 = SubResource("TileSetAtlasSource_otqy6")
 size = Vector2(367, 191)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13c7q"]
-size = Vector2(46, 11)
+size = Vector2(46, 9.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_34drx"]
-size = Vector2(46, 11)
+size = Vector2(46, 8.5004)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_yeqes"]
 a = Vector2(0, -16)
@@ -1216,23 +1216,30 @@ polygon = PackedVector2Array(176, 0, 0, 0, 0, 96, 12, 91, 16, 85, 16, 16, 164, 1
 
 [node name="PlayerDetector" type="Area2D" parent="."]
 position = Vector2(-199, -112)
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
 position = Vector2(200.5, 112.5)
 shape = SubResource("RectangleShape2D_36lff")
 
 [node name="DoorDown" parent="." instance=ExtResource("6_qsqgu")]
-position = Vector2(-199, -112)
+position = Vector2(0, 107)
+
+[node name="Marker2D" parent="DoorDown" index="0"]
+position = Vector2(0, 22)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorDown"]
-position = Vector2(199, 221.5)
+position = Vector2(0, 0.75)
 shape = SubResource("RectangleShape2D_13c7q")
 
 [node name="DoorRight" parent="." instance=ExtResource("6_qsqgu")]
-position = Vector2(-199, -112)
+position = Vector2(194.876, 0.07547)
+
+[node name="Marker2D" parent="DoorRight" index="0"]
+position = Vector2(22, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorRight"]
-position = Vector2(396.5, 112)
+position = Vector2(1.37419, 0.924535)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_34drx")
 
@@ -1243,3 +1250,6 @@ position = Vector2(-200, 0)
 shape = SubResource("SegmentShape2D_yeqes")
 
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
+
+[editable path="DoorDown"]
+[editable path="DoorRight"]
