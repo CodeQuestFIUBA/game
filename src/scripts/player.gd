@@ -42,8 +42,27 @@ func _on_door_body_shape_entered(body_rid, body, body_shape_index, local_shape_i
 		doorOpened.emit()
 
 
+func update_animations_automatically(arg):
+	if arg.down == 1:
+		$AnimationPlayer.play('move_down');
+	elif arg.up == 1:
+		$AnimationPlayer.play('move_up');
+	elif arg.left == 1:
+		$AnimationPlayer.play('move_left');
+	elif arg.right == 1:
+		$AnimationPlayer.play('move_right');
+	elif arg.down == 1:
+		$AnimationPlayer.play('idle_down');
+	elif arg.up == 1:
+		$AnimationPlayer.play('idle_up');
+	elif arg.right == 1:
+		$AnimationPlayer.play('idle_right');
+	elif arg.left == 1:
+		$AnimationPlayer.play('idle_left');
+
+
 func move_player(arg):
-	update_animations();
+	#update_animations_automatically(arg);
 	var movement = GLOBAL.get_axis();
 	velocity.x = (movement.x + arg.right - arg.left) * SPEED
 	velocity.y = (movement.y + arg.down - arg.up) * SPEED

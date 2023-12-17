@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+var showDialog = false
 
 const lines: Array[String] = [
 	"¡Hola, bienvendio al tutorial de CodeQuest!",
@@ -17,4 +18,6 @@ func _ready():
 
 
 func on_signal_received():
-	DialogManager.start_dialog(global_position, lines)
+	if !showDialog:
+		DialogManager.start_dialog(global_position, lines)
+	showDialog = true
