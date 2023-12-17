@@ -24,7 +24,7 @@ const nextLines = {
 		"Fabuloso, asi se hace...",
 		"Lograste completa el tutorial...",
 		"Ahora estas listo para nuevos desafios...",
-		"Mucha suerte..."
+		"Mucha suerte, sal por la puerta para volver al menú principal..."
 	]
 }
 
@@ -67,12 +67,6 @@ func _process(delta):
 	if open_ide_press == 1:
 		show_ide()
 
-func _on_player_door_opened():
-	print(self.name + " completed")
-	level_completed.emit(self.name)
-	#TODO: Cambiar por el mapa correcto
-	#get_tree().change_scene_to_file("res://levels/Level1.tscn")
-
 
 func show_ide():
 	var ide_nodes = get_tree().get_nodes_in_group("ide")
@@ -102,7 +96,7 @@ func on_signal_received(arg):
 				positionToMove.down = 1
 			"moveUp()":
 				positionToMove.up = 1
-		for i in range(25):
+		for i in range(75):
 			player.move_player(positionToMove)
 			await get_tree().create_timer(0.016).timeout
 
@@ -120,3 +114,10 @@ func show_next_messages():
 	var lines:Array[String] = cast_array(nextLines[rightOrders[actualIndex]])
 	var closeLastDialog = actualIndex == rightOrders.size() - 1 
 	DialogManager.reset_dialog(sensei.global_position, lines, closeLastDialog)
+
+
+
+func _on_area_2d_body_entered(body):
+	print(self.name + " completed")
+	level_completed.emit(self.name)
+	get_tree().change_scene_to_file("res://main.tscn")

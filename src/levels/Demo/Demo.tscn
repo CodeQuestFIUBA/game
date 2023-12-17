@@ -1,11 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://bktx1wxbnd0y"]
+[gd_scene load_steps=18 format=3 uid="uid://bktx1wxbnd0y"]
 
 [ext_resource type="Texture2D" uid="uid://decqcukp71tu0" path="res://sprites/TilesetInteriorFloor.png" id="1_f0kmy"]
 [ext_resource type="Script" path="res://scripts/Demo.gd" id="1_g0m0p"]
-[ext_resource type="PackedScene" path="res://components/PlayerDemo1.tscn" id="1_mneju"]
+[ext_resource type="PackedScene" uid="uid://dyanjy51ww0ky" path="res://components/PlayerDemo1.tscn" id="1_mneju"]
 [ext_resource type="Texture2D" uid="uid://th6ag8sbqr6r" path="res://sprites/TilesetHouse.png" id="1_y6dn2"]
 [ext_resource type="Texture2D" uid="uid://bir5x5ue54fb7" path="res://sprites/TilesetWallSimple.png" id="2_5vjr7"]
-[ext_resource type="PackedScene" uid="uid://n1pbhaqvikdu" path="res://components/Ide.tscn" id="2_q3wti"]
+[ext_resource type="PackedScene" uid="uid://n1pbhaqvikdu" path="res://components/ide.tscn" id="2_q3wti"]
 [ext_resource type="PackedScene" uid="uid://tnj7qonnatx0" path="res://components/Player.tscn" id="4_2qbr1"]
 [ext_resource type="Script" path="res://scripts/AnimationPlayer.gd" id="8_3qbbo"]
 
@@ -1062,6 +1062,9 @@ sources/0 = SubResource("TileSetAtlasSource_xxl1f")
 sources/1 = SubResource("TileSetAtlasSource_0boax")
 sources/2 = SubResource("TileSetAtlasSource_dp80i")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f58bs"]
+size = Vector2(16, 16)
+
 [sub_resource type="Animation" id="Animation_i32ik"]
 length = 0.001
 tracks/0/type = "value"
@@ -1139,6 +1142,22 @@ layer_2/y_sort_origin = 0
 layer_2/z_index = 8
 layer_2/tile_data = PackedInt32Array()
 
+[node name="Walls" type="StaticBody2D" parent="."]
+position = Vector2(103, 2.08165e-12)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Walls"]
+position = Vector2(1.13163, 3.27273)
+scale = Vector2(0.997064, 0.988636)
+polygon = PackedVector2Array(-1, 2, -2, 222, 296, 222, 296, 127, 280, 128, 280, 207, 9, 208, 9, 14, 281, 14, 281, 112, 296, 112, 296, 2)
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(391, 120)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_f58bs")
+
 [node name="Player" parent="." instance=ExtResource("4_2qbr1")]
 position = Vector2(357, 119)
 
@@ -1148,12 +1167,14 @@ position = Vector2(195, 125)
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="IDE" parent="CanvasLayer" instance=ExtResource("2_q3wti")]
+metadata/_edit_use_anchors_ = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." groups=["animation"]]
 autoplay = "start_demo"
 libraries = {
 "": SubResource("AnimationLibrary_xl1ib")
 }
 script = ExtResource("8_3qbbo")
 
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="_on_animation_finished"]
