@@ -51,18 +51,18 @@ func update_animations_automatically(arg):
 		$AnimationPlayer.play('move_left');
 	elif arg.right == 1:
 		$AnimationPlayer.play('move_right');
-	elif arg.down == 1:
+	elif arg.down == -1:
 		$AnimationPlayer.play('idle_down');
-	elif arg.up == 1:
+	elif arg.up == -1:
 		$AnimationPlayer.play('idle_up');
-	elif arg.right == 1:
+	elif arg.right == -1:
 		$AnimationPlayer.play('idle_right');
-	elif arg.left == 1:
+	elif arg.left == -1:
 		$AnimationPlayer.play('idle_left');
 
 
 func move_player(arg):
-	#update_animations_automatically(arg);
+	update_animations_automatically(arg);
 	var movement = GLOBAL.get_axis();
 	velocity.x = (movement.x + arg.right - arg.left) * SPEED
 	velocity.y = (movement.y + arg.down - arg.up) * SPEED
