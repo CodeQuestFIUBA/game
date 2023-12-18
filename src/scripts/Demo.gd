@@ -10,20 +10,20 @@ var actualIndex = 0
 const nextLines = {
 	"moveRight()": [
 		"Muy bien, asi se hace...",
-		"Ahora muevete arriba escribiendo moveUp()"
+		"Ahora muévete arriba escribiendo moveUp()"
 	],
 	"moveUp()": [
 		"Perfecto, asi se hace...",
-		"Ahora muevete abajo escribiendo moveDown()"
+		"Ahora muévete abajo escribiendo moveDown()"
 	],
 	"moveDown()": [
-		"Fantastico, asi se hace...",
-		"Ahora acercate a mi escribiendo moveLeft()"
+		"Fantástico, así se hace...",
+		"Ahora acércate a mí escribiendo moveLeft()"
 	],
 	"moveLeft()": [
-		"Fabuloso, asi se hace...",
-		"Lograste completa el tutorial...",
-		"Ahora estas listo para nuevos desafios...",
+		"Fabuloso, así se hace...",
+		"Lograste completar el tutorial...",
+		"Ahora estás listo para nuevos desafíos...",
 		"Mucha suerte, sal por la puerta para volver al menú principal..."
 	]
 }
@@ -43,7 +43,7 @@ const wrongLines:  = {
 	],
 	"moveLeft()": [
 		"Volvamos a intentarlo...",
-		"Acercate a mi escribiendo moveLeft()"
+		"Acércate a mí escribiendo moveLeft()"
 	]
 }
 
