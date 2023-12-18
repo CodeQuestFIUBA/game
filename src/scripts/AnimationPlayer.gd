@@ -1,7 +1,7 @@
 extends AnimationPlayer
 
-
-signal signalFinishedAnimation()
+signal signalFinishedAnimation(arg)
+signal signalStartedAnimation(arg)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,5 +14,9 @@ func _process(delta):
 
 
 func _on_animation_finished(anim_name):
-	emit_signal("signalFinishedAnimation")
+	emit_signal("signalFinishedAnimation",anim_name)
 
+
+
+func _on_animation_started(anim_name):
+	emit_signal("signalStartedAnimation",anim_name)

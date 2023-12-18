@@ -50,15 +50,34 @@ const wrongLines:  = {
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if (player):
+		player.update_animations_automatically({"left": 1, "right": 0, "up": 0, "down": 0})
 	var ide_nodes = get_tree().get_nodes_in_group("ide")
 	if ide_nodes.size() > 0:
 		var ide = ide_nodes[0] as Control
 		ide.connect("mySignal",on_signal_received)
 	if DialogManager:
 		DialogManager.connect("signalCloseDialog", animate_end_game)
+	var animation_nodes = get_tree().get_nodes_in_group("animation")
+	if animation_nodes.size() > 0:
+		var animation = animation_nodes[0] as AnimationPlayer
+		animation.connect("signalFinishedAnimation",on_signal_finished_animation)
+		animation.connect("signalStartedAnimation",on_signal_started_animation)
 
+
+func on_signal_finished_animation(arg):
+	print("end",arg)
+	if (player):
+		player.update_animations_automatically({"left": -1, "right": 0, "up": 0, "down": 0})
+	pass
+
+func on_signal_started_animation(arg):
+	print("start",arg)
+	pass
 
 func animate_end_game():
+	if (player):
+		player.update_animations_automatically({"left": 0, "right": 1, "up": 0, "down": 0})
 	(animationEnd as AnimationPlayer).play("end_demo")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -99,6 +118,11 @@ func on_signal_received(arg):
 		for i in range(75):
 			player.move_player(positionToMove)
 			await get_tree().create_timer(0.016).timeout
+		positionToMove.up *= -1
+		positionToMove.down *= -1
+		positionToMove.left *= -1
+		positionToMove.right *= -1
+		player.move_player(positionToMove)
 
 func cast_array(array: Array[Variant]):
 	var casted_array: Array[String] = []
