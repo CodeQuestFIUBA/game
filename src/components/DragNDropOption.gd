@@ -1,7 +1,5 @@
 extends TextureRect
 
-signal movementAdded(texture, slot);
-
 func _get_drag_data(at_position):
 	var preview_texture = TextureRect.new();
 	
@@ -13,7 +11,6 @@ func _get_drag_data(at_position):
 	preview.add_child(preview_texture);
 	
 	set_drag_preview(preview);
-	texture = null;	
 	
 	return preview_texture.texture;
 
@@ -22,4 +19,4 @@ func _can_drop_data(at_position, data):
 
 func _drop_data(at_position, data):
 	texture = data;
-	emit_signal("movementAdded", texture, self);
+	
