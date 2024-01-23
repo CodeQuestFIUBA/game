@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://barsv8fwtrw2p"]
+[gd_scene load_steps=23 format=3 uid="uid://barsv8fwtrw2p"]
 
 [ext_resource type="Texture2D" uid="uid://decqcukp71tu0" path="res://sprites/TilesetInteriorFloor.png" id="1_cfhwt"]
 [ext_resource type="Script" path="res://levels/Lobby/BasicLobby.gd" id="1_ijo3n"]
@@ -1450,6 +1450,9 @@ b = Vector2(0, 8)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8h8cb"]
 size = Vector2(16, 16)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exm7x"]
+size = Vector2(16, 16)
+
 [node name="BasicLobby" type="Node2D"]
 script = ExtResource("1_ijo3n")
 
@@ -1617,16 +1620,20 @@ collision_mask = 2
 rotation = 3.14159
 shape = SubResource("RectangleShape2D_8h8cb")
 
-[node name="BlockedUpDoor" type="StaticBody2D" parent="."]
-position = Vector2(-200, 112)
+[node name="UpDoor" parent="." instance=ExtResource("8_7go2f")]
+position = Vector2(0, -128)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BlockedUpDoor"]
-position = Vector2(200, -208)
-rotation = 4.71239
-shape = SubResource("SegmentShape2D_wflg2")
+[node name="Marker2D" parent="UpDoor" index="0"]
+position = Vector2(0, 24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpDoor"]
+position = Vector2(0, 24)
+shape = SubResource("RectangleShape2D_exm7x")
 
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
 [connection signal="body_entered" from="LeftDoor" to="." method="_on_left_door_body_entered"]
 [connection signal="body_entered" from="LeftDoor" to="LeftDoor" method="_on_body_entered"]
+[connection signal="body_entered" from="UpDoor" to="." method="_on_up_door_body_entered"]
 
 [editable path="DoorDown"]
+[editable path="UpDoor"]

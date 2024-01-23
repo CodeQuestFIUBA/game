@@ -1,28 +1,45 @@
 extends CharacterBody2D
 
-const SPEED = 100.0
+const SPEED = 100.00
+const AUTO_SPEED = 0.5
 const INITIAL_POS_X = 144
 const INITIAL_POS_Y = 81
+var directions = [GLOBAL.DIR_RIGHT, GLOBAL.DIR_DOWN, GLOBAL.DIR_RIGHT]
+var current_direction = null
 
-signal doorOpened()
+signal doorOpened();
+
+func _ready():
+	GLOBAL.connect("directionsUpdated", _on_directions_update);
 
 func update_animations():
-	if Input.is_action_pressed('ui_down'):
-		$AnimationPlayer.play('move_down');
-	elif Input.is_action_pressed('ui_up'):
-		$AnimationPlayer.play('move_up');
-	elif Input.is_action_pressed('ui_left'):
-		$AnimationPlayer.play('move_left');
-	elif Input.is_action_pressed('ui_right'):
-		$AnimationPlayer.play('move_right');
-	elif Input.is_action_just_released('ui_down'):
-		$AnimationPlayer.play('idle_down');
-	elif Input.is_action_just_released('ui_up'):
-		$AnimationPlayer.play('idle_up');
-	elif Input.is_action_just_released('ui_right'):
-		$AnimationPlayer.play('idle_right');
-	elif Input.is_action_just_released('ui_left'):
-		$AnimationPlayer.play('idle_left');
+	if GLOBAL.freely_move_character:	
+		if Input.is_action_pressed('ui_down'):
+			$AnimationPlayer.play('move_down');
+		elif Input.is_action_pressed('ui_up'):
+			$AnimationPlayer.play('move_up');
+		elif Input.is_action_pressed('ui_left'):
+			$AnimationPlayer.play('move_left');
+		elif Input.is_action_pressed('ui_right'):
+			$AnimationPlayer.play('move_right');
+		elif Input.is_action_just_released('ui_down'):
+			$AnimationPlayer.play('idle_down');
+		elif Input.is_action_just_released('ui_up'):
+			$AnimationPlayer.play('idle_up');
+		elif Input.is_action_just_released('ui_right'):
+			$AnimationPlayer.play('idle_right');
+		elif Input.is_action_just_released('ui_left'):
+			$AnimationPlayer.play('idle_left');
+	else: 
+		match current_direction:
+			GLOBAL.DIR_DOWN:
+				$AnimationPlayer.play('move_down');
+			GLOBAL.DIR_UP:
+				$AnimationPlayer.play('move_up');
+			GLOBAL.DIR_LEFT:
+				$AnimationPlayer.play('move_left');
+			GLOBAL.DIR_RIGHT:
+				$AnimationPlayer.play('move_right');
 
 func _physics_process(delta):
 	var ide_nodes = get_tree().get_nodes_in_group("ide")
@@ -32,10 +49,10 @@ func _physics_process(delta):
 			return
 	update_animations();
 	
-	var movement = GLOBAL.get_axis();
-	velocity.x = movement.x * SPEED
-	velocity.y = movement.y * SPEED
-	move_and_slide()
+	if GLOBAL.freely_move_character:
+		move_player_using_keys();
+	else:
+		move_player_with_orders();
 
 func _on_door_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	if (body.name == "Player"):
@@ -63,7 +80,35 @@ func update_animations_automatically(arg):
 
 func move_player(arg):
 	update_animations_automatically(arg);
-	var movement = GLOBAL.get_axis();
+	var movement = GLOBAL.get_axis_from_input();
 	velocity.x = (movement.x + arg.right - arg.left) * SPEED
 	velocity.y = (movement.y + arg.down - arg.up) * SPEED
-	move_and_slide()
+	move_and_slide();
+		
+func move_player_using_keys():
+	var movement = GLOBAL.get_axis_from_input();
+	velocity.x = movement.x * SPEED;
+	velocity.y = movement.y * SPEED;
+	move_and_slide();
+	
+func move_player_with_orders():
+	var movement = GLOBAL.get_axis_from_orders(self)
+
+	if !current_direction && directions.size() > 0:
+		current_direction = directions[0]
+		directions.remove_at(0)
+
+	if current_direction:
+		var collision = move_and_collide(Vector2(
+			movement.x * AUTO_SPEED, 
+			movement.y * AUTO_SPEED
+		))
+		if collision:
+			if directions.size() > 0:
+				current_direction = directions[0]
+				directions.remove_at(0)
+			else:
+				current_direction = null
+
+func _on_directions_update(new_directions):
+	directions = new_directions
