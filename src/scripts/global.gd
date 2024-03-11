@@ -1,6 +1,7 @@
 extends Node
 
 signal directionsUpdated(new_directions);
+signal playerStoppedMoving;
 
 # Movimiento del player, ejes de movimiento.
 var axis : Vector2;
