@@ -1,11 +1,14 @@
 extends CharacterBody2D
 
 const SPEED = 100.00
-const AUTO_SPEED = 0.5
+const AUTO_SPEED = 1
 const INITIAL_POS_X = 144
 const INITIAL_POS_Y = 81
-var directions = [GLOBAL.DIR_RIGHT, GLOBAL.DIR_DOWN, GLOBAL.DIR_RIGHT]
-var current_direction = null
+var directions = []
+var is_moving = false;
+var stopped_moving = false;
+var last_direction = null;
+var current_direction = null;
 
 signal doorOpened();
 
@@ -30,6 +33,16 @@ func update_animations():
 			$AnimationPlayer.play('idle_right');
 		elif Input.is_action_just_released('ui_left'):
 			$AnimationPlayer.play('idle_left');
+	elif stopped_moving:
+		match last_direction:
+			GLOBAL.DIR_DOWN:
+				$AnimationPlayer.play('idle_down');
+			GLOBAL.DIR_UP:
+				$AnimationPlayer.play('idle_up');
+			GLOBAL.DIR_LEFT:
+				$AnimationPlayer.play('idle_left');
+			GLOBAL.DIR_RIGHT:
+				$AnimationPlayer.play('idle_right');
 	else: 
 		match current_direction:
 			GLOBAL.DIR_DOWN:
@@ -40,6 +53,7 @@ func update_animations():
 				$AnimationPlayer.play('move_left');
 			GLOBAL.DIR_RIGHT:
 				$AnimationPlayer.play('move_right');
+		
 
 func _physics_process(delta):
 	var ide_nodes = get_tree().get_nodes_in_group("ide")
@@ -92,11 +106,17 @@ func move_player_using_keys():
 	move_and_slide();
 	
 func move_player_with_orders():
+	if stopped_moving: return;
+	
 	var movement = GLOBAL.get_axis_from_orders(self)
 
-	if !current_direction && directions.size() > 0:
-		current_direction = directions[0]
-		directions.remove_at(0)
+	if !current_direction:
+		if directions.size() > 0:
+			current_direction = directions[0]
+			directions.remove_at(0)
+		elif is_moving:
+			stopped_moving = true;
+			GLOBAL.playerStoppedMoving.emit();
 
 	if current_direction:
 		var collision = move_and_collide(Vector2(
@@ -104,6 +124,7 @@ func move_player_with_orders():
 			movement.y * AUTO_SPEED
 		))
 		if collision:
+			last_direction = current_direction;
 			if directions.size() > 0:
 				current_direction = directions[0]
 				directions.remove_at(0)
@@ -111,4 +132,5 @@ func move_player_with_orders():
 				current_direction = null
 
 func _on_directions_update(new_directions):
+	is_moving = true;
 	directions = new_directions

@@ -1,16 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://c47df00m6stio"]
+[gd_scene load_steps=3 format=3 uid="uid://cjfidjtk53tro"]
 
-[ext_resource type="Script" path="res://components/DragNDropOption.gd" id="1_rnsqv"]
-[ext_resource type="Texture2D" uid="uid://b06tww0odqe73" path="res://sprites/FacesetBox.png" id="2_apymg"]
+[ext_resource type="Script" path="res://components/PuzzleDropSlot.gd" id="1_ngqmt"]
+[ext_resource type="Texture2D" uid="uid://b06tww0odqe73" path="res://sprites/FacesetBox.png" id="2_5t7be"]
 
-[node name="DragNDropOption" type="TextureRect"]
+[node name="DropSlot" type="TextureRect"]
 custom_minimum_size = Vector2(16, 16)
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 20.0
 offset_bottom = 20.0
 expand_mode = 1
-script = ExtResource("1_rnsqv")
+script = ExtResource("1_ngqmt")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 show_behind_parent = true
@@ -21,5 +21,5 @@ offset_top = -4.0
 offset_right = 20.0
 offset_bottom = 20.0
 mouse_filter = 2
-texture = ExtResource("2_apymg")
+texture = ExtResource("2_5t7be")
 expand_mode = 1
