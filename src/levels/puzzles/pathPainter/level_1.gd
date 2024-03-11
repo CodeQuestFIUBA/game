@@ -5,6 +5,7 @@ var movements = [null, null, null, null, null];
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	GLOBAL.freely_move_character = false;
+	GLOBAL.connect("playerStoppedMoving", _on_player_stop);
 	$DropSlot0.connect("movementAdded", _on_movement_added);
 	$DropSlot1.connect("movementAdded", _on_movement_added);
 	$DropSlot2.connect("movementAdded", _on_movement_added);
@@ -36,3 +37,14 @@ func _on_movement_added(texture, slot):
 			movements[slot_number] = GLOBAL.DIR_RIGHT;
 			
 	print(movements);
+
+
+func _on_play_button_pressed():
+	GLOBAL.directionsUpdated.emit(movements);
+
+
+func _on_exit_body_entered(body):
+	print("ganaste");
+	
+func _on_player_stop():
+	print("perdiste");

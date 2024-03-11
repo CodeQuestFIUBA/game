@@ -1,8 +1,13 @@
 extends TextureRect
 
-signal movementAdded(texture, slot);
+var can_drag = true;
+
+func _ready():
+	GLOBAL.connect("directionsUpdated", _on_directions_update);
 
 func _get_drag_data(at_position):
+	if !can_drag: return;
+	
 	var preview_texture = TextureRect.new();
 	
 	preview_texture.texture = texture;
@@ -13,13 +18,12 @@ func _get_drag_data(at_position):
 	preview.add_child(preview_texture);
 	
 	set_drag_preview(preview);
-	texture = null;	
 	
 	return preview_texture.texture;
 
 func _can_drop_data(at_position, data):
 	return data is Texture2D;
 
-func _drop_data(at_position, data):
-	texture = data;
-	emit_signal("movementAdded", texture, self);
+func _on_directions_update(new_directions):
+	can_drag = false;
+	
