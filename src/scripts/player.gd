@@ -56,7 +56,7 @@ func update_animations():
 		
 
 func _physics_process(delta):
-	var ide_nodes = get_tree().get_nodes_in_group("ide")
+	var ide_nodes = get_tree().get_nodes_in_group("ideContainer")
 	if ide_nodes.size() > 0:
 		var ide = ide_nodes[0] as Control
 		if ide.visible:
