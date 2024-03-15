@@ -1926,3 +1926,4 @@ shape = SubResource("RectangleShape2D_unt5m")
 
 [connection signal="pressed" from="playButton" to="." method="_on_play_button_pressed"]
 [connection signal="body_entered" from="Exit" to="." method="_on_exit_body_entered"]
+

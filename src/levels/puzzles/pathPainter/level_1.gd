@@ -48,3 +48,4 @@ func _on_exit_body_entered(body):
 	
 func _on_player_stop():
 	print("perdiste");
+
