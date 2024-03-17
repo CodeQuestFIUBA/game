@@ -2,8 +2,6 @@ extends CharacterBody2D
 
 const SPEED = 100.00
 const AUTO_SPEED = 1
-const INITIAL_POS_X = 144
-const INITIAL_POS_Y = 81
 var directions = []
 var is_moving = false;
 var stopped_moving = false;
