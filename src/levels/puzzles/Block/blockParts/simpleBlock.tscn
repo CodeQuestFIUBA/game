@@ -1,17 +1,34 @@
-[gd_scene load_steps=2 format=3 uid="uid://foqkg3csvokp"]
+[gd_scene load_steps=4 format=3 uid="uid://foqkg3csvokp"]
 
 [ext_resource type="Texture2D" uid="uid://bgi3l31t2gsmb" path="res://levels/puzzles/Block/blockSprites/simpleBlock.png" id="1_44jjt"]
+[ext_resource type="Script" path="res://levels/puzzles/Block/blockParts/simpleBlock.gd" id="1_b4yw1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hyk1e"]
+size = Vector2(63, 12)
 
 [node name="startBlock" type="Node2D"]
+script = ExtResource("1_b4yw1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_44jjt")
 
 [node name="Label" type="Label" parent="."]
-offset_left = -15.0
-offset_top = -6.0
-offset_right = 18.0
-offset_bottom = 6.0
+offset_left = -31.0
+offset_top = -7.0
+offset_right = 31.0
+offset_bottom = 5.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 6
-text = "Comienzo"
+text = "
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.5, -1)
+shape = SubResource("RectangleShape2D_hyk1e")
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
