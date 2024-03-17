@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://44lmrpidil3a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8jo8u"]
+size = Vector2(86.375, 76.125)
+
+[node name="BlockSpawn" type="StaticBody2D" groups=["puzzleDropable"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -2)
+shape = SubResource("RectangleShape2D_8jo8u")

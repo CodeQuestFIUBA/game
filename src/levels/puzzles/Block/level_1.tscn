@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://fgkbjc7gcljc"]
+[gd_scene load_steps=28 format=3 uid="uid://fgkbjc7gcljc"]
 
 [ext_resource type="Texture2D" uid="uid://th6ag8sbqr6r" path="res://sprites/TilesetHouse.png" id="1_eayup"]
 [ext_resource type="Script" path="res://levels/puzzles/Block/level_1.gd" id="1_ftpxl"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://u2cbhipxlp2u" path="res://sprites/TilesetHole.png" id="7_r28me"]
 [ext_resource type="Texture2D" uid="uid://dhjgs6ng0ewmd" path="res://sprites/Caracters/SpriteSheet.png" id="11_si3fa"]
 [ext_resource type="PackedScene" uid="uid://dldtlcgt5tsee" path="res://levels/puzzles/Block/blockParts/startBlock.tscn" id="12_bugrf"]
+[ext_resource type="PackedScene" uid="uid://44lmrpidil3a" path="res://levels/puzzles/Block/blockParts/blockSpawn.tscn" id="13_ht6mr"]
 [ext_resource type="PackedScene" uid="uid://foqkg3csvokp" path="res://levels/puzzles/Block/blockParts/simpleBlock.tscn" id="13_lvuad"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nq42x"]
@@ -2214,5 +2215,17 @@ frame_progress = 0.0749782
 [node name="startBlock" parent="." instance=ExtResource("12_bugrf")]
 position = Vector2(344, 21)
 
-[node name="SimpleBlock" parent="." instance=ExtResource("13_lvuad")]
-position = Vector2(241, 166)
+[node name="BlockSpawn" parent="." instance=ExtResource("13_ht6mr")]
+position = Vector2(235, 185)
+
+[node name="moveUp" parent="." instance=ExtResource("13_lvuad")]
+position = Vector2(235, 162)
+
+[node name="moveDown" parent="." instance=ExtResource("13_lvuad")]
+position = Vector2(235, 178)
+
+[node name="moveRight" parent="." instance=ExtResource("13_lvuad")]
+position = Vector2(235, 193)
+
+[node name="moveLeft" parent="." instance=ExtResource("13_lvuad")]
+position = Vector2(235, 208)

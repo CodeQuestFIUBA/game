@@ -2,8 +2,11 @@ extends Node2D
 #
 #var movements = [null, null, null, null, null];
 #
-## Called when the node enters the scene tree for the first time.
-#func _ready():
+func _ready():
+	$moveDown.setAction("Mover Abajo")
+	$moveUp.setAction("Mover Arriba")
+	$moveLeft.setAction("Mover Izquierda")
+	$moveRight.setAction("Mover Derecha")
 	#GLOBAL.freely_move_character = false;
 	#GLOBAL.connect("playerStoppedMoving", _on_player_stop);
 	#$DropSlot0.connect("movementAdded", _on_movement_added);
