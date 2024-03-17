@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://dldtlcgt5tsee"]
+
+[ext_resource type="Texture2D" uid="uid://dniw0w3crqm78" path="res://levels/puzzles/Block/blockSprites/startBlock.png" id="1_g6mtp"]
+
+[node name="startBlock" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 1)
+texture = ExtResource("1_g6mtp")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -15.0
+offset_top = -6.0
+offset_right = 18.0
+offset_bottom = 6.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 6
+text = "Comienzo"
