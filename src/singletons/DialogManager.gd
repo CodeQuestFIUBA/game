@@ -1,9 +1,7 @@
 extends Node
 
-
-@onready var text_bons_scene = preload("res://components/TextBox.tscn")
+@onready var text_box_scene = preload("res://components/TextBox.tscn")
 signal signalCloseDialog()
-
 
 var dialog_lines: Array[String] = []
 var current_line_index = 0
@@ -28,7 +26,7 @@ func start_dialog(position: Vector2, lines: Array[String], closeLastDialog: bool
 	
 func reset_dialog(position: Vector2, lines: Array[String], closeLastDialog: bool = false):
 	close_last_text = closeLastDialog
-	text_box.queue_free()
+	if is_instance_valid(text_box): text_box.queue_free()
 	current_line_index +=1
 	is_dialog_active = false
 	current_line_index = 0
@@ -40,9 +38,9 @@ func reset_dialog(position: Vector2, lines: Array[String], closeLastDialog: bool
 	is_dialog_active = true
 	
 func _show_text_box():
-	text_box = text_bons_scene.instantiate()
+	text_box = text_box_scene.instantiate()
+	add_child(text_box)
 	text_box.finished_displaying.connect(_on_text_box_finished_displaying)
-	get_tree().root.add_child(text_box)
 	text_box.global_position = text_box_position
 	text_box.display_text(dialog_lines[current_line_index])
 	can_advanace_line = false
@@ -66,7 +64,7 @@ func _unhandled_input(event):
 			close_last_text
 		)
 	):
-		text_box.queue_free()
+		if is_instance_valid(text_box): text_box.queue_free()
 		
 		current_line_index +=1
 		if current_line_index >= dialog_lines.size():
