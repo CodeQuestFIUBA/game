@@ -6,13 +6,16 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hyk1e"]
 size = Vector2(63, 12)
 
-[node name="startBlock" type="Node2D"]
+[node name="simpleBlock" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_b4yw1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_44jjt")
 
 [node name="Label" type="Label" parent="."]
+layout_mode = 0
 offset_left = -31.0
 offset_top = -7.0
 offset_right = 31.0

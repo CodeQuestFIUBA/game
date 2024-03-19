@@ -2219,13 +2219,25 @@ position = Vector2(344, 21)
 position = Vector2(235, 185)
 
 [node name="moveUp" parent="." instance=ExtResource("13_lvuad")]
-position = Vector2(235, 162)
+offset_left = 235.0
+offset_top = 162.0
+offset_right = 235.0
+offset_bottom = 162.0
 
 [node name="moveDown" parent="." instance=ExtResource("13_lvuad")]
-position = Vector2(235, 178)
+offset_left = 235.0
+offset_top = 178.0
+offset_right = 235.0
+offset_bottom = 178.0
 
 [node name="moveRight" parent="." instance=ExtResource("13_lvuad")]
-position = Vector2(235, 193)
+offset_left = 235.0
+offset_top = 193.0
+offset_right = 235.0
+offset_bottom = 193.0
 
 [node name="moveLeft" parent="." instance=ExtResource("13_lvuad")]
-position = Vector2(235, 208)
+offset_left = 235.0
+offset_top = 208.0
+offset_right = 235.0
+offset_bottom = 208.0
