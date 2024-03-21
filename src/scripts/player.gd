@@ -2,8 +2,6 @@ extends CharacterBody2D
 
 const SPEED = 100.00
 const AUTO_SPEED = 1
-const INITIAL_POS_X = 144
-const INITIAL_POS_Y = 81
 var directions = []
 var is_moving = false;
 var stopped_moving = false;
@@ -56,7 +54,7 @@ func update_animations():
 		
 
 func _physics_process(delta):
-	var ide_nodes = get_tree().get_nodes_in_group("ide")
+	var ide_nodes = get_tree().get_nodes_in_group("ideContainer")
 	if ide_nodes.size() > 0:
 		var ide = ide_nodes[0] as Control
 		if ide.visible:
