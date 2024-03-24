@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxatyvlh0d8pu"]
+
+[ext_resource type="Script" path="res://levels/puzzles/Block/blockParts/blockTarget.gd" id="1_7e7rb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8jo8u"]
+size = Vector2(102, 154)
+
+[node name="BlockTarget" type="StaticBody2D" groups=["puzzleDropable"]]
+script = ExtResource("1_7e7rb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_8jo8u")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -51.0
+offset_top = -78.0
+offset_right = 53.0
+offset_bottom = 79.0
+mouse_filter = 2
