@@ -143,7 +143,7 @@ func show_error_messages():
 func show_next_messages():
 	var lines:Array[String] = cast_array(nextLines[rightOrders[actualIndex]])
 	var closeLastDialog = actualIndex == rightOrders.size() - 1 
-	DialogManager.reset_dialog(sensei.global_position, lines, closeLastDialog)
+	DialogManager.reset_dialog(sensei.global_position, lines, {'close_last_text': closeLastDialog})
 
 
 

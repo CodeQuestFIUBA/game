@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal npcArrived
+
 const SPEED = 50.00;
 
 var autoplay_enabled = false;
@@ -38,7 +40,12 @@ func  _physics_process(delta):
 		if _arrived_destination(next_positions[0]): 
 			next_positions.pop_front();
 			current_state = NEW_DIR;
-	
+			if next_positions.size() == 0:
+				_send_arrived()
+
+func _send_arrived():
+	emit_signal("npcArrived")
+
 func _input_event(viewport, event, shape_idx):
 	if phrases.is_empty() || autoplay_enabled: return;
 	if event is InputEventMouseButton and DialogManager:
@@ -102,16 +109,16 @@ func _arrived_destination(destination):
 # Actualiza la lista de puntos por los que tiene que pasar el npc	
 # El npc comienza a moverse apenas se llama a este metodo
 func update_destination(destinations: Array[Vector2]):
-	next_positions = destinations;
+	next_positions = destinations.duplicate(true);
 	
 # Actualiza las frases del npc
 # Si autiplay esta activado el dialogo se ejecuta solo
 # Caso contrario una nueva frase aparece con cada click sobre el npc
-func update_phrases(new_phrases: Array[String], dialog_pos: Vector2, autoplay:bool = false):
+func update_phrases(new_phrases: Array[String], dialog_pos: Vector2, autoplay:bool = false, options = null):
 	dialog_position = dialog_pos;
 	autoplay_enabled = autoplay;
-	phrases = new_phrases;
+	phrases = new_phrases.duplicate(true);
 	phrases_index = 0;
 	if (autoplay_enabled):
-		DialogManager.start_dialog(dialog_position, phrases);
+		DialogManager.start_dialog(dialog_position, phrases, options);
 	

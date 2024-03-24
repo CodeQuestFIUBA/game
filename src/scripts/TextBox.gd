@@ -11,6 +11,7 @@ var letter_index = 0
 var letter_time = 0.03
 var space_time = 0.06
 var puntuaction_time = 0.2
+const MIN_WIDTH = 21
 
 signal finished_displaying()
 
@@ -21,19 +22,22 @@ func _ready():
 func display_text(text_to_display: String):
 	if !label:
 		return
+	
 	text = text_to_display
 	label.text = text_to_display
-	
-	await resized
+	print(label.get_minimum_size())
+	if text.length() > MIN_WIDTH: 
+		await resized
 	custom_minimum_size.x = min(size.x, MAX_WIDTH)
 	
 	if size.x > MAX_WIDTH:
 		label.autowrap_mode = TextServer.AUTOWRAP_WORD
-		await resized
-		await resized
+		if text.length() > MIN_WIDTH: 
+			await resized
+			await resized
 		custom_minimum_size.y = size.y
 	
-	print(text_to_display, global_position)
+	#print(text_to_display, global_position)
 	
 	label.text = ""
 	_display_letter()
