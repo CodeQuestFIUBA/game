@@ -518,22 +518,22 @@ func flow_dialog():
 		actualDialogStates = FIRST_DIALOG_MASTER
 	elif actualDialogStates == FIRST_DIALOG_MASTER:
 		var phrases: Array[String] = ["Sai"]
-		master.update_phrases(phrases, Vector2(56,135), true, {'auto_play_time': 0.7})
+		master.update_phrases(phrases, Vector2(56,135), true, {'auto_play_time': 0.7, 'close_by_signal': true})
 		actualDialogStates = FIRST_GUN_MASTER
 		pass
 	elif actualDialogStates == FIRST_GUN_MASTER:
 		var phrases: Array[String] = ["Katana"]
-		master.update_phrases(phrases, Vector2(56,108), true, {'auto_play_time': 0.7})
+		master.update_phrases(phrases, Vector2(56,108), true, {'auto_play_time': 0.7, 'close_by_signal': true})
 		actualDialogStates = SECOND_GUN_MASTER
 		pass
 	elif actualDialogStates == SECOND_GUN_MASTER:
 		var phrases: Array[String] = ["Ninjaku"]
-		master.update_phrases(phrases, Vector2(56,83), true, {'auto_play_time': 0.7})
+		master.update_phrases(phrases, Vector2(56,83), true, {'auto_play_time': 0.7, 'close_by_signal': true})
 		actualDialogStates = THIRD_GUN_MASTER
 		pass
 	elif actualDialogStates == THIRD_GUN_MASTER:
 		var phrases: Array[String] = ["Whip"]
-		master.update_phrases(phrases, Vector2(56,55), true, {'auto_play_time': 0.7})
+		master.update_phrases(phrases, Vector2(56,55), true, {'auto_play_time': 0.7, 'close_by_signal': true})
 		actualDialogStates = FOURTH_GUN_MASTER
 		pass
 	elif actualDialogStates == FOURTH_GUN_MASTER:
@@ -558,7 +558,7 @@ func talk_master():
 			"Si no coincide retornar 'ESPERA'"
 		]
 	
-	master.update_phrases(phrases, Vector2(56,155), true, {'auto_play_time': 1, 'close_by_signal': false})
+	master.update_phrases(phrases, Vector2(56,155), true, {'auto_play_time': 1, 'close_by_signal': true})
 
 
 

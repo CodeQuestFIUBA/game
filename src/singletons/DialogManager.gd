@@ -18,28 +18,30 @@ var defaultOptions = {
 var waitNext = false
 var dialog_options = defaultOptions
 var press_next_dialog = false
-var lastId
+var timerCounter: int = 0
+var id = 0
+var actualMessage = 0
 
 func close_dialog():
 	var close = press_next_dialog && dialog_options['close_by_signal']
 	var auto_close = can_advanace_line && dialog_options['auto_play_next_text']
 	if waitNext && !close:
 		return
-	if (auto_close || close):
+	if (auto_close || close) && is_dialog_active:
 		if !close:
+			var messageId = actualMessage
 			waitNext = true
-			var timer = get_tree().create_timer(dialog_options['auto_play_time'])
-			lastId = timer
-			await timer.timeout
-			if timer != lastId:
+			await get_tree().create_timer(dialog_options['auto_play_time']).timeout
+			if messageId != actualMessage:
 				return
 		waitNext = false
 		can_advanace_line = false
 		press_next_dialog = false
 		if is_instance_valid(text_box): text_box.queue_free()
-		
 		if dialog_lines.size() == 0:
 			is_dialog_active = false
+			actualMessage = 0
+			id = 0
 			_on_close_dialog()
 			return
 		_show_text_box()
@@ -52,6 +54,8 @@ func initialize_options(options = null):
 	for option in defaultOptions:
 		if !dialog_options.has(option):
 			dialog_options[option] = defaultOptions[option]
+	if !dialog_options['close_by_signal']:
+		dialog_options['auto_play_next_text'] = true
 
 
 func start_dialog(position: Vector2, lines: Array[String], options = defaultOptions):
@@ -80,6 +84,8 @@ func reset_dialog(position: Vector2, lines: Array[String], options = defaultOpti
 
 
 func _show_text_box():
+	actualMessage = id
+	id += 1
 	text_box = text_box_scene.instantiate()
 	add_child(text_box)
 	text_box.finished_displaying.connect(_on_text_box_finished_displaying)
