@@ -1,12 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://ue27a8hlet7g"]
+[gd_scene load_steps=15 format=3 uid="uid://ue27a8hlet7g"]
 
 [ext_resource type="PackedScene" uid="uid://tnj7qonnatx0" path="res://components/Player.tscn" id="1_kkq8o"]
+[ext_resource type="Script" path="res://levels/Matrix/level_1/level.gd" id="1_kryq3"]
 [ext_resource type="Texture2D" uid="uid://bsxq2qe7152ed" path="res://sprites/TilesetFloor.png" id="1_qtjme"]
 [ext_resource type="Texture2D" uid="uid://dqutkxh2buc7i" path="res://sprites/TilesetFloorDetail.png" id="2_kqorj"]
 [ext_resource type="Texture2D" uid="uid://th6ag8sbqr6r" path="res://sprites/TilesetHouse.png" id="3_dylm3"]
 [ext_resource type="Texture2D" uid="uid://bscuhu8x74vlj" path="res://sprites/TilesetNature.png" id="4_0actr"]
 [ext_resource type="TileSet" uid="uid://dg01fk6u4wp77" path="res://levels/Matrix/level_1/level_1.tres" id="6_8558v"]
 [ext_resource type="Script" path="res://levels/Matrix/level_1/ObjectMatrix.gd" id="7_6qwsg"]
+[ext_resource type="PackedScene" uid="uid://n1pbhaqvikdu" path="res://components/ide.tscn" id="9_cdc16"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ducsy"]
 texture = ExtResource("1_qtjme")
@@ -1577,6 +1579,7 @@ sources/2 = SubResource("TileSetAtlasSource_75ob2")
 sources/3 = SubResource("TileSetAtlasSource_d7ddl")
 
 [node name="level" type="Node2D"]
+script = ExtResource("1_kryq3")
 
 [node name="Map" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_blsjg")
@@ -1659,5 +1662,11 @@ script = ExtResource("7_6qwsg")
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="IDE" parent="CanvasLayer" instance=ExtResource("9_cdc16")]
+offset_left = 299.0
+offset_right = 400.0
 
 [connection signal="timeout" from="Timer" to="ObjectMatrix" method="_on_timer_timeout"]
