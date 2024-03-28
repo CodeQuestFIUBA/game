@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://fgkbjc7gcljc"]
+[gd_scene load_steps=30 format=3 uid="uid://fgkbjc7gcljc"]
 
 [ext_resource type="Texture2D" uid="uid://th6ag8sbqr6r" path="res://sprites/TilesetHouse.png" id="1_eayup"]
 [ext_resource type="Script" path="res://levels/puzzles/Block/level_1.gd" id="1_ftpxl"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dldtlcgt5tsee" path="res://levels/puzzles/Block/blockParts/startBlock.tscn" id="12_bugrf"]
 [ext_resource type="PackedScene" uid="uid://44lmrpidil3a" path="res://levels/puzzles/Block/blockParts/blockSpawn.tscn" id="13_ht6mr"]
 [ext_resource type="PackedScene" uid="uid://foqkg3csvokp" path="res://levels/puzzles/Block/blockParts/simpleBlock.tscn" id="13_lvuad"]
+[ext_resource type="Script" path="res://levels/puzzles/pathPainter/playButton.gd" id="15_c3x8q"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nq42x"]
 texture = ExtResource("1_eayup")
@@ -2226,4 +2227,14 @@ position = Vector2(236, 178)
 [node name="moveLeft" parent="." instance=ExtResource("13_lvuad")]
 position = Vector2(236, 162)
 
+[node name="PlayButton" type="Button" parent="."]
+offset_left = 299.0
+offset_top = 184.0
+offset_right = 389.0
+offset_bottom = 215.0
+text = "Ejecutar"
+script = ExtResource("15_c3x8q")
+
 [connection signal="onBlockDeleted" from="BlockSpawn" to="BlockTarget" method="_on_block_spawn_on_block_deleted"]
+[connection signal="mouse_entered" from="PlayButton" to="PlayButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="PlayButton" to="PlayButton" method="_on_mouse_exited"]
