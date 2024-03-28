@@ -15,5 +15,5 @@ func _on_mouse_entered():
 	GLOBAL.mouse_to_pointer()
 
 func _on_mouse_exited():
-	GLOBAL.mouse_to_pointer()
+	GLOBAL.mouse_to_normal()
 	
