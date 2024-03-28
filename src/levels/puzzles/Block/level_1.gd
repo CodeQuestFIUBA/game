@@ -1,5 +1,18 @@
 extends Node2D
 
+@onready var npcExplainer = $npcExplainer;
+@onready var ninja = $Ninja
+
+const solution = [
+	{"value" : "Mover Arriba","target": Vector2(95,161) },
+	{"value" : "Mover Izquierda", "target": Vector2(34,157) },
+	{"value": "Mover Arriba", "target": Vector2(33,96) },
+	{"value": "Mover Derecha", "target": Vector2(127,93) },
+	{"value": "Mover Arriba", "target": Vector2(126,48) },
+	{"value" : "Mover Izquierda", "target": Vector2(47,45) },
+	{"value": "Mover Arriba", "target": Vector2(48,30) },
+]
+
 func _ready():
 	$moveDown.setAction("Mover Abajo")
 	$moveUp.setAction("Mover Arriba")
@@ -7,4 +20,7 @@ func _ready():
 	$moveRight.setAction("Mover Derecha")
 
 func _on_play_button_pressed():
-	print("Boton Apretado!")
+	var positions: Array[Vector2] = []
+	for x in solution :
+		positions.append(x["target"])
+	ninja.update_destination(positions)

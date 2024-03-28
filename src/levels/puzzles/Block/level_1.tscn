@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://fgkbjc7gcljc"]
+[gd_scene load_steps=33 format=3 uid="uid://fgkbjc7gcljc"]
 
 [ext_resource type="Texture2D" uid="uid://th6ag8sbqr6r" path="res://sprites/TilesetHouse.png" id="1_eayup"]
 [ext_resource type="Script" path="res://levels/puzzles/Block/level_1.gd" id="1_ftpxl"]
@@ -15,6 +15,9 @@
 [ext_resource type="PackedScene" uid="uid://44lmrpidil3a" path="res://levels/puzzles/Block/blockParts/blockSpawn.tscn" id="13_ht6mr"]
 [ext_resource type="PackedScene" uid="uid://foqkg3csvokp" path="res://levels/puzzles/Block/blockParts/simpleBlock.tscn" id="13_lvuad"]
 [ext_resource type="Script" path="res://levels/puzzles/pathPainter/playButton.gd" id="15_c3x8q"]
+[ext_resource type="PackedScene" path="res://components/interactiveNpc.tscn" id="16_sh0f6"]
+[ext_resource type="Texture2D" uid="uid://ce8nlxqw6tyxx" path="res://sprites/ninjas/OldMan3.png" id="17_kw1k2"]
+[ext_resource type="Texture2D" uid="uid://daxlhd4mbegmd" path="res://sprites/SpriteSheet.png" id="18_kcqb5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nq42x"]
 texture = ExtResource("1_eayup")
@@ -2235,7 +2238,24 @@ offset_bottom = 215.0
 text = "Ejecutar"
 script = ExtResource("15_c3x8q")
 
+[node name="npcExplainer" parent="." instance=ExtResource("16_sh0f6")]
+position = Vector2(152, 33)
+
+[node name="Sprite2D" parent="npcExplainer" index="0"]
+texture = ExtResource("17_kw1k2")
+frame = 0
+
+[node name="Ninja" parent="." instance=ExtResource("16_sh0f6")]
+position = Vector2(95, 200)
+
+[node name="Sprite2D" parent="Ninja" index="0"]
+texture = ExtResource("18_kcqb5")
+frame = 0
+
 [connection signal="onBlockDeleted" from="BlockSpawn" to="BlockTarget" method="_on_block_spawn_on_block_deleted"]
 [connection signal="mouse_entered" from="PlayButton" to="PlayButton" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="PlayButton" to="PlayButton" method="_on_mouse_exited"]
 [connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
+
+[editable path="npcExplainer"]
+[editable path="Ninja"]
