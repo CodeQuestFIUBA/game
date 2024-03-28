@@ -16,4 +16,3 @@ func _on_mouse_entered():
 
 func _on_mouse_exited():
 	GLOBAL.mouse_to_normal()
-	
