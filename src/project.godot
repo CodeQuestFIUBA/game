@@ -21,6 +21,7 @@ GLOBAL="*res://scripts/global.gd"
 RoomEvents="*res://scripts/room_events.gd"
 DialogManager="*res://singletons/DialogManager.gd"
 GlobalBlockTracking="*res://levels/puzzles/Block/globalBlockTracking.gd"
+ApiService="*res://singletons/ApiService.gd"
 
 [display]
 

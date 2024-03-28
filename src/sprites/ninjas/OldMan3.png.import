@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ck2par2vjemj"
-path="res://.godot/imported/TilesetNature.png-72f3ba459c2d480b2b75d7e53a6a8000.ctex"
+uid="uid://ce8nlxqw6tyxx"
+path="res://.godot/imported/OldMan3.png-6167c8c4615932b4429953b60fd533b7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/TilesetNature.png"
-dest_files=["res://.godot/imported/TilesetNature.png-72f3ba459c2d480b2b75d7e53a6a8000.ctex"]
+source_file="res://sprites/ninjas/OldMan3.png"
+dest_files=["res://.godot/imported/OldMan3.png-6167c8c4615932b4429953b60fd533b7.ctex"]
 
 [params]
 

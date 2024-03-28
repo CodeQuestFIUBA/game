@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ck2par2vjemj"
-path="res://.godot/imported/TilesetNature.png-72f3ba459c2d480b2b75d7e53a6a8000.ctex"
+uid="uid://ckrrsbl85op3g"
+path="res://.godot/imported/yellowNinja.png-371e2142831ea85c8b4d14bd5a2b4e66.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/TilesetNature.png"
-dest_files=["res://.godot/imported/TilesetNature.png-72f3ba459c2d480b2b75d7e53a6a8000.ctex"]
+source_file="res://sprites/ninjas/yellowNinja.png"
+dest_files=["res://.godot/imported/yellowNinja.png-371e2142831ea85c8b4d14bd5a2b4e66.ctex"]
 
 [params]
 
