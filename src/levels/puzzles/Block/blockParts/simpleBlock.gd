@@ -1,5 +1,5 @@
+class_name SimpleBlock
 extends Node2D
-
 var actionName = "DefaultAction"
 
 var selected = false;

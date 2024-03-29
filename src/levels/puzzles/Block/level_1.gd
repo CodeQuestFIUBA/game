@@ -23,14 +23,12 @@ func _ready():
 	start_Level()
 
 func _on_play_button_pressed():
-	var positions: Array[Vector2] = []
-	for x in solution :
-		positions.append(x["target"])
-	ninja.update_destination(positions)
+	validate_instructions()
+	pass;
+
 
 func start_Level () :
 	load_introduction_dialogs()
-	
 
 func load_introduction_dialogs():
 	const intruction_dialogs : Array[String] = [
@@ -41,4 +39,36 @@ func load_introduction_dialogs():
 		"POR FAVOR NO PISES EL CESPED",
 		"Desde la nevada de 2007 que vengo renegando"
 	]
-	DialogManager.start_dialog(Vector2(152,30),intruction_dialogs, {'auto_play_time': 0.7})
+	talk_as_master(intruction_dialogs)
+
+func validate_instructions():
+	var inserted_elements = blockTarget.getPuzzle()
+	var inserted_len = len(inserted_elements)
+	var solution_len = len(solution)
+	if (inserted_len > solution_len):
+		talk_as_master([".MMMMM","Creo que estas poniendo instrucciones de mas"])
+	elif (solution_len > inserted_len):
+		talk_as_master([".MMMMM","Creo que te faltan algunas instrucciones ..."])
+	elif ( is_valid_solution(inserted_elements) ):
+		talk_as_master(["Siiiii ...", "Con ese camino no pisarias el pasto"])
+		caminar_a_objectivo()
+	else:
+		talk_as_master([".MMMM", "Esa combinacion no es valida..", "... Fijate bien :("])
+	
+
+
+func talk_as_master(dialogs :Array[String]):
+	DialogManager.start_dialog(Vector2(152,30),dialogs, {'auto_play_time': 0.7})
+
+func is_valid_solution(inserted : Array) -> bool :
+	for x in len (solution) :
+		if (inserted[x] != solution[x]["value"] ):
+			return false
+	return true
+
+func caminar_a_objectivo():
+	var positions: Array[Vector2] = []
+	for x in solution :
+		positions.append(x["target"])
+	ninja.update_destination(positions)
+	mainButton.disabled = true
