@@ -2,6 +2,7 @@ extends StaticBody2D
 
 var dropedBlocks : Array[Node2D]
 var initial_drop_position = Vector2(344, 30)
+var max_blocks = 14
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,6 +18,10 @@ func get_drop_position():
 	return Vector2(initial_drop_position.x, initial_drop_position.y + 10*list_size)
 
 func handle_drop(dropped : Node2D):
+	if (len (dropedBlocks) >= max_blocks):
+		dropped.queue_free()
+		return
+		
 	insert_node(dropped)
 
 func _on_block_spawn_on_block_deleted(node :Node2D):
