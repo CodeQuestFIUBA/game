@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dbfvsevbw0886" path="res://sprites/table.png" id="3_oexn0"]
 [ext_resource type="PackedScene" uid="uid://n1pbhaqvikdu" path="res://components/ide.tscn" id="5_pstxc"]
 [ext_resource type="PackedScene" uid="uid://ciki7sjrkcanm" path="res://components/interactiveNpc.tscn" id="6_ruoia"]
-[ext_resource type="Texture2D" uid="uid://bedelhynt0n10" path="res://sprites/SpriteSheet.png" id="7_tpiiu"]
+[ext_resource type="Texture2D" uid="uid://daxlhd4mbegmd" path="res://sprites/SpriteSheet.png" id="7_tpiiu"]
 [ext_resource type="Texture2D" uid="uid://ce8nlxqw6tyxx" path="res://sprites/ninjas/OldMan3.png" id="8_mo3rd"]
 [ext_resource type="Texture2D" uid="uid://ckrrsbl85op3g" path="res://sprites/ninjas/yellowNinja.png" id="9_0co8p"]
 [ext_resource type="Texture2D" uid="uid://c1mpe6oefoc7" path="res://sprites/ninjas/grayNinja.png" id="10_4xjpl"]
