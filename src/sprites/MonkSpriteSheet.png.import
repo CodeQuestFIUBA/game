@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ck2par2vjemj"
-path="res://.godot/imported/TilesetNature.png-72f3ba459c2d480b2b75d7e53a6a8000.ctex"
+uid="uid://ccv1eagl5t1ah"
+path="res://.godot/imported/MonkSpriteSheet.png-b56bb9235b47b75f21b20308c7623758.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/TilesetNature.png"
-dest_files=["res://.godot/imported/TilesetNature.png-72f3ba459c2d480b2b75d7e53a6a8000.ctex"]
+source_file="res://sprites/MonkSpriteSheet.png"
+dest_files=["res://.godot/imported/MonkSpriteSheet.png-b56bb9235b47b75f21b20308c7623758.ctex"]
 
 [params]
 

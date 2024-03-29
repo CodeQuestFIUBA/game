@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ck2par2vjemj"
-path="res://.godot/imported/TilesetNature.png-72f3ba459c2d480b2b75d7e53a6a8000.ctex"
+uid="uid://c1mpe6oefoc7"
+path="res://.godot/imported/grayNinja.png-8d29ba14db6b546780e9cf4363f89409.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/TilesetNature.png"
-dest_files=["res://.godot/imported/TilesetNature.png-72f3ba459c2d480b2b75d7e53a6a8000.ctex"]
+source_file="res://sprites/ninjas/grayNinja.png"
+dest_files=["res://.godot/imported/grayNinja.png-8d29ba14db6b546780e9cf4363f89409.ctex"]
 
 [params]
 
