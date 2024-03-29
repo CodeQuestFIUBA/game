@@ -2238,3 +2238,4 @@ script = ExtResource("15_c3x8q")
 [connection signal="onBlockDeleted" from="BlockSpawn" to="BlockTarget" method="_on_block_spawn_on_block_deleted"]
 [connection signal="mouse_entered" from="PlayButton" to="PlayButton" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="PlayButton" to="PlayButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]

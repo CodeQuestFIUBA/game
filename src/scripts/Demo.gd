@@ -55,9 +55,11 @@ func _ready():
 	var ide_nodes = get_tree().get_nodes_in_group("ide")
 	if ide_nodes.size() > 0:
 		var ide = ide_nodes[0] as Control
-		ide.connect("mySignal",on_signal_received)
+		ide.connect("executeCodeSignal",on_signal_received)
 	if DialogManager:
 		DialogManager.connect("signalCloseDialog", animate_end_game)
+	if ApiService:
+		ApiService.connect("signalApiResponse", process_response)
 	var animation_nodes = get_tree().get_nodes_in_group("animation")
 	if animation_nodes.size() > 0:
 		var animation = animation_nodes[0] as AnimationPlayer
@@ -80,6 +82,9 @@ func animate_end_game():
 		player.update_animations_automatically({"left": 0, "right": 1, "up": 0, "down": 0})
 	(animationEnd as AnimationPlayer).play("end_demo")
 
+func process_response(resp):
+	print("response", resp)
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var open_ide_press = Input.get_action_strength("show_ide")
@@ -96,6 +101,7 @@ func show_ide():
 
 
 func on_signal_received(arg):
+	sendCode(arg)
 	print(rightOrders.size())
 	if (actualIndex == rightOrders.size()):
 		return
@@ -145,3 +151,7 @@ func _on_area_2d_body_entered(body):
 	print(self.name + " completed")
 	level_completed.emit(self.name)
 	get_tree().change_scene_to_file("res://main.tscn")
+	
+	
+func sendCode(code):
+	ApiService.send_request(code, HTTPClient.METHOD_POST, "execute/level1")
