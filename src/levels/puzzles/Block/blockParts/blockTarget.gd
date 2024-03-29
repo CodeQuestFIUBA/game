@@ -1,6 +1,6 @@
 extends StaticBody2D
 
-var dropedBlocks : Array[Node2D]
+var dropedBlocks : Array[SimpleBlock]
 var initial_drop_position = Vector2(344, 30)
 var max_blocks = 10
 
@@ -27,7 +27,6 @@ func handle_drop(dropped : Node2D):
 func _on_block_spawn_on_block_deleted(node :Node2D):
 	sanitize_nodes()
 
-
 func insert_node(new : Node2D):
 	var is_in = (dropedBlocks.find(new) != -1)
 	if (not is_in):
@@ -43,8 +42,8 @@ func sanitize_nodes() :
 func is_node_valid(x : Node2D): 
 	return (is_instance_valid(x) && !x.is_queued_for_deletion())
 
-func getPuzzle(x: Node2D) -> Array[String] :
-	var instruction :  = []
+func getPuzzle() :
+	var instructions :  = []
 	for i in dropedBlocks:
-		[]
-	return ["4"]
+		instructions.append(i.actionName)
+	return instructions
