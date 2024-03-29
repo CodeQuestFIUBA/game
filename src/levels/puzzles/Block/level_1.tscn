@@ -2239,7 +2239,7 @@ text = "Ejecutar"
 script = ExtResource("15_c3x8q")
 
 [node name="npcExplainer" parent="." instance=ExtResource("16_sh0f6")]
-position = Vector2(152, 33)
+position = Vector2(152, 15)
 
 [node name="Sprite2D" parent="npcExplainer" index="0"]
 texture = ExtResource("17_kw1k2")
