@@ -19,7 +19,7 @@ func get_drop_position():
 func handle_drop(dropped : Node2D):
 	insert_node(dropped)
 
-func _on_block_spawn_on_block_deleted(node):
+func _on_block_spawn_on_block_deleted(node :Node2D):
 	sanitize_nodes()
 
 
@@ -27,15 +27,13 @@ func insert_node(new : Node2D):
 	var is_in = (dropedBlocks.find(new) != -1)
 	if (not is_in):
 		dropedBlocks.append(new)
-		sanitize_nodes()
+	sanitize_nodes()
 	
 # Check if all the elements in the node array are still valid.
 func sanitize_nodes() :
-	dropedBlocks = dropedBlocks.filter(func(x): return is_instance_valid(x))
-		
-	for child in dropedBlocks:
-		child.is_selectable = false;
-		
-	var last_element = dropedBlocks.back()
-	if(last_element):
-		last_element.is_selectable = true;
+	dropedBlocks = dropedBlocks.filter(func(x): return is_node_valid(x))
+	for i in len(dropedBlocks):
+		dropedBlocks[i].rest_pos = Vector2(initial_drop_position.x, initial_drop_position.y + 10*i)
+
+func is_node_valid(x : Node2D): 
+	return (is_instance_valid(x) && !x.is_queued_for_deletion())
