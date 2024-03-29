@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 signal npcArrived
 
+@onready var npc_texture: Sprite2D = $Sprite2D
+
 const SPEED = 50.00;
 
 var autoplay_enabled = false;
@@ -121,4 +123,7 @@ func update_phrases(new_phrases: Array[String], dialog_pos: Vector2, autoplay:bo
 	phrases_index = 0;
 	if (autoplay_enabled):
 		DialogManager.start_dialog(dialog_position, phrases, options);
-	
+
+
+func update_texture(newTexture):
+	npc_texture.texture = ResourceLoader.load(newTexture)
