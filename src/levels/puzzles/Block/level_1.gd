@@ -6,6 +6,5 @@ func _ready():
 	$moveLeft.setAction("Mover Izquierda")
 	$moveRight.setAction("Mover Derecha")
 
-
 func _on_play_button_pressed():
 	print("Boton Apretado!")
