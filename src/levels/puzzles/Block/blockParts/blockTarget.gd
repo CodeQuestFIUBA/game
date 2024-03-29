@@ -2,7 +2,7 @@ extends StaticBody2D
 
 var dropedBlocks : Array[Node2D]
 var initial_drop_position = Vector2(344, 30)
-var max_blocks = 14
+var max_blocks = 10
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -42,3 +42,9 @@ func sanitize_nodes() :
 
 func is_node_valid(x : Node2D): 
 	return (is_instance_valid(x) && !x.is_queued_for_deletion())
+
+func getPuzzle(x: Node2D) -> Array[String] :
+	var instruction :  = []
+	for i in dropedBlocks:
+		[]
+	return ["4"]
