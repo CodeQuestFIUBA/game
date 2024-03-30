@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://h70v7ux2ngea" path="res://sprites/TilesetElement.png" id="2_d34jb"]
 [ext_resource type="Texture2D" uid="uid://bir5x5ue54fb7" path="res://sprites/TilesetWallSimple.png" id="3_pqnjr"]
 [ext_resource type="Texture2D" uid="uid://c44u3t45laich" path="res://sprites/TilesetDungeon.png" id="4_c0hom"]
-[ext_resource type="Texture2D" uid="uid://bhpuj2m8yndjc" path="res://sprites/TilesetNature.png" id="5_j2d5l"]
+[ext_resource type="Texture2D" uid="uid://ck2par2vjemj" path="res://sprites/TilesetNature.png" id="5_j2d5l"]
 [ext_resource type="Texture2D" uid="uid://bsxq2qe7152ed" path="res://sprites/TilesetFloor.png" id="5_jqy13"]
 [ext_resource type="Texture2D" uid="uid://decqcukp71tu0" path="res://sprites/TilesetInteriorFloor.png" id="6_0qxg8"]
 [ext_resource type="Texture2D" uid="uid://u2cbhipxlp2u" path="res://sprites/TilesetHole.png" id="7_r28me"]
@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://44lmrpidil3a" path="res://levels/puzzles/Block/blockParts/blockSpawn.tscn" id="13_ht6mr"]
 [ext_resource type="PackedScene" uid="uid://foqkg3csvokp" path="res://levels/puzzles/Block/blockParts/simpleBlock.tscn" id="13_lvuad"]
 [ext_resource type="Script" path="res://levels/puzzles/pathPainter/playButton.gd" id="15_c3x8q"]
-[ext_resource type="PackedScene" path="res://components/interactiveNpc.tscn" id="16_sh0f6"]
+[ext_resource type="PackedScene" uid="uid://ciki7sjrkcanm" path="res://components/interactiveNpc.tscn" id="16_sh0f6"]
 [ext_resource type="Texture2D" uid="uid://ce8nlxqw6tyxx" path="res://sprites/ninjas/OldMan3.png" id="17_kw1k2"]
 [ext_resource type="Texture2D" uid="uid://daxlhd4mbegmd" path="res://sprites/SpriteSheet.png" id="18_kcqb5"]
 
