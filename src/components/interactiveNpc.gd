@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 signal npcArrived
+signal npcFinishAttack
 
 @onready var npc_texture: Sprite2D = $Sprite2D
 
@@ -13,6 +14,7 @@ var input_enabled = true;
 var current_direction = null;
 var last_direction = null;
 var next_positions = [];
+var in_attack = false
 
 var dialog_position = Vector2(0, 0);
 var phrases_index = 0;
@@ -28,6 +30,8 @@ func _ready():
 	set_process_input(true);	
 	
 func  _physics_process(delta):
+	if in_attack:
+		return
 	if next_positions.size() == 0:
 		$AnimationPlayer.play('idle_down');
 		current_state = IDLE;
@@ -63,6 +67,8 @@ func _show_new_dialog():
 	phrases_index = (phrases_index + 1) % phrases.size();
 
 func _update_animations():
+	if in_attack:
+		return
 	if current_state == IDLE || current_state == NEW_DIR:
 		match last_direction:
 			GLOBAL.DIR_UP:
@@ -127,3 +133,26 @@ func update_phrases(new_phrases: Array[String], dialog_pos: Vector2, autoplay:bo
 
 func update_texture(newTexture):
 	npc_texture.texture = ResourceLoader.load(newTexture)
+
+# direction puede ser: up, left, right, down
+func attack(direction: String):
+	match direction:
+		'up':
+			in_attack = true
+			$AnimationPlayer.play('attack_up')
+		'down':
+			in_attack = true
+			$AnimationPlayer.play('attack_down')
+		'left':
+			in_attack = true
+			$AnimationPlayer.play('attack_left')
+		'right':
+			in_attack = true
+			$AnimationPlayer.play('attack_right')
+
+
+func _animation_finished(anim_name):
+	if anim_name == 'attack_left' || anim_name == 'attack_right' || anim_name == 'attack_up' || anim_name == 'attack_down':
+		in_attack = false
+		emit_signal('npcFinishAttack')
+

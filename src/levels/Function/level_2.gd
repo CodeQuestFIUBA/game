@@ -9,24 +9,24 @@ extends Node2D
 @onready var ninjaku_texture = "res://sprites/ninjas/grayNinja.png"
 @onready var whip_texture = "res://sprites/ninjas/yellowNinja.png"
 
-var player_initial_move: Array[Vector2] = [ Vector2(57,132) ]
+var player_initial_move: Array[Vector2] = [ Vector2(57,130) ]
 var grab_sai: Array[Vector2] = [ Vector2(57,64) ]
 var grab_katana: Array[Vector2] = [ Vector2(57,90), Vector2(130,90), Vector2(130,64) ]
 var grab_ninjaku: Array[Vector2] = [ Vector2(57,90), Vector2(208,90), Vector2(208,64) ]
 var grap_whip: Array[Vector2] = [ Vector2(57,90), Vector2(270,90), Vector2(270,64) ]
-var fight_area: Array[Vector2] = [ Vector2(57,90), Vector2(57,132) ]
-var enemy_initial_move: Array[Vector2] = [ Vector2(361,55), Vector2(361,132), Vector2(264,132) ]
-var enemy_final_move: Array[Vector2] = [ Vector2(361,132), Vector2(361,25) ]
-var player_duel_position: Array[Vector2] = [ Vector2(150,132) ]
-var enemy_duel_position: Array[Vector2] = [ Vector2(175,132) ]
+var fight_area: Array[Vector2] = [ Vector2(57,90), Vector2(57,130) ]
+var enemy_initial_move: Array[Vector2] = [ Vector2(361,55), Vector2(361,130), Vector2(264,130) ]
+var enemy_final_move: Array[Vector2] = [ Vector2(361,130), Vector2(361,25) ]
+var player_duel_position: Array[Vector2] = [ Vector2(140,130) ]
+var enemy_duel_position: Array[Vector2] = [ Vector2(175,130) ]
 var executing_code = false
 var result = []
 var orderResult: Array[String] = []
-var gunsByTable: Array[String] = ['sai', 'katana', 'ninjaku', 'whip']
+var weaponsByTable: Array[String] = ['sai', 'katana', 'ninjaku', 'whip']
 
 func test_result():
-	for gun in orderResult:
-		match gun:
+	for weapon in orderResult:
+		match weapon:
 			'sai':
 				result.push_back('ninjaku')
 			'katana':
@@ -37,7 +37,7 @@ func test_result():
 				result.push_back('sai')
 
 func _ready():
-	orderResult = gunsByTable.duplicate(true)
+	orderResult = weaponsByTable.duplicate(true)
 	randomize()
 	orderResult.shuffle()
 	ApiService.connect("signalApiResponse", process_response)
@@ -50,12 +50,12 @@ func process_intro():
 	await player.npcArrived
 	var phrases: Array[String] = [
 		"Bienvenido, es hora de aprender a utilizar las armas ninja", 
-		"Debes saber que arma elegir segun el enemigo",
+		"Debes saber que arma elegir seweapon el enemigo",
 		"El Ninjaku tiene ventaja sobre el Sai",
 		"El Sai sobre el Whip",
 		"El Whip sobre la Katana",
 		"Y la Katana sobre el Ninjaku",
-		"A continuación vendran maestros con alguna de estas armas",
+		"A continuación vendran maestros con alweapona de estas armas",
 		"Y tendras que elegir el arma mas adecuada para vencerlo",
 		"Escribe una función que recibe como parametro el arma del maestro",
 		"Y retorne el arma que tiene ventaja sobre esa"
@@ -67,10 +67,10 @@ func process_intro():
 
 func process_result():
 	for i in range(result.size()):
-		var master_gun = orderResult[i]
-		var player_gun = result[i]
-		var correct_gun = get_best_gun(master_gun)
-		var valid_gun = player_gun == correct_gun
+		var master_weapon = orderResult[i]
+		var player_weapon = result[i]
+		var correct_weapon = get_best_weapon(master_weapon)
+		var valid_weapon = player_weapon == correct_weapon
 		var phrases: Array[String] = []
 		if i == 0:
 			phrases = ['¡Empecemos el duelo!']
@@ -78,19 +78,19 @@ func process_result():
 			phrases = ['¡Vamos con el siguiente duelo!']
 		master.update_phrases(phrases, Vector2(56,155), true, {'auto_play_time': 1, 'close_by_signal': true})
 		await DialogManager.signalCloseDialog
-		await move_master_intial_position(master_gun)
-		await master_select_msg(master_gun)
-		await player_select_msg(player_gun)
-		await player_select_gun(player_gun)
-		await startDuel(valid_gun, correct_gun)
+		await move_master_intial_position(master_weapon)
+		await master_select_msg(master_weapon)
+		await player_select_msg(player_weapon)
+		await player_select_weapon(player_weapon)
+		await startDuel(valid_weapon, correct_weapon)
 		await move_all_initial_position()
-		if !valid_gun:
+		if !valid_weapon:
 			return
 
 
-func master_select_msg(gun: String):
+func master_select_msg(weapon: String):
 	var phrases: Array[String] = []
-	match gun:
+	match weapon:
 		'sai':
 			phrases = ['El maestro eligio el Sai']
 		'katana':
@@ -104,9 +104,9 @@ func master_select_msg(gun: String):
 	await DialogManager.signalCloseDialog
 
 
-func player_select_msg(gun: String):
+func player_select_msg(weapon: String):
 	var phrases: Array[String] = []
-	match gun:
+	match weapon:
 		'sai':
 			phrases = ['Elegi el Sai']
 		'katana':
@@ -119,8 +119,8 @@ func player_select_msg(gun: String):
 	await DialogManager.signalCloseDialog
 
 
-func move_master_intial_position(gun: String):
-	match gun:
+func move_master_intial_position(weapon: String):
+	match weapon:
 		'sai':
 			enemy.update_texture(sai_texture)
 		'katana':
@@ -139,8 +139,8 @@ func move_all_initial_position():
 	await enemy.npcArrived and player.npcArrived
 	
 
-func player_select_gun(gun: String):
-	match gun:
+func player_select_weapon(weapon: String):
+	match weapon:
 		'sai':
 			player.update_destination(grab_sai)
 		'katana':
@@ -155,24 +155,27 @@ func player_select_gun(gun: String):
 	await player.npcArrived
 
 
-func startDuel(valid_gun: bool, correct_gun: String):
+func startDuel(valid_weapon: bool, correct_weapon: String):
 	var phrases: Array[String] = ["¡Empecemos!"]
 	master.update_phrases(phrases, Vector2(56,155), true, {'auto_play_time': 1, 'close_by_signal': true})
 	await DialogManager.signalCloseDialog
 	player.update_destination(player_duel_position)
 	enemy.update_destination(enemy_duel_position)
 	await player.npcArrived and enemy.npcArrived
-	await get_tree().create_timer(0.4).timeout
-	if valid_gun:
+	if valid_weapon:
+		player.attack('right')
+		await player.npcFinishAttack
 		phrases = ['¡Muy bien hecho, elegiste el arma correcta!']
 	else:
-		phrases = ['Lo siento, el arma correcta era: ' + correct_gun]
+		enemy.attack('left')
+		await enemy.npcFinishAttack
+		phrases = ['Lo siento, el arma correcta era: ' + correct_weapon]
 	master.update_phrases(phrases, Vector2(56,155), true, {'auto_play_time': 1, 'close_by_signal': true})
 	await DialogManager.signalCloseDialog
 
 
-func get_best_gun(gun: String):
-	match gun:
+func get_best_weapon(weapon: String):
+	match weapon:
 		'sai':
 			return 'ninjaku'
 		'katana':

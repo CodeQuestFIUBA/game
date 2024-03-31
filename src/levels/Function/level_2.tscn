@@ -1860,7 +1860,6 @@ position = Vector2(57, 216)
 [node name="Sprite2D" parent="player" index="0"]
 z_index = 10
 texture = ExtResource("9_geiwd")
-frame = 0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
