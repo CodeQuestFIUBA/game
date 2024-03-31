@@ -4,6 +4,7 @@ signal npcArrived
 signal npcFinishAttack
 
 @onready var npc_texture: Sprite2D = $Sprite2D
+@onready var weapon_texture: Sprite2D = $weapon
 
 const SPEED = 50.00;
 
@@ -27,6 +28,7 @@ enum {
 }
 	
 func _ready():
+	weapon_texture.visible = false
 	set_process_input(true);	
 	
 func  _physics_process(delta):
@@ -111,14 +113,23 @@ func _update_direction(movement: Vector2):
 	
 func _arrived_destination(destination):
 	return sqrt(pow(destination.x-position.x, 2) + pow(destination.y-position.y, 2)) < 0.5
-	
+
+
+func _animation_finished(anim_name):
+	if anim_name == 'attack_left' || anim_name == 'attack_right' || anim_name == 'attack_up' || anim_name == 'attack_down':
+		in_attack = false
+		weapon_texture.visible = false
+		emit_signal('npcFinishAttack')
+
+
 # --------------------------------- METODOS PUBLICOS ----------------------------------------
 
 # Actualiza la lista de puntos por los que tiene que pasar el npc	
 # El npc comienza a moverse apenas se llama a este metodo
 func update_destination(destinations: Array[Vector2]):
 	next_positions = destinations.duplicate(true);
-	
+
+
 # Actualiza las frases del npc
 # Si autiplay esta activado el dialogo se ejecuta solo
 # Caso contrario una nueva frase aparece con cada click sobre el npc
@@ -134,8 +145,16 @@ func update_phrases(new_phrases: Array[String], dialog_pos: Vector2, autoplay:bo
 func update_texture(newTexture):
 	npc_texture.texture = ResourceLoader.load(newTexture)
 
+
+func update_weapon_texture(newTexture):
+	weapon_texture.texture = ResourceLoader.load(newTexture)
+
+
 # direction puede ser: up, left, right, down
 func attack(direction: String):
+	if direction == 'up' || direction == 'down' || direction == 'left' || direction == 'right':
+		in_attack = true
+		weapon_texture.visible = true
 	match direction:
 		'up':
 			in_attack = true
@@ -149,10 +168,4 @@ func attack(direction: String):
 		'right':
 			in_attack = true
 			$AnimationPlayer.play('attack_right')
-
-
-func _animation_finished(anim_name):
-	if anim_name == 'attack_left' || anim_name == 'attack_right' || anim_name == 'attack_up' || anim_name == 'attack_down':
-		in_attack = false
-		emit_signal('npcFinishAttack')
 

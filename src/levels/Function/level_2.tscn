@@ -1845,19 +1845,22 @@ layer_3/tile_data = PackedInt32Array(-65515, 1638404, 14, 21, 1638404, 15, 65557
 z_index = 10
 position = Vector2(361, 25)
 
-[node name="Sprite2D" parent="enemy" index="0"]
+[node name="Sprite2D" parent="enemy" index="1"]
 texture = ExtResource("8_2qpim")
 
 [node name="master" parent="." instance=ExtResource("6_34q04")]
 position = Vector2(174, 193)
 
-[node name="Sprite2D" parent="master" index="0"]
+[node name="Sprite2D" parent="master" index="1"]
 texture = ExtResource("8_01cf3")
 
 [node name="player" parent="." instance=ExtResource("6_34q04")]
 position = Vector2(57, 216)
 
-[node name="Sprite2D" parent="player" index="0"]
+[node name="weapon" parent="player" index="0"]
+z_index = 10
+
+[node name="Sprite2D" parent="player" index="1"]
 z_index = 10
 texture = ExtResource("9_geiwd")
 

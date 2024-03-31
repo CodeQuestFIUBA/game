@@ -8,7 +8,13 @@ extends Node2D
 @onready var katana_texture = "res://sprites/ninjas/redNinja.png"
 @onready var ninjaku_texture = "res://sprites/ninjas/grayNinja.png"
 @onready var whip_texture = "res://sprites/ninjas/yellowNinja.png"
+@onready var weapon_sai_texture = "res://sprites/weapons/Sai.png"
+@onready var weapon_katana_texture = "res://sprites/weapons/Katana.png"
+@onready var weapon_ninjaku_texture = "res://sprites/weapons/Ninjaku.png"
+@onready var weapon_whip_texture = "res://sprites/weapons/Whip.png"
 
+
+var player_origin: Array[Vector2] = [Vector2(57,216)]
 var player_initial_move: Array[Vector2] = [ Vector2(57,130) ]
 var grab_sai: Array[Vector2] = [ Vector2(57,64) ]
 var grab_katana: Array[Vector2] = [ Vector2(57,90), Vector2(130,90), Vector2(130,64) ]
@@ -17,7 +23,7 @@ var grap_whip: Array[Vector2] = [ Vector2(57,90), Vector2(270,90), Vector2(270,6
 var fight_area: Array[Vector2] = [ Vector2(57,90), Vector2(57,130) ]
 var enemy_initial_move: Array[Vector2] = [ Vector2(361,55), Vector2(361,130), Vector2(264,130) ]
 var enemy_final_move: Array[Vector2] = [ Vector2(361,130), Vector2(361,25) ]
-var player_duel_position: Array[Vector2] = [ Vector2(140,130) ]
+var player_duel_position: Array[Vector2] = [ Vector2(153,130) ]
 var enemy_duel_position: Array[Vector2] = [ Vector2(175,130) ]
 var executing_code = false
 var result = []
@@ -82,10 +88,18 @@ func process_result():
 		await master_select_msg(master_weapon)
 		await player_select_msg(player_weapon)
 		await player_select_weapon(player_weapon)
+		player.update_weapon_texture(get_weapon_texture(player_weapon))
+		enemy.update_weapon_texture(get_weapon_texture(master_weapon))
 		await startDuel(valid_weapon, correct_weapon)
 		await move_all_initial_position()
 		if !valid_weapon:
+			executing_code = false
 			return
+	var phrases: Array[String] = ['¡Felicitaciones, lograste dominar todas las armas!', "Estas listo para seguir con los proximos desafios"]
+	master.update_phrases(phrases, Vector2(56,155), true, {'auto_play_time': 1, 'close_by_signal': true})
+	await DialogManager.signalCloseDialog
+	player.update_destination(player_origin)
+	await player.npcArrived
 
 
 func master_select_msg(weapon: String):
@@ -131,6 +145,18 @@ func move_master_intial_position(weapon: String):
 			enemy.update_texture(whip_texture)
 	enemy.update_destination(enemy_initial_move)
 	await enemy.npcArrived
+
+
+func get_weapon_texture(weapon: String):
+	match weapon:
+		'sai':
+			return weapon_sai_texture
+		'katana':
+			return weapon_katana_texture
+		'ninjaku':
+			return weapon_ninjaku_texture
+		'whip':
+			return weapon_whip_texture
 
 
 func move_all_initial_position():
@@ -189,6 +215,7 @@ func get_best_weapon(weapon: String):
 func sendCode(code):
 	if executing_code:
 		return
+	executing_code = true
 	#le paso las armas a la api
 	test_result()
 	process_result()
