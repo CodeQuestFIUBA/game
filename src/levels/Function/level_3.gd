@@ -27,8 +27,8 @@ var player2_final_position: Array[Vector2] = [Vector2(170,154)]
 var player_end_position: Array[Vector2] = [Vector2(181,216)]
 var executing_code = false
 var weapons: Array[String] = ['sai', 'katana', 'ninjaku', 'whip']
-var enemy_result = []
-var result = []
+var enemy_result = {'total': 0, 'arma': 0}
+var result = {'total': 0, 'arma': 0}
 
 func get_valid_weapon(weapon: String):
 	match weapon:
@@ -44,14 +44,11 @@ func get_valid_weapon(weapon: String):
 func test_result():
 	var total_enemy = randi_range(2,3)
 	var weapon = weapons[randi_range(0,3)]
-	var player_weapon = 'sai'#get_valid_weapon(weapon)
-	enemy_result.push_back( {"total": total_enemy, "arma": weapon} )
-	result.push_back( {"total": total_enemy, "arma": player_weapon} )
-	total_enemy = randi_range(2,3)
-	weapon = weapons[randi_range(0,3)]
-	player_weapon = get_valid_weapon(weapon)
-	enemy_result.push_back( {"total": total_enemy, "arma": weapon} )
-	result.push_back( {"total": total_enemy, "arma": player_weapon} )
+	var player_weapon = get_valid_weapon(weapon)
+	enemy_result["total"] = total_enemy
+	enemy_result["arma"] = weapon
+	result["total"] = total_enemy
+	result["arma"] = player_weapon
 
 
 # Called when the node enters the scene tree for the first time.
@@ -202,13 +199,11 @@ func battle(total: int, valid_weapon: bool, valid_total: bool):
 
 
 func process_result():
-	var enemy_round = enemy_result[0]
-	var player_round = result[0]
-	await move_enemies_initial_position(enemy_round)
-	await load_player_initial_position(player_round)
-	var valid_weapon = get_valid_weapon(enemy_round['arma']) == player_round['arma']
-	var valid_total = player_round['total'] == enemy_round['total']
-	await battle(enemy_round['total'], valid_weapon, valid_total)
+	await move_enemies_initial_position(enemy_result)
+	await load_player_initial_position(result)
+	var valid_weapon = get_valid_weapon(enemy_result['arma']) == result['arma']
+	var valid_total = result['total'] == enemy_result['total']
+	await battle(enemy_result['total'], valid_weapon, valid_total)
 	if valid_total && valid_weapon:
 		player.update_destination(player_end_position)
 		await player.npcArrived
@@ -224,7 +219,7 @@ func process_result():
 		enemy_3.visible = true
 		player.update_destination(player_initial_position)
 		await player.npcArrived
-	executing_code = false
+		executing_code = false
 
 func sendCode(code):
 	if executing_code:
