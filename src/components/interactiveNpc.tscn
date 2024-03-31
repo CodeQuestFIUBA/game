@@ -1,8 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://ciki7sjrkcanm"]
+[gd_scene load_steps=20 format=3 uid="uid://ciki7sjrkcanm"]
 
 [ext_resource type="Texture2D" uid="uid://ccv1eagl5t1ah" path="res://sprites/MonkSpriteSheet.png" id="1_03lwc"]
 [ext_resource type="Script" path="res://components/interactiveNpc.gd" id="1_b5dhr"]
 [ext_resource type="Texture2D" uid="uid://coiga22espqbv" path="res://sprites/weapons/Katana.png" id="2_n081s"]
+
+[sub_resource type="Animation" id="Animation_2wssd"]
+length = 0.001
 
 [sub_resource type="Animation" id="Animation_otyvt"]
 resource_name = "attack_down"
@@ -392,8 +395,22 @@ tracks/0/keys = {
 "values": [1, 5, 9, 13]
 }
 
-[sub_resource type="Animation" id="Animation_2wssd"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_3e0k2"]
+resource_name = "dead"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [24]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_m0bb8"]
 _data = {
@@ -402,6 +419,7 @@ _data = {
 "attack_left": SubResource("Animation_vsuur"),
 "attack_right": SubResource("Animation_y6b2v"),
 "attack_up": SubResource("Animation_4tsml"),
+"dead": SubResource("Animation_3e0k2"),
 "idle_down": SubResource("Animation_kytg2"),
 "idle_left": SubResource("Animation_pynho"),
 "idle_right": SubResource("Animation_d2nui"),
@@ -423,7 +441,6 @@ script = ExtResource("1_b5dhr")
 visible = false
 position = Vector2(6, 11)
 rotation = 3.14159
-scale = Vector2(1, 1)
 texture = ExtResource("2_n081s")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

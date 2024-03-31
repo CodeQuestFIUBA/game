@@ -15,7 +15,7 @@ var input_enabled = true;
 var current_direction = null;
 var last_direction = null;
 var next_positions = [];
-var in_attack = false
+var in_not_loop_animation = false
 
 var dialog_position = Vector2(0, 0);
 var phrases_index = 0;
@@ -32,7 +32,7 @@ func _ready():
 	set_process_input(true);	
 	
 func  _physics_process(delta):
-	if in_attack:
+	if in_not_loop_animation:
 		return
 	if next_positions.size() == 0:
 		$AnimationPlayer.play('idle_down');
@@ -69,7 +69,7 @@ func _show_new_dialog():
 	phrases_index = (phrases_index + 1) % phrases.size();
 
 func _update_animations():
-	if in_attack:
+	if in_not_loop_animation:
 		return
 	if current_state == IDLE || current_state == NEW_DIR:
 		match last_direction:
@@ -117,7 +117,7 @@ func _arrived_destination(destination):
 
 func _animation_finished(anim_name):
 	if anim_name == 'attack_left' || anim_name == 'attack_right' || anim_name == 'attack_up' || anim_name == 'attack_down':
-		in_attack = false
+		in_not_loop_animation = false
 		weapon_texture.visible = false
 		emit_signal('npcFinishAttack')
 
@@ -127,6 +127,7 @@ func _animation_finished(anim_name):
 # Actualiza la lista de puntos por los que tiene que pasar el npc	
 # El npc comienza a moverse apenas se llama a este metodo
 func update_destination(destinations: Array[Vector2]):
+	in_not_loop_animation = false
 	next_positions = destinations.duplicate(true);
 
 
@@ -153,19 +154,20 @@ func update_weapon_texture(newTexture):
 # direction puede ser: up, left, right, down
 func attack(direction: String):
 	if direction == 'up' || direction == 'down' || direction == 'left' || direction == 'right':
-		in_attack = true
+		in_not_loop_animation = true
 		weapon_texture.visible = true
 	match direction:
 		'up':
-			in_attack = true
 			$AnimationPlayer.play('attack_up')
 		'down':
-			in_attack = true
 			$AnimationPlayer.play('attack_down')
 		'left':
-			in_attack = true
 			$AnimationPlayer.play('attack_left')
 		'right':
-			in_attack = true
 			$AnimationPlayer.play('attack_right')
+
+
+func dead():
+	in_not_loop_animation = true
+	$AnimationPlayer.play('dead')
 
