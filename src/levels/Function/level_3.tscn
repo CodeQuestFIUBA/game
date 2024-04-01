@@ -1873,8 +1873,8 @@ texture = ExtResource("8_q4i6f")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="IDE" parent="CanvasLayer" instance=ExtResource("10_jq8ow")]
-offset_left = 299.0
-offset_right = 400.0
+offset_top = 1.0
+offset_bottom = -1.0
 
 [editable path="enemy3"]
 [editable path="enemy2"]

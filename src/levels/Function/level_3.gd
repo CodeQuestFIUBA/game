@@ -57,6 +57,7 @@ func _ready():
 	print(randi_range(2,3))
 	ApiService.connect("signalApiResponse", process_response)
 	IDE.connect("executeCodeSignal", sendCode)
+	IDE.set_ide_visible(false)
 	process_intro()
 
 

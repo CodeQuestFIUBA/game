@@ -1194,46 +1194,40 @@ layer_3/tile_data = PackedInt32Array(65537, 327682, 9, 65543, 327682, 9, 65551, 
 [node name="Player" parent="." instance=ExtResource("6_ruoia")]
 position = Vector2(86, 216)
 
-[node name="Sprite2D" parent="Player" index="0"]
+[node name="Sprite2D" parent="Player" index="1"]
 texture = ExtResource("7_tpiiu")
-frame = 0
 
 [node name="Master" parent="." instance=ExtResource("6_ruoia")]
 position = Vector2(41, 198)
 
-[node name="Sprite2D" parent="Master" index="0"]
+[node name="Sprite2D" parent="Master" index="1"]
 texture = ExtResource("8_mo3rd")
-frame = 0
 
 [node name="WhipMaster" parent="." instance=ExtResource("6_ruoia")]
 position = Vector2(35, 78)
 
-[node name="Sprite2D" parent="WhipMaster" index="0"]
+[node name="Sprite2D" parent="WhipMaster" index="1"]
 texture = ExtResource("9_0co8p")
-frame = 0
 
 [node name="NinjakuMaster" parent="." instance=ExtResource("6_ruoia")]
 position = Vector2(35, 103)
 
-[node name="Sprite2D" parent="NinjakuMaster" index="0"]
+[node name="Sprite2D" parent="NinjakuMaster" index="1"]
 texture = ExtResource("10_4xjpl")
-frame = 0
 
 [node name="katanaMaster" parent="." instance=ExtResource("6_ruoia")]
 position = Vector2(35, 128)
 
-[node name="Sprite2D" parent="katanaMaster" index="0"]
+[node name="Sprite2D" parent="katanaMaster" index="1"]
 texture = ExtResource("11_756hv")
-frame = 0
 
 [node name="SaiMaster" parent="." instance=ExtResource("6_ruoia")]
 position = Vector2(35, 155)
 
-[node name="Sprite2D" parent="SaiMaster" index="0"]
+[node name="Sprite2D" parent="SaiMaster" index="1"]
 texture = ExtResource("12_10hhu")
-frame = 0
 
-[node name="CollisionShape2D" parent="SaiMaster" index="2"]
+[node name="CollisionShape2D" parent="SaiMaster" index="3"]
 position = Vector2(0, 2)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -1241,6 +1235,8 @@ offset = Vector2(300.001, 2.08165e-12)
 transform = Transform2D(1, 0, 0, 1, 300.001, 2.08165e-12)
 
 [node name="IDE" parent="CanvasLayer" instance=ExtResource("5_pstxc")]
+offset_left = -300.001
+offset_right = -199.001
 
 [editable path="Player"]
 [editable path="Master"]
