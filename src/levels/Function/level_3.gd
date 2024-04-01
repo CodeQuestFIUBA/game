@@ -205,19 +205,19 @@ func process_result():
 	var valid_weapon = get_valid_weapon(enemy_result['arma']) == result['arma']
 	var valid_total = result['total'] == enemy_result['total']
 	await battle(enemy_result['total'], valid_weapon, valid_total)
+	copy_player_1.position = Vector2(101,86)
+	copy_player_2.position = Vector2(101,154)
+	enemy_1.position = Vector2(280,8)
+	enemy_2.position = Vector2(328,8)
+	enemy_3.position = Vector2(375,8)
+	enemy_1.visible = true
+	enemy_2.visible = true
+	enemy_3.visible = true
 	if valid_total && valid_weapon:
 		player.update_destination(player_end_position)
 		await player.npcArrived
 	else:
 		player.position = Vector2(101,119)
-		copy_player_1.position = Vector2(101,86)
-		copy_player_2.position = Vector2(101,154)
-		enemy_1.position = Vector2(280,8)
-		enemy_2.position = Vector2(328,8)
-		enemy_3.position = Vector2(375,8)
-		enemy_1.visible = true
-		enemy_2.visible = true
-		enemy_3.visible = true
 		player.update_destination(player_initial_position)
 		await player.npcArrived
 		executing_code = false
