@@ -2,7 +2,7 @@ extends CodeEdit
 
 
 func _ready():
-	grab_focus()
+	pass
 
 
 func _process(delta):
