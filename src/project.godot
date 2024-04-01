@@ -12,7 +12,7 @@ config_version=5
 
 config/name="CodeQuest"
 run/main_scene="res://main.tscn"
-config/features=PackedStringArray("4.1", "Forward Plus")
+config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -22,6 +22,7 @@ RoomEvents="*res://scripts/room_events.gd"
 DialogManager="*res://singletons/DialogManager.gd"
 GlobalBlockTracking="*res://levels/puzzles/Block/globalBlockTracking.gd"
 ApiService="*res://singletons/ApiService.gd"
+ModalManager="*res://singletons/ModalManager.gd"
 
 [display]
 

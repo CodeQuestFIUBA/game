@@ -2,7 +2,7 @@ extends Node
 
 @onready var modal_scene = preload("res://components/Modal.tscn")
 
-var modalInstance: Modal
+var modal_instance: Modal
 
 signal on_primary_pressed()
 signal on_secondary_pressed()
@@ -20,9 +20,13 @@ var current_options = default_options
 
 func open_modal(options = default_options):
 	initialize_options(options)
-	modalInstance = modal_scene.instantiate()
-	
+	modal_instance = modal_scene.instantiate()
+	add_child(modal_instance)
+	modal_instance.build_modal (current_options)
 
+func close_modal ():
+	if is_instance_valid(modal_instance) :
+		modal_instance.queue_free()
 
 func initialize_options(options = null):
 	if options == null:

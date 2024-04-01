@@ -5,15 +5,8 @@ extends Node2D
 signal on_primary_pressed()
 signal on_secondary_pressed()
 
-#var title = "Titulo"
-#var description = "Esta es una description de lo que me esta diciendo este modal ..."
-#var title_font_size = 12
-#var description_font_size = 9
-#var primary_button_label = "Aceptar"
-#var secondary_button_label = "Cancelar"
 
-
-func build (options) : 
+func build_modal (options) : 
 
 	if options.has("title"):
 		$Rect/Title.text = options["title"]
@@ -31,6 +24,18 @@ func build (options) :
 # 	if options.has("title_font_size"):
 #     	$Rect/Title.set("custom_fonts/font/size", options["title_font_size"])
 
-# # Verificar si 'description_font_size' está presente en options y asignar su valor al tamaño de fuente de Description
 # if options.has("description_font_size"):
 #     $Rect/Description.set("custom_fonts/font/size", options["description_font_size"])
+
+
+func _on_boton_primario_mouse_entered():
+	GLOBAL.mouse_to_pointer()
+
+func _on_boton_primario_mouse_exited():
+	GLOBAL.mouse_to_normal()
+
+func _on_boton_secundario_mouse_entered():
+	GLOBAL.mouse_to_pointer()
+
+func _on_boton_secundario_mouse_exited():
+	GLOBAL.mouse_to_normal()
