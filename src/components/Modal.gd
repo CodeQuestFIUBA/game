@@ -8,6 +8,8 @@ signal on_secondary_pressed()
 
 func build_modal (options) : 
 
+	print("buildeando Modal!")
+	print(global_position)
 	if options.has("title"):
 		$Rect/Title.text = options["title"]
 
@@ -15,10 +17,10 @@ func build_modal (options) :
 		$Rect/Description.text = options["description"]
 
 	if options.has("primary_button_label"):
-		$Rect/PrimaryButton.text = options["primary_button_label"]
+		$Rect/BotonPrimario.text = options["primary_button_label"]
 
 	if options.has("secondary_button_label"):
-		$Rect/SecondaryButton.text = options["secondary_button_label"]
+		$Rect/BotonSecundario.text = options["secondary_button_label"]
 
 
 # 	if options.has("title_font_size"):

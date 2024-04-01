@@ -19,6 +19,7 @@ var default_options = {
 var current_options = default_options
 
 func open_modal(options = default_options):
+	print("abriendo modal!")
 	initialize_options(options)
 	modal_instance = modal_scene.instantiate()
 	add_child(modal_instance)

@@ -21,6 +21,7 @@ func _ready():
 	$moveLeft.setAction("Mover Izquierda")
 	$moveRight.setAction("Mover Derecha")
 	start_Level()
+	ModalManager.open_modal()
 
 func _on_play_button_pressed():
 	validate_instructions()

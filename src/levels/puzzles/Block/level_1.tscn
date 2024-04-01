@@ -2241,16 +2241,14 @@ script = ExtResource("15_c3x8q")
 [node name="npcExplainer" parent="." instance=ExtResource("16_sh0f6")]
 position = Vector2(152, 15)
 
-[node name="Sprite2D" parent="npcExplainer" index="0"]
+[node name="Sprite2D" parent="npcExplainer" index="1"]
 texture = ExtResource("17_kw1k2")
-frame = 0
 
 [node name="Ninja" parent="." instance=ExtResource("16_sh0f6")]
 position = Vector2(95, 200)
 
-[node name="Sprite2D" parent="Ninja" index="0"]
+[node name="Sprite2D" parent="Ninja" index="1"]
 texture = ExtResource("18_kcqb5")
-frame = 0
 
 [connection signal="onBlockDeleted" from="BlockSpawn" to="BlockTarget" method="_on_block_spawn_on_block_deleted"]
 [connection signal="mouse_entered" from="PlayButton" to="PlayButton" method="_on_mouse_entered"]
