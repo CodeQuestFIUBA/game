@@ -59,6 +59,8 @@ func _ready():
 	orderResult.shuffle()
 	ApiService.connect("signalApiResponse", process_response)
 	IDE.connect("executeCodeSignal", sendCode)
+	ModalManager.on_modal_primary_pressed.connect(closeModal) 
+	ModalManager.on_modal_secondary_pressed.connect(closeModal) 
 	await process_intro()
 
 
@@ -89,12 +91,34 @@ func process_intro():
 	phrases = [
 		"Escribe una función que recibe como parametro el arma pedida por el maestro y el arma de la mesa",
 		"Si coinciden retornar 'VEN'",
-		"Si no coincide retornar 'ESPERA'"
+		"Si no coincide retornar 'ESPERA'",
+		"Si necesitas ayuda, te podre dar consejos si haces click sobre mi"
 	]
 	master.update_phrases(phrases, Vector2(56,155), true, {'auto_play_time': 1, 'close_by_signal': true})
 	await DialogManager.signalCloseDialog
 	var codeLines: Array[String] = ["function avisarMaestro(pedido, arma) {", "	const ESPERA = \"ESPERA\"", "	const VEN = \"VEN\"", "	", "}"]
 	IDE.set_code(codeLines)
+	phrases = [
+		"Presiona la tecla M para ver la consigna",
+		"Puedes utilizar un if para evaluar si las armas son iguales",
+		"Intenta retornar las constantes 'ESPERA' y 'VEN'"
+	]
+	master.update_phrases(phrases, Vector2(56,155), false, {'auto_play_time': 1, 'close_by_signal': true})
+
+
+func openModal():
+	ModalManager.open_modal({
+		'title': "Instrucciones",
+		'description': "Escribe una función que recibe como parametro el arma pedida por el maestro y el arma de la mesa\nSi coinciden retornar 'VEN'\nSi no coincide retornar 'ESPERA'",
+		'title_font_size': 8,
+		'description_font_size': 6,
+		'primary_button_label': "Aceptar",
+		'secondary_button_label': "Cancelar"
+	})
+
+
+func closeModal():
+	ModalManager.close_modal()
 
 
 func process_result(valid: bool):
@@ -232,6 +256,10 @@ func talk_intro_master():
 
 func _process(delta):
 	pass
+
+func _unhandled_input(event):
+	if event.is_action_pressed("show_modal"):
+		openModal()
 
 
 func restart_all():

@@ -16,6 +16,7 @@ var current_direction = null;
 var last_direction = null;
 var next_positions = [];
 var in_not_loop_animation = false
+var dialogOptions = null
 
 var dialog_position = Vector2(0, 0);
 var phrases_index = 0;
@@ -63,9 +64,9 @@ func _input_event(viewport, event, shape_idx):
 			
 func _show_new_dialog():
 	if phrases_index ==	0:
-		DialogManager.start_dialog(dialog_position, [phrases[phrases_index]]);
+		DialogManager.start_dialog(dialog_position, [phrases[phrases_index]], dialogOptions);
 	else: 
-		DialogManager.reset_dialog(dialog_position, [phrases[phrases_index]], true);
+		DialogManager.reset_dialog(dialog_position, [phrases[phrases_index]], dialogOptions);
 	phrases_index = (phrases_index + 1) % phrases.size();
 
 func _update_animations():
@@ -141,6 +142,8 @@ func update_phrases(new_phrases: Array[String], dialog_pos: Vector2, autoplay:bo
 	phrases_index = 0;
 	if (autoplay_enabled):
 		DialogManager.start_dialog(dialog_position, phrases, options);
+	else:
+		dialogOptions = options
 
 
 func update_texture(newTexture):
