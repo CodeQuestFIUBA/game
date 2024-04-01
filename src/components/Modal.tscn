@@ -64,5 +64,7 @@ metadata/_edit_use_anchors_ = true
 
 [connection signal="mouse_entered" from="Rect/BotonPrimario" to="." method="_on_boton_primario_mouse_entered"]
 [connection signal="mouse_exited" from="Rect/BotonPrimario" to="." method="_on_boton_primario_mouse_exited"]
+[connection signal="pressed" from="Rect/BotonPrimario" to="." method="_on_boton_primario_pressed"]
 [connection signal="mouse_entered" from="Rect/BotonSecundario" to="." method="_on_boton_secundario_mouse_entered"]
 [connection signal="mouse_exited" from="Rect/BotonSecundario" to="." method="_on_boton_secundario_mouse_exited"]
+[connection signal="pressed" from="Rect/BotonSecundario" to="." method="_on_boton_secundario_pressed"]

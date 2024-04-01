@@ -21,12 +21,34 @@ func _ready():
 	$moveLeft.setAction("Mover Izquierda")
 	$moveRight.setAction("Mover Derecha")
 	start_Level()
-	ModalManager.open_modal()
+	
+	
+	ModalManager.open_modal({
+		'title': "Titulito",
+		'description': "Esta es una description de lo que me esta diciendo este modal ...",
+		'title_font_size': 12,
+		'description_font_size': 9,
+		'primary_button_label': "Aceptar",
+		'secondary_button_label': "Cancelar"
+		})
+		
+	ModalManager.on_modal_primary_pressed.connect(handle_primary_click)
+	ModalManager.on_modal_secondary_pressed.connect(handle_secondary_click)
+	
+	ModalManager.close_modal()
+	
+	
 
 func _on_play_button_pressed():
 	validate_instructions()
-	pass;
+	ModalManager.open_modal()
+	ModalManager.on_modal_secondary_pressed.connect(handle_secondary_click)
 
+func handle_primary_click () :
+	print("apreto el boton primario")
+	
+func handle_secondary_click () :
+	print ("apreto el boton secundario")
 
 func start_Level () :
 	load_introduction_dialogs()

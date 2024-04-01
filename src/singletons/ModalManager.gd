@@ -4,8 +4,8 @@ extends Node
 
 var modal_instance: Modal
 
-signal on_primary_pressed()
-signal on_secondary_pressed()
+signal on_modal_primary_pressed()
+signal on_modal_secondary_pressed()
 
 var default_options = {
 	'title': "Titulo",
@@ -26,6 +26,12 @@ func open_modal(options = default_options):
 	modal_instance.build_modal (current_options)
 
 func close_modal ():
+	for conection in on_modal_primary_pressed.get_connections() : 
+		on_modal_primary_pressed.disconnect(conection.callable)
+		
+	for conection in on_modal_secondary_pressed.get_connections() : 
+		on_modal_secondary_pressed.disconnect(conection.callable)
+		
 	if is_instance_valid(modal_instance) :
 		modal_instance.queue_free()
 

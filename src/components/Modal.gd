@@ -1,11 +1,6 @@
 class_name Modal
 extends Node2D
 
-#the pressed button, can be secondary or primary.
-signal on_primary_pressed()
-signal on_secondary_pressed()
-
-
 func build_modal (options) : 
 
 	print("buildeando Modal!")
@@ -21,13 +16,12 @@ func build_modal (options) :
 
 	if options.has("secondary_button_label"):
 		$Rect/BotonSecundario.text = options["secondary_button_label"]
+		
+	if options.has("title_font_size"):
+		$Rect/Title.set("theme_override_font_sizes/font_size", options["title_font_size"])
 
-
-# 	if options.has("title_font_size"):
-#     	$Rect/Title.set("custom_fonts/font/size", options["title_font_size"])
-
-# if options.has("description_font_size"):
-#     $Rect/Description.set("custom_fonts/font/size", options["description_font_size"])
+	if options.has("description_font_size"):
+		$Rect/Description.set("theme_override_font_sizes/font_size", options["description_font_size"])
 
 
 func _on_boton_primario_mouse_entered():
@@ -41,3 +35,11 @@ func _on_boton_secundario_mouse_entered():
 
 func _on_boton_secundario_mouse_exited():
 	GLOBAL.mouse_to_normal()
+
+func _on_boton_primario_pressed():
+	#Global signal,  defined in MODALMANAGER script
+	ModalManager.emit_signal("on_modal_primary_pressed")
+
+func _on_boton_secundario_pressed():
+	#Global signal,  defined in MODALMANAGER script
+	ModalManager.emit_signal("on_modal_secondary_pressed")
