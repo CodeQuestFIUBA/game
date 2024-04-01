@@ -56,7 +56,7 @@ func process_intro():
 	await player.npcArrived
 	var phrases: Array[String] = [
 		"Bienvenido, es hora de aprender a utilizar las armas ninja", 
-		"Debes saber que arma elegir seweapon el enemigo",
+		"Debes saber que arma elegir segun el enemigo",
 		"El Ninjaku tiene ventaja sobre el Sai",
 		"El Sai sobre el Whip",
 		"El Whip sobre la Katana",
