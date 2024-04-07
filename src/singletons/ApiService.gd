@@ -4,7 +4,6 @@ var token: String
 signal signalApiResponse(signalArgument)
 
 func _process_request(body, type, route, success_cb, requires_auth):
-	print("Culiaaa", token)
 	var headers = ["Content-Type: application/json"];
 	if requires_auth:
 		headers.append("Authorization: Bearer " + token);
@@ -30,8 +29,9 @@ func _on_login_success(result, response_code, headers, body):
 	token = response.data.token
 	
 func send_request(code, type, route):
-	var body = JSON.new().stringify({"func": code})
-	_process_request(body, type, route, self._http_request_completed, true);
+	#var body = JSON.new().stringify({"func": code})
+	#print("MESSI ", body);
+	_process_request(code, type, route, self._http_request_completed, true);
 
 func emitting_function(arg):
 	emit_signal("signalApiResponse", arg)

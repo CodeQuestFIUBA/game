@@ -1,14 +1,17 @@
-[gd_scene load_steps=15 format=3 uid="uid://ue27a8hlet7g"]
+[gd_scene load_steps=18 format=3 uid="uid://ue27a8hlet7g"]
 
-[ext_resource type="PackedScene" uid="uid://tnj7qonnatx0" path="res://components/Player.tscn" id="1_kkq8o"]
 [ext_resource type="Script" path="res://levels/Matrix/level_1/level.gd" id="1_kryq3"]
 [ext_resource type="Texture2D" uid="uid://bsxq2qe7152ed" path="res://sprites/TilesetFloor.png" id="1_qtjme"]
 [ext_resource type="Texture2D" uid="uid://dqutkxh2buc7i" path="res://sprites/TilesetFloorDetail.png" id="2_kqorj"]
 [ext_resource type="Texture2D" uid="uid://th6ag8sbqr6r" path="res://sprites/TilesetHouse.png" id="3_dylm3"]
+[ext_resource type="Texture2D" uid="uid://bedelhynt0n10" path="res://sprites/SpriteSheet.png" id="3_mj3m7"]
 [ext_resource type="Texture2D" uid="uid://bscuhu8x74vlj" path="res://sprites/TilesetNature.png" id="4_0actr"]
 [ext_resource type="TileSet" uid="uid://dg01fk6u4wp77" path="res://levels/Matrix/level_1/level_1.tres" id="6_8558v"]
 [ext_resource type="Script" path="res://levels/Matrix/level_1/ObjectMatrix.gd" id="7_6qwsg"]
 [ext_resource type="PackedScene" uid="uid://n1pbhaqvikdu" path="res://components/ide.tscn" id="9_cdc16"]
+[ext_resource type="PackedScene" uid="uid://ciki7sjrkcanm" path="res://components/interactiveNpc.tscn" id="10_odubc"]
+[ext_resource type="Texture2D" uid="uid://bi2ftmo3w42vq" path="res://sprites/GoldKey.png" id="11_i0lls"]
+[ext_resource type="Script" path="res://levels/Matrix/level_1/Sprite2D.gd" id="12_yeur1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ducsy"]
 texture = ExtResource("1_qtjme")
@@ -1581,6 +1584,14 @@ sources/3 = SubResource("TileSetAtlasSource_d7ddl")
 [node name="level" type="Node2D"]
 script = ExtResource("1_kryq3")
 
+[node name="Player" parent="." instance=ExtResource("10_odubc")]
+z_index = 100
+position = Vector2(-16, 120)
+
+[node name="Sprite2D" parent="Player" index="0"]
+texture = ExtResource("3_mj3m7")
+frame = 0
+
 [node name="Map" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_blsjg")
 format = 2
@@ -1608,48 +1619,46 @@ layer_3/y_sort_origin = 0
 layer_3/z_index = 30
 layer_3/tile_data = PackedInt32Array(19, 1638402, 7, 65555, 1638402, 8, 131091, 1638402, 9, 196627, 1638402, 10, 262163, 1638402, 11, 393235, 1638402, 13, 20, 1703938, 7, 65556, 1703938, 8, 131092, 1703938, 9, 196628, 1703938, 10, 262164, 1703938, 11, 393236, 1703938, 13, 21, 1769474, 7, 65557, 1769474, 8, 131093, 1769474, 9, 196629, 1769474, 10, 262165, 1769474, 11, 393237, 1769474, 13, 22, 1835010, 7, 65558, 1835010, 8, 131094, 1835010, 9, 196630, 1835010, 10, 262166, 1835010, 11, 327702, 1835010, 12, 393238, 1835010, 13, 327701, 1769474, 12, 327700, 1703938, 12, 327699, 1638402, 12)
 
-[node name="Player" parent="." instance=ExtResource("1_kkq8o")]
-position = Vector2(24, 120)
-
 [node name="ObjectMatrix" type="TileMap" parent="."]
+position = Vector2(64, 80)
 tile_set = ExtResource("6_8558v")
 format = 2
-layer_0/tile_data = PackedInt32Array(327684, 1179649, 20, 327685, 1179649, 20, 327686, 1114113, 20, 327687, 917505, 17, 327688, 1245185, 14, 327689, 1310721, 14, 327690, 1114113, 13, 327691, 1114113, 20, 327692, 1179649, 20, 262148, 1179649, 19, 262156, 1179649, 19, 262155, 1114113, 19, 262150, 1114113, 19, 262149, 1179649, 19, 327693, 1179649, 11, 393229, 1310721, 15, 393225, 917505, 17, 393227, 917505, 17, 393228, 1179649, 13, 393220, 1114113, 13)
+layer_0/tile_data = PackedInt32Array(-65536, 1179649, 19, 0, 1179649, 20, 65536, 1114113, 13, -65535, 1179649, 19, 1, 1179649, 20, -65534, 1114113, 19, 2, 1114113, 20, 3, 917505, 17, 4, 1245185, 14, 5, 1310721, 14, 65541, 917505, 17, 6, 1114113, 13, -65529, 1114113, 19, 7, 1114113, 20, 65543, 917505, 17, -65528, 1179649, 19, 8, 1179649, 20, 65544, 1179649, 13, 9, 1179649, 11, 65545, 1310721, 15)
 layer_1/name = ""
 layer_1/enabled = true
 layer_1/modulate = Color(1, 1, 1, 1)
 layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
 layer_1/z_index = 0
-layer_1/tile_data = PackedInt32Array(327685, 917505, 18, 393221, 917505, 19, 327690, 917505, 18, 327686, 1048577, 14, 393222, 1048577, 15, 327687, 1114113, 19, 393223, 1114113, 20, 327688, 1179649, 19, 393224, 1179649, 20, 393226, 917505, 19)
+layer_1/tile_data = PackedInt32Array(1, 917505, 18, 65537, 917505, 19, 2, 1048577, 14, 65538, 1048577, 15, 3, 1114113, 19, 65539, 1114113, 20, 4, 1179649, 19, 65540, 1179649, 20, 6, 917505, 18, 65542, 917505, 19)
 layer_2/name = ""
 layer_2/enabled = true
 layer_2/modulate = Color(1, 1, 1, 1)
 layer_2/y_sort_enabled = false
 layer_2/y_sort_origin = 0
 layer_2/z_index = 0
-layer_2/tile_data = PackedInt32Array(393228, 1048577, 14, 458764, 1048577, 15, 393229, 1114113, 14, 458765, 1114113, 15, 393227, 1179649, 19, 458763, 1179649, 20, 393220, 1114113, 19, 458756, 1114113, 20, 393224, 917505, 18, 458760, 917505, 19, 458757, 1048577, 13, 458758, 1114113, 13, 458759, 1179649, 13, 458762, 1310721, 14, 458761, 1310721, 15)
+layer_2/tile_data = PackedInt32Array(65536, 1114113, 19, 131072, 1114113, 20, 131073, 1048577, 13, 131074, 1114113, 13, 131075, 1179649, 13, 65540, 917505, 18, 131076, 917505, 19, 131077, 1310721, 15, 131078, 1310721, 14, 65543, 1179649, 19, 131079, 1179649, 20, 65544, 1048577, 14, 131080, 1048577, 15, 65545, 1114113, 14, 131081, 1114113, 15)
 layer_3/name = ""
 layer_3/enabled = true
 layer_3/modulate = Color(1, 1, 1, 1)
 layer_3/y_sort_enabled = false
 layer_3/y_sort_origin = 0
 layer_3/z_index = 0
-layer_3/tile_data = PackedInt32Array(458756, 917505, 18, 524292, 917505, 19, 458757, 917505, 18, 524293, 917505, 19, 458758, 1114113, 14, 524294, 1114113, 15, 458759, 1179649, 14, 524295, 1179649, 15, 524296, 1179649, 11, 524301, 1179649, 11, 524300, 1114113, 13, 458761, 1114113, 19, 524297, 1114113, 20, 458763, 1114113, 19, 524299, 1114113, 20, 458762, 1114113, 19, 524298, 1114113, 20)
+layer_3/tile_data = PackedInt32Array(131072, 917505, 18, 196608, 917505, 19, 131073, 917505, 18, 196609, 917505, 19, 131074, 1114113, 14, 196610, 1114113, 15, 131075, 1179649, 14, 196611, 1179649, 15, 196612, 1179649, 11, 131077, 1114113, 19, 196613, 1114113, 20, 131078, 1114113, 19, 196614, 1114113, 20, 131079, 1114113, 19, 196615, 1114113, 20, 196616, 1114113, 13, 196617, 1179649, 11)
 layer_4/name = ""
 layer_4/enabled = true
 layer_4/modulate = Color(1, 1, 1, 1)
 layer_4/y_sort_enabled = false
 layer_4/y_sort_origin = 0
 layer_4/z_index = 0
-layer_4/tile_data = PackedInt32Array(524292, 1048577, 14, 589828, 1048577, 15, 524293, 1114113, 14, 589829, 1114113, 15, 524294, 1179649, 14, 589830, 1179649, 15, 524298, 1048577, 14, 589834, 1048577, 15, 524299, 1114113, 14, 589835, 1114113, 15, 524300, 1179649, 14, 589836, 1179649, 15, 589831, 1310721, 14, 589833, 1310721, 14, 589832, 1245185, 14, 524301, 1179649, 19, 589837, 1179649, 20)
+layer_4/tile_data = PackedInt32Array(196608, 1048577, 14, 262144, 1048577, 15, 196609, 1114113, 14, 262145, 1114113, 15, 196610, 1179649, 14, 262146, 1179649, 15, 262147, 1310721, 14, 262148, 1245185, 14, 262149, 1310721, 14, 196614, 1048577, 14, 262150, 1048577, 15, 196615, 1114113, 14, 262151, 1114113, 15, 196616, 1179649, 14, 262152, 1179649, 15, 196617, 1179649, 19, 262153, 1179649, 20)
 layer_5/name = ""
 layer_5/enabled = true
 layer_5/modulate = Color(1, 1, 1, 1)
 layer_5/y_sort_enabled = false
 layer_5/y_sort_origin = 0
 layer_5/z_index = 0
-layer_5/tile_data = PackedInt32Array(589834, 917505, 18, 655370, 917505, 19, 589835, 917505, 18, 655371, 917505, 19, 655364, 1310721, 15, 655365, 1310721, 14, 589830, 1048577, 14, 655366, 1048577, 15, 589831, 1114113, 14, 655367, 1114113, 15, 589832, 1179649, 14, 655368, 1179649, 15, 589833, 1179649, 14, 655369, 1179649, 15, 589836, 1179649, 19, 655372, 1179649, 20, 589837, 1114113, 19, 655373, 1114113, 20)
+layer_5/tile_data = PackedInt32Array(327680, 1310721, 15, 327681, 1310721, 14, 262146, 1048577, 14, 327682, 1048577, 15, 262147, 1114113, 14, 327683, 1114113, 15, 262148, 1179649, 14, 327684, 1179649, 15, 262149, 1179649, 14, 327685, 1179649, 15, 262150, 917505, 18, 327686, 917505, 19, 262151, 917505, 18, 327687, 917505, 19, 262152, 1179649, 19, 327688, 1179649, 20, 262153, 1114113, 19, 327689, 1114113, 20)
 layer_6/name = ""
 layer_6/enabled = true
 layer_6/modulate = Color(1, 1, 1, 1)
@@ -1660,8 +1669,7 @@ layer_6/tile_data = PackedInt32Array()
 script = ExtResource("7_6qwsg")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
-autostart = true
+wait_time = 0.25
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -1669,4 +1677,27 @@ autostart = true
 offset_left = 299.0
 offset_right = 400.0
 
+[node name="VillageLeader" parent="." instance=ExtResource("10_odubc")]
+position = Vector2(280, 192)
+
+[node name="Sprite2D" parent="VillageLeader" index="0"]
+frame = 0
+
+[node name="Key" type="Sprite2D" parent="."]
+visible = false
+visibility_layer = 8193
+z_index = 100
+position = Vector2(72, 88)
+texture = ExtResource("11_i0lls")
+script = ExtResource("12_yeur1")
+
+[node name="FinalPos" type="Marker2D" parent="."]
+position = Vector2(328, 104)
+
+[node name="AirPos" type="Marker2D" parent="."]
+position = Vector2(144, 64)
+
 [connection signal="timeout" from="Timer" to="ObjectMatrix" method="_on_timer_timeout"]
+
+[editable path="Player"]
+[editable path="VillageLeader"]
