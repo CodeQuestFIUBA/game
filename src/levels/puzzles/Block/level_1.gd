@@ -24,7 +24,7 @@ func _ready():
 	
 	
 	ModalManager.open_modal({
-		'title': "Titulito",
+		'title': "Titulo",
 		'description': "Esta es una description de lo que me esta diciendo este modal ...",
 		'title_font_size': 12,
 		'description_font_size': 9,
