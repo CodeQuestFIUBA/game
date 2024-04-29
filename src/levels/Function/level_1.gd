@@ -109,7 +109,7 @@ func process_intro():
 func openModal():
 	ModalManager.open_modal({
 		'title': "Instrucciones",
-		'description': "Escribe una función que recibe como parametro el arma pedida por el maestro y el arma de la mesa\nSi coinciden retornar 'VEN'\nSi no coincide retornar 'ESPERA'",
+		'description': "Escribe una función que recibe como parametro el arma pedida por el maestro y el arma de la mesa. Si coinciden retornar 'VEN'. Si no coincide retornar 'ESPERA'",
 		'title_font_size': 8,
 		'description_font_size': 6,
 		'primary_button_label': "Aceptar",
