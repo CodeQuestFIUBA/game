@@ -120,7 +120,7 @@ func _ready():
 		"Pero dado que los aldeanos necesitan que no se mezclen los alimentos",
 		"Se debe guardar en cada contenedor un tipo de alimento distinto."
 	]
-	await show_master_messages(phrases)
+	show_master_messages(phrases)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
