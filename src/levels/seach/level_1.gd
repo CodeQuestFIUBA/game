@@ -91,8 +91,7 @@ func process_result(result: int):
 			phrases = ["En esta caja no se encuentra el pergamino, seguire buscando en la siguiente"]
 		else:
 			phrases = ["En esta caja se encuentra el pergamino"]
-		var message_position: Vector2 = Vector2(player.position)
-		message_position.y = message_position.y + 16
+		var message_position: Vector2 = Vector2(72,104)
 		await show_messages(phrases, message_position)
 		if result == i || i == box_with_scroll:
 			break
