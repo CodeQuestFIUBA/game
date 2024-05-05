@@ -62,7 +62,7 @@ func process_result(result):
 		await DialogManager.signalCloseDialog
 		show_copy(i)
 	phrases = [
-		"Bien hecho mi disipulo, completaste el desafio",
+		"Bien hecho mi discipulo, completaste el desafio",
 		"Ahora puedes ir por esa puerta y seguir tu aventura"
 	]
 	await show_master_messages(phrases)

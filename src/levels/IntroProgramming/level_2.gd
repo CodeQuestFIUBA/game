@@ -57,7 +57,7 @@ func process_result(result):
 		show_error_messages(result)
 		return
 	var phrases: Array[String] = [
-		"Hola maestro, estoy feliz de ser su disipulo"
+		"Hola maestro, estoy feliz de ser su discipulo"
 	]
 	player.update_phrases(phrases, Vector2(192, 184), true, {'auto_play_time': 1, 'close_by_signal': true})
 	await DialogManager.signalCloseDialog
@@ -68,7 +68,7 @@ func process_result(result):
 	else:
 		door_3.visible = false
 	phrases = [
-		"Bien hecho mi disipulo, completaste el desafio",
+		"Bien hecho mi discipulo, completaste el desafio",
 		"Ahora puedes ir por esa puerta y seguir tu aventura"
 	]
 	await show_master_messages(phrases)
