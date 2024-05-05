@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://5dmit72nlact"]
+
+[ext_resource type="Script" path="res://levels/IntroProgramming/level_4.gd" id="1_atdmp"]
+
+[sub_resource type="TileSet" id="TileSet_mymxk"]
+
+[node name="level_4" type="Node2D"]
+script = ExtResource("1_atdmp")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_mymxk")
+format = 2
