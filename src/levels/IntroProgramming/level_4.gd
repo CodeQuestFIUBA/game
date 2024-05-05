@@ -36,7 +36,11 @@ func set_code():
 		"",
 		"//Funcion que permite generar una copia de mi mismo",
 		"//generarCopia()",
-		""
+		"",
+		"//Completar condiciones de corte del for",
+		"for (var i = 0;  ; i++) {",
+		"	//llamar a la funcion de generar copia",
+		"}"
 	]
 	IDE.set_code(codeLines)
 
