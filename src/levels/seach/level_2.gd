@@ -7,9 +7,6 @@ extends Node2D
 @onready var map = $TileMap2
 var executing_code = false
 
-var open_box = "res://sprites/objects/open_box.png"
-var scroll = "res://sprites/objects/scroll.png"
-
 var master_msg_position: Vector2 = Vector2(96, 176)
 var box_with_scroll = 4
 var potencias = [4,10,2,5,11,8,9]
