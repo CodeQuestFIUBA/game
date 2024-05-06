@@ -1403,19 +1403,27 @@ tile_set = SubResource("TileSet_bnfea")
 format = 2
 layer_0/tile_data = PackedInt32Array(131081, 851970, 4, 131086, 917506, 4, 131087, 983042, 4, 131082, 917506, 4, 131083, 983042, 4, 131085, 851970, 4, 720905, 851970, 6, 720911, 983042, 6, 720906, 917506, 6, 720907, 983042, 6, 720909, 851970, 6, 720910, 917506, 6, 196623, 983042, 5, 262159, 983042, 5, 327695, 983042, 5, 393231, 983042, 5, 458767, 983042, 5, 524303, 983042, 5, 589839, 983042, 5, 655375, 983042, 5, 196617, 851970, 5, 262153, 851970, 5, 327689, 851970, 5, 393225, 851970, 5, 458761, 851970, 5, 524297, 851970, 5, 589833, 851970, 5, 655369, 851970, 5, 196618, 917506, 5, 262154, 917506, 5, 327690, 917506, 5, 393226, 917506, 5, 458762, 917506, 5, 524298, 917506, 5, 589834, 917506, 5, 655370, 917506, 5, 196619, 983042, 5, 262155, 983042, 5, 327691, 983042, 5, 393227, 983042, 5, 458763, 983042, 5, 524299, 983042, 5, 589835, 983042, 5, 655371, 983042, 5, 196621, 851970, 5, 262157, 851970, 5, 327693, 851970, 5, 393229, 851970, 5, 458765, 851970, 5, 524301, 851970, 5, 589837, 851970, 5, 655373, 851970, 5, 196622, 917506, 5, 262158, 917506, 5, 327694, 917506, 5, 393230, 917506, 5, 458766, 917506, 5, 524302, 917506, 5, 589838, 917506, 5, 655374, 917506, 5)
 
-[node name="FirstIndicator" type="Sprite2D" parent="."]
+[node name="FirstIndicator_1" parent="." instance=ExtResource("6_1120f")]
 visible = false
-position = Vector2(136, 182.001)
+position = Vector2(136, 30)
 rotation = 2.40855
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("10_pfmel")
 
-[node name="SecondIndicator" type="Sprite2D" parent="."]
+[node name="Sprite2D" parent="FirstIndicator_1" index="1"]
+texture = ExtResource("10_pfmel")
+hframes = 1
+vframes = 1
+
+[node name="SecondIndicator_1" parent="." instance=ExtResource("6_1120f")]
 visible = false
-position = Vector2(264, 40)
+position = Vector2(264, 30)
 rotation = -0.767945
 scale = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" parent="SecondIndicator_1" index="1"]
 texture = ExtResource("10_pfmel")
+hframes = 1
+vframes = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -1434,9 +1442,9 @@ theme_override_font_sizes/font_size = 8
 [node name="Label2" type="Label" parent="."]
 visible = false
 offset_left = 240.0
-offset_top = 40.0
+offset_top = 36.0
 offset_right = 256.0
-offset_bottom = 200.0
+offset_bottom = 196.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("12_oiia4")
 theme_override_font_sizes/font_size = 8
@@ -1444,3 +1452,5 @@ theme_override_font_sizes/font_size = 8
 [editable path="Master"]
 [editable path="Player"]
 [editable path="Enemy"]
+[editable path="FirstIndicator_1"]
+[editable path="SecondIndicator_1"]

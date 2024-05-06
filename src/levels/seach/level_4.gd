@@ -5,8 +5,8 @@ extends Node2D
 @onready var master = $Master
 @onready var enemy = $Enemy
 @onready var IDE = $CanvasLayer/IDE
-@onready var first_indicator = $FirstIndicator
-@onready var second_indicator = $SecondIndicator
+@onready var first_indicator = $FirstIndicator_1 #$FirstIndicator
+@onready var second_indicator = $SecondIndicator_1 #$SecondIndicator
 @onready var scroll = $TileMap2
 @onready var label = $Label
 @onready var label_enemy = $Label2
@@ -141,12 +141,18 @@ func process_result(result):
 	var jutsu = 47
 	var win = true
 	var phrases: Array[String] = []
+	first_indicator.visible = true
+	second_indicator.visible = true
 	for i in range(jutsus.size()):
 		var index = jutsus.find(result["player"][i])
-		first_indicator.position = first_indicator_positions[result["player"][i]]
-		second_indicator.position = second_indicator_positions[i]
-		first_indicator.visible = true
-		second_indicator.visible = true
+		var position_first_indicator: Vector2 = first_indicator_positions[result["player"][i]]
+		var position_second_indicator: Vector2 = second_indicator_positions[i]
+		var final_pos_ind_1: Array[Vector2] = [position_first_indicator]
+		var final_pos_ind_2: Array[Vector2] = [position_second_indicator]
+		first_indicator.update_destination(final_pos_ind_1)
+		await first_indicator.npcArrived
+		second_indicator.update_destination(final_pos_ind_2)
+		await second_indicator.npcArrived
 		var enemy_jutsu = jutsus[i]
 		var player_jutsu = jutsus[result["player"][i]]
 		phrases = ["Busco en la posicion " + str(result["player"][i]), "Encontre el " + str(player_jutsu)]
@@ -161,6 +167,8 @@ func process_result(result):
 	scroll.visible = false
 	first_indicator.visible = false
 	second_indicator.visible = false
+	first_indicator.position = Vector2(136,30)
+	second_indicator.position = Vector2(264,30)
 	label.visible = false
 	label_enemy.visible = false
 	if win:
