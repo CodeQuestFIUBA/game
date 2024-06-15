@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://bsxq2qe7152ed" path="res://sprites/TilesetFloor.png" id="1_qtjme"]
 [ext_resource type="Texture2D" uid="uid://dqutkxh2buc7i" path="res://sprites/TilesetFloorDetail.png" id="2_kqorj"]
 [ext_resource type="Texture2D" uid="uid://th6ag8sbqr6r" path="res://sprites/TilesetHouse.png" id="3_dylm3"]
-[ext_resource type="Texture2D" uid="uid://bedelhynt0n10" path="res://sprites/SpriteSheet.png" id="3_mj3m7"]
-[ext_resource type="Texture2D" uid="uid://bscuhu8x74vlj" path="res://sprites/TilesetNature.png" id="4_0actr"]
+[ext_resource type="Texture2D" uid="uid://daxlhd4mbegmd" path="res://sprites/SpriteSheet.png" id="3_mj3m7"]
+[ext_resource type="Texture2D" uid="uid://ck2par2vjemj" path="res://sprites/TilesetNature.png" id="4_0actr"]
 [ext_resource type="TileSet" uid="uid://dg01fk6u4wp77" path="res://levels/Matrix/level_1/level_1.tres" id="6_8558v"]
 [ext_resource type="Script" path="res://levels/Matrix/level_1/ObjectMatrix.gd" id="7_6qwsg"]
 [ext_resource type="PackedScene" uid="uid://n1pbhaqvikdu" path="res://components/ide.tscn" id="9_cdc16"]
@@ -1588,9 +1588,8 @@ script = ExtResource("1_kryq3")
 z_index = 100
 position = Vector2(-16, 120)
 
-[node name="Sprite2D" parent="Player" index="0"]
+[node name="Sprite2D" parent="Player" index="1"]
 texture = ExtResource("3_mj3m7")
-frame = 0
 
 [node name="Map" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_blsjg")
@@ -1679,9 +1678,6 @@ offset_right = 400.0
 
 [node name="VillageLeader" parent="." instance=ExtResource("10_odubc")]
 position = Vector2(280, 192)
-
-[node name="Sprite2D" parent="VillageLeader" index="0"]
-frame = 0
 
 [node name="Key" type="Sprite2D" parent="."]
 visible = false
