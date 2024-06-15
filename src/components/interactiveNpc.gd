@@ -1,6 +1,10 @@
 extends CharacterBody2D
 
 signal npcArrived
+signal npcFinishAttack
+
+@onready var npc_texture: Sprite2D = $Sprite2D
+@onready var weapon_texture: Sprite2D = $weapon
 
 const SPEED = 50.00;
 
@@ -11,6 +15,8 @@ var input_enabled = true;
 var current_direction = null;
 var last_direction = null;
 var next_positions = [];
+var in_not_loop_animation = false
+var dialogOptions = null
 
 var dialog_position = Vector2(0, 0);
 var phrases_index = 0;
@@ -23,9 +29,12 @@ enum {
 }
 	
 func _ready():
+	weapon_texture.visible = false
 	set_process_input(true);	
 	
 func  _physics_process(delta):
+	if in_not_loop_animation:
+		return
 	if next_positions.size() == 0:
 		$AnimationPlayer.play('idle_down');
 		current_state = IDLE;
@@ -55,12 +64,14 @@ func _input_event(viewport, event, shape_idx):
 			
 func _show_new_dialog():
 	if phrases_index ==	0:
-		DialogManager.start_dialog(dialog_position, [phrases[phrases_index]]);
+		DialogManager.start_dialog(dialog_position, [phrases[phrases_index]], dialogOptions);
 	else: 
-		DialogManager.reset_dialog(dialog_position, [phrases[phrases_index]], true);
+		DialogManager.reset_dialog(dialog_position, [phrases[phrases_index]], dialogOptions);
 	phrases_index = (phrases_index + 1) % phrases.size();
 
 func _update_animations():
+	if in_not_loop_animation:
+		return
 	if current_state == IDLE || current_state == NEW_DIR:
 		match last_direction:
 			GLOBAL.DIR_UP:
@@ -103,14 +114,24 @@ func _update_direction(movement: Vector2):
 	
 func _arrived_destination(destination):
 	return sqrt(pow(destination.x-position.x, 2) + pow(destination.y-position.y, 2)) < 0.5
-	
+
+
+func _animation_finished(anim_name):
+	if anim_name == 'attack_left' || anim_name == 'attack_right' || anim_name == 'attack_up' || anim_name == 'attack_down':
+		in_not_loop_animation = false
+		weapon_texture.visible = false
+		emit_signal('npcFinishAttack')
+
+
 # --------------------------------- METODOS PUBLICOS ----------------------------------------
 
 # Actualiza la lista de puntos por los que tiene que pasar el npc	
 # El npc comienza a moverse apenas se llama a este metodo
 func update_destination(destinations: Array[Vector2]):
+	in_not_loop_animation = false
 	next_positions = destinations.duplicate(true);
-	
+
+
 # Actualiza las frases del npc
 # Si autiplay esta activado el dialogo se ejecuta solo
 # Caso contrario una nueva frase aparece con cada click sobre el npc
@@ -121,4 +142,35 @@ func update_phrases(new_phrases: Array[String], dialog_pos: Vector2, autoplay:bo
 	phrases_index = 0;
 	if (autoplay_enabled):
 		DialogManager.start_dialog(dialog_position, phrases, options);
-	
+	else:
+		dialogOptions = options
+
+
+func update_texture(newTexture):
+	npc_texture.texture = ResourceLoader.load(newTexture)
+
+
+func update_weapon_texture(newTexture):
+	weapon_texture.texture = ResourceLoader.load(newTexture)
+
+
+# direction puede ser: up, left, right, down
+func attack(direction: String):
+	if direction == 'up' || direction == 'down' || direction == 'left' || direction == 'right':
+		in_not_loop_animation = true
+		weapon_texture.visible = true
+	match direction:
+		'up':
+			$AnimationPlayer.play('attack_up')
+		'down':
+			$AnimationPlayer.play('attack_down')
+		'left':
+			$AnimationPlayer.play('attack_left')
+		'right':
+			$AnimationPlayer.play('attack_right')
+
+
+func dead():
+	in_not_loop_animation = true
+	$AnimationPlayer.play('dead')
+

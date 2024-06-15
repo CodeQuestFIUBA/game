@@ -38,13 +38,11 @@ func _on_movement_added(texture, slot):
 			
 	print(movements);
 
-
 func _on_play_button_pressed():
 	GLOBAL.directionsUpdated.emit(movements);
 
-
 func _on_exit_body_entered(body):
 	print("ganaste");
-	
+
 func _on_player_stop():
 	print("perdiste");

@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@onready var object_sprite = $Object
+
 const SPEED = 100.00
 const AUTO_SPEED = 1
 var directions = []
@@ -7,6 +9,7 @@ var is_moving = false;
 var stopped_moving = false;
 var last_direction = null;
 var current_direction = null;
+var show_object = false
 
 signal doorOpened();
 
@@ -132,3 +135,9 @@ func move_player_with_orders():
 func _on_directions_update(new_directions):
 	is_moving = true;
 	directions = new_directions
+
+func set_show_object(show: bool):
+	object_sprite.visible = show
+	
+func set_object_texture(newTexture):
+	object_sprite.texture = ResourceLoader.load(newTexture)
