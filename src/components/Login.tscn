@@ -1,14 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://v46ahpjkpq3l"]
+[gd_scene load_steps=12 format=3 uid="uid://v46ahpjkpq3l"]
 
+[ext_resource type="Script" path="res://components/Login.gd" id="1_g5sn7"]
 [ext_resource type="Texture2D" uid="uid://mdqfxy13fgv3" path="res://sprites/ui/nine_path_9.png" id="1_qs7kc"]
-[ext_resource type="FontFile" uid="uid://b2eo3bo5eljsj" path="res://fonts/Pixelme.ttf" id="2_js1gx"]
 [ext_resource type="Texture2D" uid="uid://dpeutm1cewsum" path="res://sprites/ui/nine_path_8.png" id="2_pdwmq"]
-[ext_resource type="Texture2D" uid="uid://xy2b8gic26s2" path="res://sprites/ui/CODE-QUEST-15-6-2024.png" id="3_776uc"]
 [ext_resource type="Theme" uid="uid://cmqaxsejj61g2" path="res://themes/Buttons.tres" id="5_6brta"]
+[ext_resource type="FontFile" uid="uid://8n7eoa5gi3en" path="res://fonts/pansyhand.ttf" id="5_x8k4l"]
+[ext_resource type="PackedScene" uid="uid://c85uch07swpxi" path="res://components/Spinner.tscn" id="6_busnw"]
+[ext_resource type="Texture2D" uid="uid://b1w5a1t4rnkgv" path="res://sprites/logo.png" id="7_25iwt"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r2wc3"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4ylxr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0vnq1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2nrmy"]
 
 [node name="Login" type="Control"]
 layout_mode = 3
@@ -19,8 +25,9 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_g5sn7")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
+[node name="Container" type="NinePatchRect" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -40,7 +47,7 @@ patch_margin_top = 6
 patch_margin_right = 6
 patch_margin_bottom = 6
 
-[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect"]
+[node name="Inputs" type="VBoxContainer" parent="Container"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -54,12 +61,12 @@ offset_bottom = 28.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="EmailInput" type="Control" parent="NinePatchRect/VBoxContainer"]
+[node name="EmailInput" type="Control" parent="Container/Inputs"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="TextureRect" type="NinePatchRect" parent="NinePatchRect/VBoxContainer/EmailInput"]
+[node name="TextureRect" type="NinePatchRect" parent="Container/Inputs/EmailInput"]
 layout_mode = 2
 offset_left = -68.0
 offset_top = 14.0
@@ -73,29 +80,32 @@ patch_margin_top = 6
 patch_margin_right = 6
 patch_margin_bottom = 6
 
-[node name="LineEdit" type="LineEdit" parent="NinePatchRect/VBoxContainer/EmailInput"]
+[node name="EmailInput" type="LineEdit" parent="Container/Inputs/EmailInput"]
 layout_mode = 2
 offset_left = -60.0
-offset_top = 19.0
-offset_right = 60.0
-offset_bottom = 27.0
-focus_next = NodePath("../../PasswordInput/LineEdit")
+offset_top = 13.0
+offset_right = 61.0
+offset_bottom = 30.0
+focus_next = NodePath("../../PasswordInput/PasswordInput")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_uneditable_color = Color(0.533037, 0.533037, 0.533037, 1)
 theme_override_colors/font_placeholder_color = Color(0.541176, 0.541176, 0.541176, 1)
 theme_override_colors/caret_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_js1gx")
-theme_override_font_sizes/font_size = 8
+theme_override_colors/selection_color = Color(1, 0.713726, 0.431373, 0.458824)
+theme_override_fonts/font = ExtResource("5_x8k4l")
+theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxEmpty_r2wc3")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_4ylxr")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_0vnq1")
 placeholder_text = "Email"
 caret_blink = true
 
-[node name="PasswordInput" type="Control" parent="NinePatchRect/VBoxContainer"]
+[node name="PasswordInput" type="Control" parent="Container/Inputs"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="TextureRect" type="NinePatchRect" parent="NinePatchRect/VBoxContainer/PasswordInput"]
+[node name="TextureRect" type="NinePatchRect" parent="Container/Inputs/PasswordInput"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -114,23 +124,27 @@ patch_margin_top = 6
 patch_margin_right = 6
 patch_margin_bottom = 6
 
-[node name="LineEdit" type="LineEdit" parent="NinePatchRect/VBoxContainer/PasswordInput"]
+[node name="PasswordInput" type="LineEdit" parent="Container/Inputs/PasswordInput"]
 layout_mode = 0
-offset_left = -60.0
-offset_top = 34.0
-offset_right = 60.0
-offset_bottom = 42.0
+offset_left = -61.0
+offset_top = 26.0
+offset_right = 61.0
+offset_bottom = 47.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_uneditable_color = Color(0.533333, 0.533333, 0.533333, 1)
 theme_override_colors/font_placeholder_color = Color(0.541176, 0.541176, 0.541176, 1)
-theme_override_colors/caret_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_js1gx")
-theme_override_font_sizes/font_size = 8
+theme_override_colors/caret_color = Color(0, 0, 0, 0)
+theme_override_colors/selection_color = Color(1, 0.713726, 0.431373, 0.458824)
+theme_override_fonts/font = ExtResource("5_x8k4l")
+theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxEmpty_r2wc3")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_4ylxr")
-placeholder_text = "Password"
-caret_blink = true
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_2nrmy")
+placeholder_text = "Contraseña"
+secret = true
+secret_character = "∙"
 
-[node name="Control" type="Control" parent="."]
+[node name="LoginButton" type="Control" parent="."]
 layout_mode = 2
 anchors_preset = 0
 offset_left = -65.0
@@ -138,7 +152,7 @@ offset_top = -18.0
 offset_right = 71.0
 offset_bottom = -18.0
 
-[node name="Button" type="Button" parent="Control"]
+[node name="Button" type="Button" parent="LoginButton"]
 layout_mode = 0
 offset_left = -3.0
 offset_top = 42.0
@@ -146,38 +160,57 @@ offset_right = 133.0
 offset_bottom = 58.0
 theme = ExtResource("5_6brta")
 
-[node name="Label" type="Label" parent="Control"]
+[node name="Label" type="Label" parent="LoginButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -22.0
-offset_top = 45.0
-offset_right = 15.0
-offset_bottom = 56.0
+offset_left = -53.0
+offset_top = 34.0
+offset_right = 49.0
+offset_bottom = 62.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0.156863, 0.156863, 0.156863, 1)
-theme_override_fonts/font = ExtResource("2_js1gx")
-theme_override_font_sizes/font_size = 8
-text = "LOG IN"
+theme_override_fonts/font = ExtResource("5_x8k4l")
+theme_override_font_sizes/font_size = 18
+text = "INICIAR SESIÓN"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Spinner" parent="." instance=ExtResource("6_busnw")]
+position = Vector2(0, 56)
+scale = Vector2(0.5, 0.5)
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -68.0
-offset_top = -96.0
-offset_right = 68.0
-offset_bottom = -18.0
+offset_left = -60.0
+offset_top = -97.0
+offset_right = 76.0
+offset_bottom = -19.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_776uc")
+texture = ExtResource("7_25iwt")
 expand_mode = 1
 stretch_mode = 4
+
+[node name="Error" type="Label" parent="."]
+layout_mode = 0
+offset_left = -45.0
+offset_top = 50.0
+offset_right = 45.0
+offset_bottom = 61.0
+theme_override_colors/font_color = Color(0.941176, 0.403922, 0.2, 1)
+theme_override_fonts/font = ExtResource("5_x8k4l")
+theme_override_font_sizes/font_size = 12
+text = "Email o contraseña inválidos."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="LoginButton/Button" to="." method="_on_button_pressed"]
