@@ -2,6 +2,8 @@ extends Node
 
 signal directionsUpdated(new_directions);
 signal playerStoppedMoving;
+signal startLoading;
+signal stopLoading;
 
 var regularMouse = load("res://assets/mouse/Kunai.png")
 var dragMouse = load("res://assets/mouse/Drag.png")

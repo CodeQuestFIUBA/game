@@ -1,4 +1,5 @@
 extends Node
+const HTTP_OK = 200;
 var token: String
 
 signal signalApiResponse(signalArgument)
@@ -21,12 +22,14 @@ func _http_request_completed(result, response_code, headers, body):
 	print(response)
 	emitting_function(response)
 
-func _on_login_success(result, response_code, headers, body):
+func _on_login_completed(result, response_code, headers, body):
 	var json = JSON.new()
 	json.parse(body.get_string_from_utf8())
 	var response = json.get_data()
 	print(response)
-	token = response.data.token
+	emitting_function(response)
+	if (response.code == 200):
+		token = response.data.token
 	
 func send_request(code, type, route):
 	#var body = JSON.new().stringify({"func": code})
@@ -41,4 +44,4 @@ func login(email, password):
 		"email": email,
 		"password": password
 		})
-	_process_request(body, HTTPClient.METHOD_POST, "users/login", self._on_login_success, false);
+	_process_request(body, HTTPClient.METHOD_POST, "users/login", self._on_login_completed, false);
