@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://bfcvu8nmqr1iq"]
+
+[ext_resource type="Shader" path="res://components/Weather/shader_moving_texture.gdshader" id="1_euxlt"]
+[ext_resource type="Script" path="res://components/Weather/FogStart.gd" id="1_g7biy"]
+[ext_resource type="Texture2D" uid="uid://brlxqohg73o3k" path="res://sprites/FX/Environment/Fog.png" id="1_wudnl"]
+[ext_resource type="Script" path="res://components/Weather/Fog.gd" id="3_3capj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0xvmy"]
+shader = ExtResource("1_euxlt")
+shader_parameter/speed = 0.01
+shader_parameter/color = Color(0.921569, 0.921569, 0.921569, 0.356863)
+shader_parameter/alpha = 0.0
+
+[node name="Fog" type="Node2D"]
+script = ExtResource("1_g7biy")
+
+[node name="Fog" type="TextureRect" parent="."]
+z_index = 10
+material = SubResource("ShaderMaterial_0xvmy")
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 800.0
+offset_bottom = 600.0
+mouse_filter = 2
+texture = ExtResource("1_wudnl")
+stretch_mode = 1
+script = ExtResource("3_3capj")

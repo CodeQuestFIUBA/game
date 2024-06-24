@@ -24,6 +24,7 @@ GlobalBlockTracking="*res://levels/puzzles/Block/globalBlockTracking.gd"
 ApiService="*res://singletons/ApiService.gd"
 ModalManager="*res://singletons/ModalManager.gd"
 User="*res://singletons/User.gd"
+Session="*res://singletons/Session.gd"
 
 [display]
 

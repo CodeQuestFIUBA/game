@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dk8l1e5gmutv2"]
+
+[ext_resource type="Texture2D" uid="uid://ckrrsbl85op3g" path="res://sprites/ninjas/yellowNinja.png" id="1_s3x1d"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7443f"]
+radius = 6.0
+
+[node name="WhipMaster" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_s3x1d")
+hframes = 4
+vframes = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2.08165e-12, 0.5)
+shape = SubResource("CircleShape2D_7443f")
