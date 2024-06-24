@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://mb607q8lctbo"]
+
+[ext_resource type="Texture2D" uid="uid://xjg6vindv7ve" path="res://sprites/FX/Environment/Raylight.png" id="1_2di1d"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_gq21a"]
+blend_mode = 1
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_xmbuq"]
+offsets = PackedFloat32Array(0, 0.178, 0.864, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0.678431, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_28y2t"]
+gradient = SubResource("Gradient_xmbuq")
+
+[sub_resource type="Curve" id="Curve_qlpcy"]
+_data = [Vector2(0, 0.81), 0.0, 0.828, 0, 0, Vector2(1, 0.821), -0.646, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_x8jj1"]
+curve = SubResource("Curve_qlpcy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ef16x"]
+emission_shape = 3
+emission_box_extents = Vector3(160, 120, 1)
+particle_flag_disable_z = true
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_curve = SubResource("CurveTexture_x8jj1")
+color = Color(1, 1, 1, 0.152941)
+color_ramp = SubResource("GradientTexture1D_28y2t")
+anim_offset_max = 1.0
+
+[node name="Raylight" type="Node2D"]
+
+[node name="Raylight" type="GPUParticles2D" parent="."]
+z_index = 6
+material = SubResource("CanvasItemMaterial_gq21a")
+position = Vector2(200, 115)
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_ef16x")
+texture = ExtResource("1_2di1d")
+lifetime = 5.0
+speed_scale = 0.5
