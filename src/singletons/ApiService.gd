@@ -16,8 +16,6 @@ func send_request(code, type, route):
 	var http_request = HTTPRequest.new()
 	add_child(http_request)
 	http_request.request_completed.connect(self._http_request_completed)
-	var a = {"name": "Godette"}
-	print(a.name)
 	var body = JSON.new().stringify({"func": code})
 	var error = http_request.request("http://localhost:3000/"+route, ["Content-Type: application/json"], type, body)
 	if error != OK:
