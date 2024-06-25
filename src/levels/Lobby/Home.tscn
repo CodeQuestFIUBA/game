@@ -1,9 +1,11 @@
-[gd_scene load_steps=24 format=3 uid="uid://by3klqkkeyrhh"]
+[gd_scene load_steps=27 format=3 uid="uid://by3klqkkeyrhh"]
 
 [ext_resource type="Texture2D" uid="uid://decqcukp71tu0" path="res://sprites/TilesetInteriorFloor.png" id="1_7b4ch"]
 [ext_resource type="Script" path="res://levels/Lobby/Home.gd" id="1_s20qt"]
+[ext_resource type="PackedScene" uid="uid://brjcb6suq3cgi" path="res://components/Weather/Cloud.tscn" id="2_26s0k"]
 [ext_resource type="Texture2D" uid="uid://bir5x5ue54fb7" path="res://sprites/TilesetWallSimple.png" id="2_888l4"]
 [ext_resource type="Texture2D" uid="uid://th6ag8sbqr6r" path="res://sprites/TilesetHouse.png" id="3_0y1j5"]
+[ext_resource type="PackedScene" uid="uid://chu0ijm2eabuw" path="res://components/Weather/Leafs.tscn" id="3_ex0b1"]
 [ext_resource type="Texture2D" uid="uid://dgrc6cfkrylhr" path="res://sprites/Elements.png" id="4_088wl"]
 [ext_resource type="Texture2D" uid="uid://bsxq2qe7152ed" path="res://sprites/TilesetFloor.png" id="4_p1w37"]
 [ext_resource type="Texture2D" uid="uid://ck2par2vjemj" path="res://sprites/TilesetNature.png" id="5_oc1gu"]
@@ -11,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dmhy74pcbolwc" path="res://components/Door.tscn" id="6_olctn"]
 [ext_resource type="Texture2D" uid="uid://h70v7ux2ngea" path="res://sprites/TilesetElement.png" id="8_8qahv"]
 [ext_resource type="Texture2D" uid="uid://cpumdme5iwdsg" path="res://sprites/TilesetField.png" id="9_il6l2"]
+[ext_resource type="PackedScene" uid="uid://v46ahpjkpq3l" path="res://components/Login.tscn" id="14_gim2y"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4jspx"]
 texture = ExtResource("1_7b4ch")
@@ -2166,6 +2169,12 @@ b = Vector2(3.05176e-05, 35)
 script = ExtResource("1_s20qt")
 metadata/_edit_horizontal_guides_ = [113.0]
 
+[node name="Cloud" parent="." instance=ExtResource("2_26s0k")]
+position = Vector2(-199, -112)
+
+[node name="Leaf" parent="." instance=ExtResource("3_ex0b1")]
+position = Vector2(-189.817, -101.505)
+
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(-199, -112)
 tile_set = SubResource("TileSet_3jjs5")
@@ -2369,6 +2378,14 @@ position = Vector2(-200, 112)
 position = Vector2(200, 0)
 rotation = 4.71239
 shape = SubResource("SegmentShape2D_gub7y")
+
+[node name="Login" parent="." instance=ExtResource("14_gim2y")]
+z_index = 4096
+
+[node name="PlayerContainer" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PlayerContainer"]
+polygon = PackedVector2Array(-58, -35, -59, 39, 64, 38, 65, -41, -57, -38, -48, -28, 57, -30, 56, 31, -52, 32, -51, -29)
 
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
 

@@ -10,22 +10,22 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 0.988235, 1, 1, 1, 1, 1, 0)
 gradient = SubResource("Gradient_8trne")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d3ega"]
+particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(200, 160, 1)
-particle_flag_disable_z = true
 direction = Vector3(1, 1, 0)
 spread = 0.0
-gravity = Vector3(0, 0, 0)
 initial_velocity_min = 10.0
 initial_velocity_max = 10.0
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
+gravity = Vector3(0, 0, 0)
 color = Color(0.745098, 0.101961, 0.203922, 0.231373)
 color_ramp = SubResource("GradientTexture1D_7oy48")
 
 [node name="Cloud" type="Node2D"]
+z_index = 4096
 
 [node name="Cloud" type="GPUParticles2D" parent="."]
+z_index = 1000
 position = Vector2(200, 110)
 amount = 6
 process_material = SubResource("ParticleProcessMaterial_d3ega")

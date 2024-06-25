@@ -12,10 +12,11 @@ shader_parameter/color = Color(0.921569, 0.921569, 0.921569, 0.356863)
 shader_parameter/alpha = 0.0
 
 [node name="Fog" type="Node2D"]
+z_index = 4096
 script = ExtResource("1_g7biy")
 
 [node name="Fog" type="TextureRect" parent="."]
-z_index = 10
+z_index = 1000
 material = SubResource("ShaderMaterial_0xvmy")
 offset_left = -200.0
 offset_top = -200.0

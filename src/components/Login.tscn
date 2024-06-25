@@ -17,6 +17,7 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2nrmy"]
 
 [node name="Login" type="Control"]
+z_index = 2000
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5

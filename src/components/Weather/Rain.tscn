@@ -4,16 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://denkn6x4slo5q" path="res://sprites/FX/Particle/RainOnFloor.png" id="2_hmmev"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qb71r"]
+particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(240, 140, 1)
-particle_flag_disable_z = true
 direction = Vector3(-0.5, 1, 0)
 spread = 0.0
-gravity = Vector3(0, 0, 0)
 initial_velocity_min = 100.0
 initial_velocity_max = 100.0
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
+gravity = Vector3(0, 0, 0)
 anim_speed_max = 1.0
 sub_emitter_mode = 1
 sub_emitter_frequency = 4.0
@@ -27,14 +25,14 @@ particles_anim_loop = false
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_oo4r5"]
 particle_flag_disable_z = true
 gravity = Vector3(0, 0, 0)
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
 anim_speed_min = 1.0
 anim_speed_max = 1.0
 
 [node name="Rain" type="Node2D"]
+z_index = 4096
 
 [node name="Rain" type="GPUParticles2D" parent="."]
+z_index = 1000
 position = Vector2(207, 110)
 amount = 30
 sub_emitter = NodePath("../RainOnFloor")
@@ -42,6 +40,7 @@ process_material = SubResource("ParticleProcessMaterial_qb71r")
 texture = ExtResource("1_ymy1x")
 
 [node name="RainOnFloor" type="GPUParticles2D" parent="."]
+z_index = 1000
 material = SubResource("CanvasItemMaterial_2k1gw")
 emitting = false
 amount = 30

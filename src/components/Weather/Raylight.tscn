@@ -24,24 +24,23 @@ point_count = 2
 curve = SubResource("Curve_qlpcy")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ef16x"]
+particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(160, 120, 1)
-particle_flag_disable_z = true
 spread = 0.0
-gravity = Vector3(0, 0, 0)
 initial_velocity_min = 1.0
 initial_velocity_max = 2.0
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
+gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_x8jj1")
 color = Color(1, 1, 1, 0.152941)
 color_ramp = SubResource("GradientTexture1D_28y2t")
 anim_offset_max = 1.0
 
 [node name="Raylight" type="Node2D"]
+z_index = 4096
 
 [node name="Raylight" type="GPUParticles2D" parent="."]
-z_index = 6
+z_index = 1000
 material = SubResource("CanvasItemMaterial_gq21a")
 position = Vector2(200, 115)
 amount = 10
