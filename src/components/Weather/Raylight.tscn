@@ -41,7 +41,6 @@ anim_offset_max = 1.0
 [node name="Raylight" type="Node2D"]
 
 [node name="Raylight" type="GPUParticles2D" parent="."]
-z_index = 6
 material = SubResource("CanvasItemMaterial_gq21a")
 position = Vector2(200, 115)
 amount = 10
