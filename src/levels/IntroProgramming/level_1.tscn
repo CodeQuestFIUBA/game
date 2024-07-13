@@ -1,7 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://dr0xrs5dai1v2"]
+[gd_scene load_steps=26 format=3 uid="uid://dr0xrs5dai1v2"]
 
 [ext_resource type="Texture2D" uid="uid://hfu7h4v3kbr4" path="res://sprites/TilesetWater.png" id="1_ak44b"]
 [ext_resource type="Script" path="res://levels/IntroProgramming/level_1.gd" id="1_sut27"]
+[ext_resource type="PackedScene" uid="uid://cn8vfh00qa1gr" path="res://components/menu/menu.tscn" id="2_5oj3p"]
 [ext_resource type="Texture2D" uid="uid://ck2par2vjemj" path="res://sprites/TilesetNature.png" id="2_ieoam"]
 [ext_resource type="Texture2D" uid="uid://th6ag8sbqr6r" path="res://sprites/TilesetHouse.png" id="3_jm51q"]
 [ext_resource type="Texture2D" uid="uid://bsxq2qe7152ed" path="res://sprites/TilesetFloor.png" id="4_jwl1h"]
@@ -9382,6 +9383,10 @@ tile_set = SubResource("TileSet_yjgne")
 format = 2
 layer_0/z_index = 6
 layer_0/tile_data = PackedInt32Array(524288, 720896, 4)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Menu" parent="CanvasLayer" instance=ExtResource("2_5oj3p")]
 
 [connection signal="body_entered" from="FirstTable" to="." method="_on_first_table_body_entered"]
 [connection signal="body_entered" from="SecondTable" to="." method="_on_second_table_body_entered"]

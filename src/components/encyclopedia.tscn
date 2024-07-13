@@ -192,6 +192,7 @@ layout_mode = 2
 texture_normal = ExtResource("4_ptg40")
 
 [node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/MarginContainer"]
+visible = false
 custom_minimum_size = Vector2(2.08165e-12, 2.08165e-12)
 layout_mode = 2
 size_flags_horizontal = 8
