@@ -4,101 +4,66 @@ extends Node2D
 @onready var player = $Player
 @onready var base_sprite = $Sprite2D
 @onready var master = $Master
-@onready var tileMapDoor = $TileMap2
 
-enum {
-	VEGETABLE,
-	MEAT,
-	FISH
-}
 
-var total_items = {
-	"fish": {
-		"items": 5,
-		"variants": {
-			"octupus": 2,
-			"shirmp": 1,
-			"calamari": 1,
-			"fish": 1
-		}
-	},
-	"vegetables": {
-		"items": 4,
-		"variants": {
-			"seed1": 2,
-			"seed2": 1,
-			"seedLarge": 1
-		}
-	},
-	"meat": {
-		"items": 3,
-		"variants": {
-			"beaf": 2,
-			"yakitori": 1
-		}
-	}
-}
-
-var fish_textures_index = 0
-var fish_textures = [
+var box_1_textures_index = 0
+var box_1_textures = [
 	{
-		"texture": "res://sprites/food/Calamari.png",
-		"pos": Vector2(104,40)
+		"texture": "res://sprites/objects/WaterPot.png",
+		"pos": Vector2(168,168),
+		"type": "potion"
 	},
 	{
-		"texture": "res://sprites/food/Octopus.png",
-		"pos": Vector2(136,40)
+		"texture": "res://sprites/weapons/Katana.png",
+		"pos": Vector2(184,168),
+		"type": "weapon"
 	},
 	{
-		"texture": "res://sprites/food/Octopus.png",
-		"pos": Vector2(120,56)
-	},
-	{
-		"texture": "res://sprites/food/Fish.png",
-		"pos": Vector2(104,72)
-	},
-	{
-		"texture": "res://sprites/food/Shrimp.png",
-		"pos": Vector2(136,72)
+		"texture": "res://sprites/food/SeedBig1.png",
+		"pos": Vector2(184,184),
+		"type": "meal"
 	}
 ]
 
-var vegetables_textures_index = 0
-var vegetables_textures = [
-	{
-		"texture": "res://sprites/food/SeedBig1.png",
-		"pos": Vector2(216,40)
-	},
+var box_2_textures_index = 0
+var box_2_textures = [
 	{
 		"texture": "res://sprites/food/SeedLarge.png",
-		"pos": Vector2(200,56)
+		"pos": Vector2(264,184),
+		"type": "meal"
 	},
 	{
-		"texture": "res://sprites/food/SeedBig2.png",
-		"pos": Vector2(232,56)
+		"texture": "res://sprites/weapons/Sai.png",
+		"pos": Vector2(248,184),
+		"type": "weapon"
 	},
 	{
-		"texture": "res://sprites/food/SeedBig1.png",
-		"pos": Vector2(216,72)
+		"texture": "res://sprites/objects/MilkPot.png",
+		"pos": Vector2(248,168),
+		"type": "potion"
 	}
 ]
-var meat_textures_index = 0;
-var meat_textures = [
+var box_3_textures_index = 0;
+var box_3_textures = [
+	
 	{
-		"texture": "res://sprites/food/Beaf.png",
-		"pos": Vector2(312,56)
+		"texture": "res://sprites/objects/LifePot.png",
+		"pos": Vector2(344,168),
+		"type": "potion"
+	},
+	{
+		"texture": "res://sprites/weapons/Katana.png",
+		"pos": Vector2(344,184),
+		"type": "weapon"
 	},
 	{
 		"texture": "res://sprites/food/Beaf.png",
-		"pos": Vector2(296,72)
-	},
-	{
-		"texture": "res://sprites/food/Yakitori.png",
-		"pos": Vector2(328,72)
-	},
+		"pos": Vector2(328,168),
+		"type": "meal"
+	}
 ]
 
-var table_sprite = "res://sprites/table2.png"
+var ground_sprite = "res://sprites/ground.png"
 var end = false
 var texture = null
 var selected_type = null
@@ -107,22 +72,18 @@ var box2_type = null
 var box3_type = null
 
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	var phrases: Array[String] = [
 		"Bienvenido, es hora de aprender los principios de la programación", 
-		"Tenemos tres mesas con diferentes tipos de alimentos",
-		"En la primera tenemos pescados",
-		"En la segunda vegetales",
-		"Y en la tercera carnes",
-		"Y por abajo tenemos tres contenedores, para guardar cada tipo diferente de alimentos.",
-		"Necesitamos que guardes los alimentos de la mesa en cada contenedor",
-		"Pero dado que los aldeanos necesitan que no se mezclen los alimentos",
-		"Se debe guardar en cada contenedor un tipo de alimento distinto."
+		"Tenemos tres cajas con diferentes tipos de objetos",
+		"Y por arriba tenemos tres mesas, para separar cada tipo de objeto diferente.",
+		"Necesitamos que organices los objetos de la cajas en cada mesa por tipo",
+		"Aso es más facil hallarlos en el equipaje.",
 	]
 	show_master_messages(phrases)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(delta):
 	pass
 
@@ -131,43 +92,43 @@ func _get_texture_by_type():
 	pass
 
 func _on_first_table_body_entered(body):
-	if texture || fish_textures_index >= fish_textures.size():
+	if texture || box_1_textures_index >= box_1_textures.size():
 		return
-	texture = fish_textures[fish_textures_index]["texture"]
+	texture = box_1_textures[box_1_textures_index]["texture"]
 	player.set_object_texture(texture)
 	player.set_show_object(true)
-	selected_type = FISH
-	cover_table(fish_textures[fish_textures_index]["pos"])
-	fish_textures_index += 1
+	selected_type = box_1_textures[box_1_textures_index]["type"]
+	cover_table(box_1_textures[box_1_textures_index]["pos"])
+	box_1_textures_index += 1
 
 
 func _on_second_table_body_entered(body):
-	if texture || vegetables_textures_index >= vegetables_textures.size():
+	if texture || box_2_textures_index >= box_2_textures.size():
 		return
-	texture = vegetables_textures[vegetables_textures_index]["texture"]
+	texture = box_2_textures[box_2_textures_index]["texture"]
 	player.set_object_texture(texture)
 	player.set_show_object(true) 
-	selected_type = VEGETABLE
-	cover_table(vegetables_textures[vegetables_textures_index]["pos"])
-	vegetables_textures_index += 1
+	selected_type = box_2_textures[box_2_textures_index]["type"]
+	cover_table(box_2_textures[box_2_textures_index]["pos"])
+	box_2_textures_index += 1
 
 
 func _on_third_table_body_entered(body):
-	if texture || meat_textures_index >= meat_textures.size():
+	if texture || box_3_textures_index >= box_3_textures.size():
 		return
-	texture = meat_textures[meat_textures_index]["texture"]
+	texture = box_3_textures[box_3_textures_index]["texture"]
 	player.set_object_texture(texture)
 	player.set_show_object(true) 
-	selected_type = MEAT
-	cover_table(meat_textures[meat_textures_index]["pos"])
-	meat_textures_index += 1
+	selected_type = box_3_textures[box_3_textures_index]["type"]
+	cover_table(box_3_textures[box_3_textures_index]["pos"])
+	box_3_textures_index += 1
 
 
 func cover_table(position: Vector2):
 	var sprite = Sprite2D.new()
 	sprite.position = Vector2(position)
 	sprite.z_index = 6
-	sprite.texture = ResourceLoader.load(table_sprite)
+	sprite.texture = ResourceLoader.load(ground_sprite)
 	add_child(sprite)
 
 
@@ -191,10 +152,10 @@ func invalidate_add_element(box_type):
 	var invalid_box_type = box_type != null && box_type != selected_type
 	var exist_box_with_element = box_type == null && (box1_type == selected_type || box2_type == selected_type || box3_type == selected_type)
 	if invalid_box_type:
-		var phrases: Array[String] = ["Cada caja debe tener un tipo de alimentos"]
+		var phrases: Array[String] = ["Cada mesa debe tener un tipo de objeto"]
 		show_master_messages(phrases)
 	if exist_box_with_element:
-		var phrases: Array[String] = ["Ya existe una caja con ese  tipo de alimentos"]
+		var phrases: Array[String] = ["Ya existe una mesa con ese tipo de objetos"]
 		show_master_messages(phrases)
 	return invalid_box_type || exist_box_with_element
 
@@ -203,8 +164,8 @@ func _on_box_1_body_entered(body):
 	if invalidate_add_element(box1_type):
 		return
 	box1_type = selected_type
-	var x: int = randi_range(176,192)
-	var y: int = randi_range(176,192)
+	var x: int = randi_range(104,136)
+	var y: int = randi_range(40,72)
 	add_sprite(x,y)
 
 
@@ -212,8 +173,8 @@ func _on_box_2_body_entered(body):
 	if invalidate_add_element(box2_type):
 		return
 	box2_type = selected_type
-	var x: int = randi_range(256,272)
-	var y: int = randi_range(176,192)
+	var x: int = randi_range(200,232)
+	var y: int = randi_range(40,72)
 	add_sprite(x,y)
 
 
@@ -221,8 +182,8 @@ func _on_box_3_body_entered(body):
 	if invalidate_add_element(box3_type):
 		return
 	box3_type = selected_type
-	var x: int = randi_range(336,352)
-	var y: int = randi_range(176,192)
+	var x: int = randi_range(296,328)
+	var y: int = randi_range(40,72)
 	add_sprite(x,y)
 
 
@@ -232,14 +193,13 @@ func show_master_messages(phrases: Array[String]):
 
 
 func end_game():
-	if end || meat_textures.size() > meat_textures_index || vegetables_textures.size() > vegetables_textures_index || fish_textures.size() > fish_textures_index:
+	if end || box_3_textures.size() > box_3_textures_index || box_2_textures.size() > box_2_textures_index || box_1_textures.size() > box_1_textures_index:
 		return
 	end = true
 	var phrases: Array[String] = [
-		"Felicitaciones, completaste el desafio", 
-		"Ahora tendria que hacer una introduccion a como se relaciona esto con una variable",
-		"Pero queda para cuando lo tenga mas claro...",
-		"Puedes retirarte para seguir con los proximos desafios..."
+		"¡Felicidades! Has organizado los objetos en las mesas.", 
+		"Cada mesa representa una variable en programación, guardando un tipo específico de objeto.",
+		"Así como organizaste los objetos, las variables nos ayudan a organizar y almacenar datos.",
+		"Recuerda, una variable es como una mesa donde guardas cosas específicas para usarlas fácilmente."
 	]
 	await show_master_messages(phrases)
-	tileMapDoor.queue_free()
