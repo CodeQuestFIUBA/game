@@ -1,0 +1,45 @@
+extends Node2D
+
+const LEVELS = {
+	"level_1": "res://levels/Challenges/level_1.tscn",
+	"level_2": "res://levels/Challenges/level_2.tscn",
+	"level_3": "res://levels/Challenges/level_3.tscn",
+	"boss": "res://levels/Challenges/boss.tscn",
+}
+
+@onready var doors = [
+	$Door2,
+	$Door3,
+	$BossDoor
+]
+
+func _ready():
+	LevelManager.progress_updated.connect(update_doors)
+
+func _on_player_detector_body_entered(body: Node2D) -> void:
+	RoomEvents.room_entered.emit(self)
+
+func _start_level(level_key: String) -> void:
+	if LEVELS.has(level_key):
+		LevelManager.load_scene(get_tree().current_scene.scene_file_path, LEVELS[level_key])
+	else:
+		print("Error: Level key not found.")
+
+func _on_level_1_body_entered(body):
+	_start_level("level_1")
+
+func _on_level_2_body_entered(body):
+	_start_level("level_2")
+
+func _on_level_3_body_entered(body):
+	_start_level("level_3")
+
+func _on_boss_body_entered(body):
+	_start_level("boss")
+
+func update_doors():
+	var progress = LevelManager.get_level("desafios")
+	for i in range(progress.size()-1):
+		if progress[i].completed:
+			doors[i].visible = false;
+			doors[i].get_node('CollisionShape2D').disabled = true

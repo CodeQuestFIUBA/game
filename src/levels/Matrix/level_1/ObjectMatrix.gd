@@ -2,7 +2,7 @@ extends TileMap
 
 @onready var timer = get_node("../Timer");
 
-signal matrixAnimationFinished(coords);
+signal matrixAnimationFinished(coords, success);
 
 var params;
 var result;
@@ -24,10 +24,6 @@ func updateMarker(coords: Vector2i, previousCoords: Vector2i):
 	set_cell(markerLayer, coords, 1, markerTextureCoord, markerTextureAlt);
 	
 func on_coordinates_update(coords, params, new_result, new_expected_result):
-	if coords.size() == 0:
-		print("Error");
-		return;
-		
 	if current: 
 		previous = current 
 	else: 
@@ -51,5 +47,7 @@ func _on_timer_timeout():
 	
 func _validate_success():
 	if result.x == expected_result.x && result.y == expected_result.y:
-		emit_signal("matrixAnimationFinished", current);
+		emit_signal("matrixAnimationFinished", current, true);
+		return
+	emit_signal("matrixAnimationFinished", current, false);
 	

@@ -1,0 +1,58 @@
+[gd_scene load_steps=14 format=3 uid="uid://ktgompje250s"]
+
+[ext_resource type="PackedScene" uid="uid://by3klqkkeyrhh" path="res://levels/Lobby/Home.tscn" id="1_5j3d3"]
+[ext_resource type="PackedScene" uid="uid://nh5lwjilunkq" path="res://levels/Lobby/LevelRooms/Arrays.tscn" id="2_fubv5"]
+[ext_resource type="PackedScene" uid="uid://barsv8fwtrw2p" path="res://levels/Lobby/LevelRooms/Introduction.tscn" id="3_6tk88"]
+[ext_resource type="PackedScene" uid="uid://cu053fyxmd62s" path="res://levels/Lobby/Credits.tscn" id="4_euaqc"]
+[ext_resource type="PackedScene" uid="uid://bagso5udr8ryv" path="res://levels/Lobby/Connectors/Connector_5.tscn" id="5_2177r"]
+[ext_resource type="PackedScene" uid="uid://b3i8il7toh6if" path="res://levels/Lobby/LevelRooms/Basics.tscn" id="6_urecu"]
+[ext_resource type="PackedScene" uid="uid://b0dtcgoptd4le" path="res://levels/Lobby/LevelRooms/Challenges.tscn" id="7_uio8f"]
+[ext_resource type="PackedScene" uid="uid://cngv3kccfiw4d" path="res://levels/Lobby/Connectors/Connector_1.tscn" id="8_emvy8"]
+[ext_resource type="PackedScene" uid="uid://b0vlb5a1aomwu" path="res://levels/Lobby/Settings.tscn" id="9_j344d"]
+[ext_resource type="PackedScene" uid="uid://ccu3d7x4rgpok" path="res://levels/Lobby/Connectors/Connector_4.tscn" id="10_j1hxg"]
+[ext_resource type="PackedScene" uid="uid://dp76mkjo36s1s" path="res://levels/Lobby/Connectors/Connector_3.tscn" id="11_tqbxu"]
+[ext_resource type="PackedScene" uid="uid://cpaehd6otgcrl" path="res://levels/Lobby/Connectors/Connector_2.tscn" id="12_wvje0"]
+[ext_resource type="PackedScene" uid="uid://5ras1upnumww" path="res://levels/Lobby/LevelRooms/Functions.tscn" id="13_aao22"]
+
+[node name="Lobby" type="Node2D"]
+position = Vector2(200, 112)
+metadata/_edit_horizontal_guides_ = [224.0, 448.0, 672.0]
+metadata/_edit_vertical_guides_ = [400.0, 800.0, 1201.0, 1600.0]
+
+[node name="Home" parent="." instance=ExtResource("1_5j3d3")]
+position = Vector2(400, 447)
+
+[node name="Arrays" parent="." instance=ExtResource("2_fubv5")]
+position = Vector2(1200, 0)
+
+[node name="Introduction" parent="." instance=ExtResource("3_6tk88")]
+position = Vector2(-400, 224)
+
+[node name="Credits" parent="." instance=ExtResource("4_euaqc")]
+position = Vector2(0, 448)
+
+[node name="GoodPractices" parent="." instance=ExtResource("5_2177r")]
+position = Vector2(1200, 224)
+
+[node name="Basics" parent="." instance=ExtResource("6_urecu")]
+
+[node name="Challenges" parent="." instance=ExtResource("7_uio8f")]
+position = Vector2(1600, 224)
+
+[node name="Connector1" parent="." instance=ExtResource("8_emvy8")]
+position = Vector2(0, 224)
+
+[node name="Settings" parent="." instance=ExtResource("9_j344d")]
+position = Vector2(800, 448)
+
+[node name="Connector4" parent="." instance=ExtResource("10_j1hxg")]
+position = Vector2(800, 0)
+
+[node name="Connector3" parent="." instance=ExtResource("11_tqbxu")]
+position = Vector2(800, 224)
+
+[node name="Connector2" parent="." instance=ExtResource("12_wvje0")]
+position = Vector2(400, 224)
+
+[node name="Arrays2" parent="." instance=ExtResource("13_aao22")]
+position = Vector2(800, -224)

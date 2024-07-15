@@ -1,0 +1,105 @@
+extends Node2D
+
+@onready var npcExplainer = $npcExplainer;
+@onready var ninja = $Ninja
+@onready var blockTarget = $BlockTarget
+@onready var mainButton = $PlayButton
+@onready var boat = $Boat
+
+signal boatArrivedPort
+
+const solution = [
+	{"value" : "Mover Arriba","target": Vector2(248,54) },
+	{"value" : "Mover Izquierda", "target": Vector2(200,52) },
+	{"value": "IF(bote_en_puerto)", "target": Vector2(15,112) },
+	{"value": "IF(destino_maestro)", "target": Vector2(153,112) },
+	{"value": "Subir al Bote", "target": Vector2(153,112) },
+	{"value": "END IF", "target": Vector2(153,62) },
+	{"value": "END IF", "target": Vector2(153,62) },
+	{"value" : "Mover Izquierda", "target": Vector2(50,62) },
+]
+
+func _ready():
+	$moveDown.setAction("Mover Abajo")
+	$moveUp.setAction("Mover Arriba")
+	$moveLeft.setAction("Mover Izquierda")
+	$moveRight.setAction("Mover Derecha")
+	$subirAlBote.setAction("Subir al Bote")
+	$if.setAction("IF(bote_en_puerto)")
+	$ifDestinoMaestro.setAction("IF(destino_maestro)")
+	$endIf.setAction("END IF")
+	start_Level()
+
+func _on_play_button_pressed():
+	validate_instructions()
+
+func start_Level () :
+	load_introduction_dialogs()
+	set_boat_positions()
+
+func load_introduction_dialogs():
+	const intruction_dialogs : Array[String] = [
+	"¡Hola Bitama!",
+	"En este nivel simplemente vamos a agregar otra escala al condicional",
+	"Ahora el bote tiene 2 destinos, mi puerto y otro vacio",
+	"Por lo tanto, no solo vas a tener que validar que el bote este disponible, si no que ademas el destino sea el correcto"
+	]
+	talk_as_master(intruction_dialogs)
+
+func set_boat_positions():
+	boat.setPositions([Vector2(177, 57), Vector2(48,72),  Vector2(177, 57), Vector2(64, 25)]);
+	boat.start();
+
+func validate_instructions():
+	var inserted_elements = blockTarget.getPuzzle()
+	var inserted_len = len(inserted_elements)
+	var solution_len = len(solution)
+	if (inserted_len > solution_len):
+		talk_as_master([".MMMMM","Creo que estas poniendo instrucciones demás"])
+	elif (solution_len > inserted_len):
+		talk_as_master([".MMMMM","Creo que te faltan algunas instrucciones ..."])
+	elif ( is_valid_solution(inserted_elements) ):
+		talk_as_master(["Siiiii ...", "Con ese camino no te caes al agua!!"])
+		mover_a_objectivo()
+	else:
+		talk_as_master([".MMMM", "Esa combinación no es válida..", "... Fijate bien :("])
+
+func talk_as_master(dialogs :Array[String]):
+	npcExplainer.update_phrases(dialogs,Vector2(30, 15),true, {'auto_play_time': 1, 'close_by_signal':true})
+
+func is_valid_solution(inserted : Array) -> bool :
+	for x in len (solution) :
+		if (inserted[x] != solution[x]["value"] ):
+			return false
+	return true
+
+func mover_a_objectivo():
+	mainButton.disabled = true
+	#Las 2 primeras posiciones son para mover el jugador.
+	var positions : Array[Vector2] = []
+	for x in solution.slice(0,2) :
+		positions.append(x["target"])
+	ninja.update_destination(positions)
+	#Hay que esperar a que llegue
+	await boatArrivedPort
+	boat.put_ninja_on_board()
+	ninja.hide()
+	ninja.set_position(Vector2(40,18))
+	await boat.onArrival
+	boat.remove_ninja_on_board()
+	ninja.show()
+	positions = [Vector2(29,19)]
+	ninja.update_destination(positions)
+	complete_level()
+
+func _on_boat_on_arrival(pos):
+	boat.stop()
+	print(boat.actual_target)
+	if (boat.actual_target == 2) :
+		boatArrivedPort.emit()
+	await get_tree().create_timer(2.0).timeout
+	boat.start()
+
+
+func complete_level():
+	ApiService.send_request("{}", HTTPClient.METHOD_PUT, "score/complete/introduction/2", "COMPLETE_LEVEL")

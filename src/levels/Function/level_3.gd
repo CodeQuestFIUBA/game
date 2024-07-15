@@ -27,8 +27,8 @@ var player2_final_position: Array[Vector2] = [Vector2(170,154)]
 var player_end_position: Array[Vector2] = [Vector2(181,216)]
 var executing_code = false
 var weapons: Array[String] = ['sai', 'katana', 'ninjaku', 'whip']
-var enemy_result = {'total': 0, 'arma': 0}
-var result = {'total': 0, 'arma': 0}
+
+var master_msg_position = Vector2(90,76)
 
 func get_valid_weapon(weapon: String):
 	match weapon:
@@ -41,32 +41,59 @@ func get_valid_weapon(weapon: String):
 		'whip':
 			return 'sai'
 
-func test_result():
-	var total_enemy = randi_range(2,3)
-	var weapon = weapons[randi_range(0,3)]
-	var player_weapon = get_valid_weapon(weapon)
-	enemy_result["total"] = total_enemy
-	enemy_result["arma"] = weapon
-	result["total"] = total_enemy
-	result["arma"] = player_weapon
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print(randi_range(2,3))
-	print(randi_range(2,3))
 	ApiService.connect("signalApiResponse", process_response)
 	IDE.connect("executeCodeSignal", sendCode)
-	IDE.set_ide_visible(false)
 	process_intro()
+
+
+
+func process_response(res, extraArg):
+	match extraArg:
+		"LOGIN": pass
+		"COMPLETE_LEVEL": pass
+		"ADD_ATTEMPT": pass
+		"SEND_CODE": 
+			if !res || res["code"] != 200:
+				show_error_response(res["message"])
+				return;
+			process_result(res["data"]["result"])
+
+
+func show_error_response(error: String):
+	var phrases: Array[String] = [
+		"Lo siento Bitama, pero no logre ejecutar tu código",
+		"Me retorno el siguiente mensaje",
+		error,
+		"¡Corrigelo y vuelve a intentarlo!"
+	]
+	show_message(phrases)
+
+
+func show_message(phrases):
+	master.update_phrases(phrases, master_msg_position, true, {'auto_play_time': 1, 'close_by_signal': true})
+	await DialogManager.signalCloseDialog
+	executing_code = false
+	loadHelp()
+
+
+func loadHelp():
+	var phrases: Array[String] = [
+		"Recuerda seleccionar el arma adecuada...",
+		"Recuerda no hacer copias de más o te agotaras...",
+		"Recuerda que si son X enemigos debes hacer X copias..."
+	]
+	master.update_phrases(phrases, master_msg_position, false, {'auto_play_time': 1, 'close_by_signal': true})
 
 
 func process_intro():
 	player.update_destination(player_initial_position)
 	await player.npcArrived
 	var phrases: Array[String] = [
-		"Bienvenido, estas listo para el ultimo desafio",
-		"Pero antes, te enseñare una ultima tecnica: clon de sombra"
+		"Bienvenida Bitama, estas listo para el ultimo desafio",
+		"Pero antes, vamos a volver a practicar la tecnica de clonación"
 	]
 	master.update_phrases(phrases, Vector2(90,76), true, {'auto_play_time': 1, 'close_by_signal': true})
 	await DialogManager.signalCloseDialog
@@ -76,7 +103,7 @@ func process_intro():
 		"Pero no debes debes hacer clones de mas",
 		"Ya que te agotara y te afectara para futuras batallas"
 	]
-	master.update_phrases(phrases, Vector2(90,76), true, {'auto_play_time': 1, 'close_by_signal': true})
+	master.update_phrases(phrases, master_msg_position, true, {'auto_play_time': 1, 'close_by_signal': true})
 	await DialogManager.signalCloseDialog
 	master2.visible = false
 	phrases = [
@@ -89,10 +116,11 @@ func process_intro():
 		"arma: con el arma a utilizar",
 		"total: con la cantidad de copias a realizar"
 	]
-	master.update_phrases(phrases, Vector2(90,76), true, {'auto_play_time': 1, 'close_by_signal': true})
+	master.update_phrases(phrases, master_msg_position, true, {'auto_play_time': 1, 'close_by_signal': true})
 	await DialogManager.signalCloseDialog
 	var codeLines: Array[String] = ["function pelear(cantidadEnemigos, armaEnemigo) {", "	//Ninjaku gana a Sai", "	//Sai gana a Whip", "	//Whip gana a Katana", "	//Katana gana a Ninjaku", "	", "	return {", "		arma: ''", "		total: 0", "	}", "}"]
 	IDE.set_code(codeLines)
+	loadHelp()
 
 func get_weapon_texture(weapon: String):
 	match weapon:
@@ -185,21 +213,26 @@ func battle(total: int, valid_weapon: bool, valid_total: bool):
 			"¡Muy bien, lograste vencer a nuestros enemigos!",
 			"Ahora estas listo para enfrentar al jefe Spaghetti Shadowblade"
 		]
+		complete_level()
 	elif !valid_weapon:
 		phrases= [
 			"Lo siento, el arma no fue la correcta",
 			"Vamos a intentarlo nuevamente"
 		]
+		add_attempt()
 	else:
 		phrases= [
 			"Lo siento, la cantidad de clones fueron incorrectos",
 			"Vamos a intentarlo nuevamente"
 		]
+		add_attempt()
 	master.update_phrases(phrases, Vector2(90,76), true, {'auto_play_time': 1, 'close_by_signal': true})
 	await DialogManager.signalCloseDialog
 
 
-func process_result():
+func process_result(data):
+	var enemy_result = data['enemy_result']
+	var result = data["user_result"]
 	await move_enemies_initial_position(enemy_result)
 	await load_player_initial_position(result)
 	var valid_weapon = get_valid_weapon(enemy_result['arma']) == result['arma']
@@ -226,9 +259,10 @@ func sendCode(code):
 	if executing_code:
 		return
 	executing_code = true
-	test_result()
-	await process_result()
+	ApiService.send_request(code, HTTPClient.METHOD_POST, "functions/object", "SEND_CODE")
 
-
-func process_response(resp):
-	pass
+func add_attempt():
+	ApiService.send_request("{}", HTTPClient.METHOD_PUT, "score/attempts/funciones_y_operadores/2", "ADD_ATTEMPT")
+	
+func complete_level():
+	ApiService.send_request("{}", HTTPClient.METHOD_PUT, "score/complete/funciones_y_operadores/2", "COMPLETE_LEVEL")

@@ -1,7 +1,7 @@
 extends StaticBody2D
 
 var dropedBlocks : Array[SimpleBlock]
-var initial_drop_position = Vector2(344, 30)
+var initial_drop_position = Vector2(344, 36)
 var max_blocks = 10
 
 # Called when the node enters the scene tree for the first time.

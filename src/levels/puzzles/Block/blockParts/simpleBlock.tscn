@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://foqkg3csvokp"]
+[gd_scene load_steps=5 format=3 uid="uid://foqkg3csvokp"]
 
 [ext_resource type="Texture2D" uid="uid://bgi3l31t2gsmb" path="res://levels/puzzles/Block/blockSprites/simpleBlock.png" id="1_44jjt"]
 [ext_resource type="Script" path="res://levels/puzzles/Block/blockParts/simpleBlock.gd" id="1_b4yw1"]
+[ext_resource type="FontFile" uid="uid://b2eo3bo5eljsj" path="res://fonts/Pixelme.ttf" id="3_13krk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hyk1e"]
 size = Vector2(63, 12)
@@ -14,10 +15,11 @@ texture = ExtResource("1_44jjt")
 
 [node name="Label" type="Label" parent="."]
 offset_left = -31.0
-offset_top = -7.0
+offset_top = -5.0
 offset_right = 31.0
-offset_bottom = 5.0
+offset_bottom = 7.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_13krk")
 theme_override_font_sizes/font_size = 6
 text = "
 "

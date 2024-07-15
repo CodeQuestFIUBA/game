@@ -13,82 +13,34 @@ extends Control
 @onready var thirdLevel = "res://sprites/objects/bronzeCup.png"
 @onready var noCup = "res://sprites/objects/noCup.png"
 
-var points = [
-	{
-		"level": "Programación basica 1",
-		"complete": true,
-		"score": 300,
-		"qualification": 1
-	},
-	{
-		"level": "Programación basica 2",
-		"complete": true,
-		"score": 150,
-		"qualification": 3
-	},
-	{
-		"level": "Programación basica 3",
-		"complete": false,
-		"score": 0,
-		"qualification": 0
-	},
-	{
-		"level": "Funciones 1",
-		"complete": true,
-		"score": 150,
-		"qualification": 2
-	},
-	{
-		"level": "Funciones 2",
-		"complete": false,
-		"score": 0,
-		"qualification": 0
-	}
-]
-
-var scores = [
-	{
-		"user": "Gonzalo",
-		"score": 350,
-		"myUser": false
-	},
-	{
-		"user": "Ezequiel",
-		"score": 300,
-		"myUser": false
-	},
-	{
-		"user": "Nicolas",
-		"score": 250,
-		"myUser": false
-	},
-	{
-		"user": "Mariano",
-		"score": 100,
-		"myUser": true
-	},
-	{
-		"user": "Bruno",
-		"score": 0,
-		"myUser": false
-	}
-]
+var call_points = false
 
 func _ready():
+	if ApiService:
+		ApiService.connect("signalApiResponse", process_response)
+	ApiService.send_request("{}", HTTPClient.METHOD_GET, "score", "GET_POINTS")
+	#ApiService.login("mafvidal35@gmail.com", "Asd123456+", "LOGIN_POINTS");
 	myPointsButton.toggle_mode = true
 	myPointsButton.set_pressed(true)
 	classPointsButton.toggle_mode = true
-	for point in points:
-		addPoint(point)
-	print(scores)
-	for i in range(scores.size()):
-		addUserPoint(scores[i], i + 1)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
+func process_points(res):
+	var scores = res["data"]["scoresByClassRoom"]
+	var points = res["data"]["scores"]
+	for point in points:
+		addPoint(point)
+	for i in range(scores.size()):
+		addUserPoint(scores[i], i + 1)
+
+func process_response(res, extraArg):
+	if !res || res["code"] != 200:
+		return
+	match extraArg:
+		"GET_POINTS": process_points(res)
 
 func addPoint(point):
 	var pointsContainer = pointsContainerLevel.duplicate()
@@ -100,11 +52,13 @@ func addPoint(point):
 	var score = childs[3]
 	level.text = point.level
 	score.text = str(point.score) + " Pts"
-	match point.qualification:
+	#print(point.qualification == 0)
+	match int(point.qualification):
 		0: cupTexture.texture = load(noCup)
 		1: cupTexture.texture = load(fistLevel)
 		2: cupTexture.texture = load(secondLevel)
 		3: cupTexture.texture = load(thirdLevel)
+		_: cupTexture.texture = load(noCup)
 	pointsList.add_child(pointsContainer)
 
 

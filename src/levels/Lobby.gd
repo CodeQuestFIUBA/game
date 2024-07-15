@@ -1,11 +1,10 @@
 extends Node
 
+var user_logged = false
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	Session.session_updated.connect(update_levels)
+	update_levels()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func update_levels():
+	LevelManager.update_levels()

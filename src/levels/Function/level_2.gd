@@ -12,7 +12,7 @@ extends Node2D
 @onready var weapon_katana_texture = "res://sprites/weapons/Katana.png"
 @onready var weapon_ninjaku_texture = "res://sprites/weapons/Ninjaku.png"
 @onready var weapon_whip_texture = "res://sprites/weapons/Whip.png"
-
+var nextLevel = "res://levels/Function/level_3.tscn"
 
 var player_origin: Array[Vector2] = [Vector2(57,216)]
 var player_initial_move: Array[Vector2] = [ Vector2(57,130) ]
@@ -29,6 +29,7 @@ var executing_code = false
 var result = []
 var orderResult: Array[String] = []
 var weaponsByTable: Array[String] = ['sai', 'katana', 'ninjaku', 'whip']
+var master_msg_position: Vector2 = Vector2(56,155)
 
 func test_result():
 	for weapon in orderResult:
@@ -43,19 +44,44 @@ func test_result():
 				result.push_back('sai')
 
 func _ready():
-	orderResult = weaponsByTable.duplicate(true)
-	randomize()
-	orderResult.shuffle()
+	#orderResult = weaponsByTable.duplicate(true)
+	#randomize()
+	#orderResult.shuffle()
 	ApiService.connect("signalApiResponse", process_response)
 	IDE.connect("executeCodeSignal", sendCode)
 	await process_intro()
+
+
+func process_response(res, extraArg):
+	match extraArg:
+		"LOGIN": pass
+		"COMPLETE_LEVEL": pass
+		"ADD_ATTEMPT": pass
+		"SEND_CODE": 
+			if !res || res["code"] != 200:
+				show_error_response(res["message"])
+				return;
+			process_result(res["data"]["result"])
+
+
+func show_error_response(error: String):
+	var phrases: Array[String] = [
+		"Lo siento Bitama, pero no logre ejecutar tu código",
+		"Me retorno el siguiente mensaje",
+		error,
+		"¡Corrigelo y vuelve a intentarlo!"
+	]
+	master.update_phrases(phrases, master_msg_position, true, {'auto_play_time': 1, 'close_by_signal': true})
+	await DialogManager.signalCloseDialog
+	executing_code = false
+	loadHelp()
 
 
 func process_intro():
 	player.update_destination(player_initial_move)
 	await player.npcArrived
 	var phrases: Array[String] = [
-		"Bienvenido, es hora de aprender a utilizar las armas ninja", 
+		"Hola Bitama, es hora de aprender a utilizar las armas ninja", 
 		"Debes saber que arma elegir segun el enemigo",
 		"El Ninjaku tiene ventaja sobre el Sai",
 		"El Sai sobre el Whip",
@@ -66,12 +92,15 @@ func process_intro():
 		"Escribe una función que recibe como parametro el arma del maestro",
 		"Y retorne el arma que tiene ventaja sobre esa"
 	]
-	master.update_phrases(phrases, Vector2(56,155), true, {'auto_play_time': 1, 'close_by_signal': true})
+	master.update_phrases(phrases, master_msg_position, true, {'auto_play_time': 1, 'close_by_signal': true})
 	await DialogManager.signalCloseDialog
 	var codeLines: Array[String] = ["function seleccionarArma(armaMaestro) {", "	//Ninjaku gana a Sai", "	//Sai gana a Whip", "	//Whip gana a Katana", "	//Katana gana a Ninjaku", "	", "}"]
 	IDE.set_code(codeLines)
+	loadHelp()
 
-func process_result():
+func process_result(data):
+	var orderResult = data["pedidos"]
+	var result = data["armas"]
 	for i in range(result.size()):
 		var master_weapon = orderResult[i]
 		var player_weapon = result[i]
@@ -82,7 +111,7 @@ func process_result():
 			phrases = ['¡Empecemos el duelo!']
 		else:
 			phrases = ['¡Vamos con el siguiente duelo!']
-		master.update_phrases(phrases, Vector2(56,155), true, {'auto_play_time': 1, 'close_by_signal': true})
+		master.update_phrases(phrases, master_msg_position, true, {'auto_play_time': 1, 'close_by_signal': true})
 		await DialogManager.signalCloseDialog
 		await move_master_intial_position(master_weapon)
 		await master_select_msg(master_weapon)
@@ -93,14 +122,24 @@ func process_result():
 		await startDuel(valid_weapon, correct_weapon)
 		await move_all_initial_position()
 		if !valid_weapon:
+			add_attempt()
 			executing_code = false
 			return
+	complete_level()
 	var phrases: Array[String] = ['¡Felicitaciones, lograste dominar todas las armas!', "Estas listo para seguir con los proximos desafios"]
-	master.update_phrases(phrases, Vector2(56,155), true, {'auto_play_time': 1, 'close_by_signal': true})
+	master.update_phrases(phrases, master_msg_position, true, {'auto_play_time': 1, 'close_by_signal': true})
 	await DialogManager.signalCloseDialog
 	player.update_destination(player_origin)
 	await player.npcArrived
+	next()
 
+
+func loadHelp():
+	var phrases: Array[String] = [
+		"Puedes utilizar un if o un switch para evaluar si las armas son iguales",
+		"Intenta retornar las constantes 'ESPERA' y 'VEN'"
+	]
+	master.update_phrases(phrases, master_msg_position, false, {'auto_play_time': 1, 'close_by_signal': true})
 
 func master_select_msg(weapon: String):
 	var phrases: Array[String] = []
@@ -216,10 +255,14 @@ func sendCode(code):
 	if executing_code:
 		return
 	executing_code = true
-	#le paso las armas a la api
-	test_result()
-	process_result()
+	ApiService.send_request(code, HTTPClient.METHOD_POST, "functions/ifelse", "SEND_CODE")
+
+func add_attempt():
+	ApiService.send_request("{}", HTTPClient.METHOD_PUT, "score/attempts/funciones_y_operadores/1", "ADD_ATTEMPT")
+	
+func complete_level():
+	ApiService.send_request("{}", HTTPClient.METHOD_PUT, "score/complete/funciones_y_operadores/1", "COMPLETE_LEVEL")
 
 
-func process_response(resp):
-	pass
+func next():
+	get_tree().change_scene_to_file(nextLevel)

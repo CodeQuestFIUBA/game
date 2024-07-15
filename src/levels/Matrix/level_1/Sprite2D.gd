@@ -26,7 +26,6 @@ func show_key(coords: Vector2i):
 	self.visible = true;
 		
 func move_to(position: Marker2D):
-	print("holi")
 	destination = position.global_position;
 	is_moving = true;
 	

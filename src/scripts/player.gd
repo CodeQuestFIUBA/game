@@ -17,6 +17,8 @@ func _ready():
 	GLOBAL.connect("directionsUpdated", _on_directions_update);
 
 func update_animations():
+	if !Session.token:
+		return
 	if GLOBAL.freely_move_character:	
 		if Input.is_action_pressed('ui_down'):
 			$AnimationPlayer.play('move_down');
@@ -63,7 +65,8 @@ func _physics_process(delta):
 		if ide.visible:
 			return
 	update_animations();
-	
+	if !Session.token:
+		return
 	if GLOBAL.freely_move_character:
 		move_player_using_keys();
 	else:
@@ -75,6 +78,8 @@ func _on_door_body_shape_entered(body_rid, body, body_shape_index, local_shape_i
 
 
 func update_animations_automatically(arg):
+	if !Session.token:
+		return
 	if arg.down == 1:
 		$AnimationPlayer.play('move_down');
 	elif arg.up == 1:

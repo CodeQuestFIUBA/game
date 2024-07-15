@@ -82,7 +82,7 @@ func animate_end_game():
 		player.update_animations_automatically({"left": 0, "right": 1, "up": 0, "down": 0})
 	(animationEnd as AnimationPlayer).play("end_demo")
 
-func process_response(resp):
+func process_response(resp, extraArg):
 	print("response", resp)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

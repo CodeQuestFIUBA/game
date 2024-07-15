@@ -1,0 +1,754 @@
+[gd_scene load_steps=19 format=3 uid="uid://db1wgbk5mniqm"]
+
+[ext_resource type="Script" path="res://components/menu/encyclopedia/encyclopedia.gd" id="1_yu2fj"]
+[ext_resource type="Texture2D" uid="uid://cc8ay0vjpr2lc" path="res://assets/nine_patch/nine_path_5.png" id="2_25srv"]
+[ext_resource type="FontFile" uid="uid://d0x3g1xocrvel" path="res://fonts/Montserrat-Bold.ttf" id="3_41wci"]
+[ext_resource type="Texture2D" uid="uid://bxkn22dt6lihi" path="res://sprites/ArrowLeft.png" id="4_ffn7x"]
+[ext_resource type="FontFile" uid="uid://cfh2dierldqgj" path="res://fonts/Montserrat-Regular.ttf" id="4_xo2wy"]
+[ext_resource type="Texture2D" uid="uid://dwa3rk044w0sa" path="res://sprites/checked.png" id="5_7lxsq"]
+[ext_resource type="FontFile" uid="uid://58645wo14wyv" path="res://fonts/NormalFont.ttf" id="5_dc8vi"]
+[ext_resource type="FontFile" uid="uid://cwam20v5n1rlx" path="res://fonts/Montserrat-Italic.ttf" id="6_55lro"]
+[ext_resource type="FontFile" uid="uid://crshinptiuvm1" path="res://fonts/Montserrat-SemiBoldItalic.ttf" id="7_cxdel"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bwkwm"]
+bg_color = Color(0, 0, 0, 0.207843)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t4mpj"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oby38"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7feev"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qj07f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_womuw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1lrw5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3tjyb"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t7yoa"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yu2fj")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bwkwm")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="NinePatchRect" type="NinePatchRect" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("2_25srv")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_t4mpj")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 4
+
+[node name="Options" type="VBoxContainer" parent="PanelContainer/MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/PanelContainer/MarginContainer/Options"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/MarginContainer/PanelContainer/MarginContainer/Options/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/PanelContainer/MarginContainer/Options/ScrollContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="PanelContainer/MarginContainer/PanelContainer/MarginContainer/Options/ScrollContainer/VBoxContainer2/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.254902, 0.254902, 0.254902, 1)
+theme_override_colors/font_focus_color = Color(0.266667, 0.266667, 0.266667, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_xo2wy")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxEmpty_oby38")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7feev")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_qj07f")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_womuw")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1lrw5")
+text = "label"
+
+[node name="SubOptions" type="VBoxContainer" parent="PanelContainer/MarginContainer/PanelContainer/MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/PanelContainer/MarginContainer/SubOptions"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_41wci")
+theme_override_font_sizes/font_size = 16
+text = "Opciones"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/PanelContainer/MarginContainer/SubOptions"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/MarginContainer/PanelContainer/MarginContainer/SubOptions/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/PanelContainer/MarginContainer/SubOptions/ScrollContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="PanelContainer/MarginContainer/PanelContainer/MarginContainer/SubOptions/ScrollContainer/VBoxContainer2/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.254902, 0.254902, 0.254902, 1)
+theme_override_colors/font_focus_color = Color(0.266667, 0.266667, 0.266667, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_xo2wy")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxEmpty_oby38")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7feev")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_qj07f")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_womuw")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1lrw5")
+text = "label"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/PanelContainer/MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_41wci")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="RichTextLabel" parent="PanelContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_xo2wy")
+theme_override_fonts/bold_font = ExtResource("3_41wci")
+theme_override_fonts/italics_font = ExtResource("6_55lro")
+theme_override_fonts/bold_italics_font = ExtResource("7_cxdel")
+theme_override_fonts/mono_font = ExtResource("5_dc8vi")
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 10
+theme_override_font_sizes/italics_font_size = 10
+theme_override_font_sizes/bold_italics_font_size = 10
+theme_override_font_sizes/mono_font_size = 10
+bbcode_enabled = true
+
+[node name="MarginTitleContainer" type="MarginContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_top = 8
+
+[node name="TittleSection" type="Label" parent="PanelContainer/MarginContainer/MarginTitleContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_41wci")
+theme_override_font_sizes/font_size = 16
+text = "Contenido"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/MarginContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_3tjyb")
+
+[node name="TextureButton" type="TextureButton" parent="PanelContainer/MarginContainer/MarginContainer/PanelContainer2"]
+layout_mode = 2
+texture_normal = ExtResource("4_ffn7x")
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/MarginContainer"]
+visible = false
+custom_minimum_size = Vector2(2.08165e-12, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/MarginContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_3tjyb")
+
+[node name="TextureButton" type="TextureButton" parent="PanelContainer/MarginContainer/MarginContainer2/PanelContainer2"]
+layout_mode = 2
+texture_normal = ExtResource("5_7lxsq")
+
+[node name="PanelContainer2" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_t7yoa")
+
+[node name="Algoritmo" type="RichTextLabel" parent="PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_xo2wy")
+theme_override_fonts/bold_font = ExtResource("3_41wci")
+theme_override_fonts/italics_font = ExtResource("6_55lro")
+theme_override_fonts/bold_italics_font = ExtResource("7_cxdel")
+theme_override_fonts/mono_font = ExtResource("5_dc8vi")
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 10
+theme_override_font_sizes/italics_font_size = 10
+theme_override_font_sizes/bold_italics_font_size = 10
+theme_override_font_sizes/mono_font_size = 10
+bbcode_enabled = true
+text = "[center]En informática, se llaman algoritmos el [b]conjunto de instrucciones sistemáticas y previamente definidas que se utilizan para realizar una determinada tarea[/b]. Estas instrucciones [b]están ordenadas y acotadas[/b] a manera de pasos a seguir para alcanzar un objetivo.[/center]
+
+[ul][b]Inicio y fin:[/b] parten de un estado inicial desde el cual ejecutan una serie de instrucciones para llegar a un estado final de salida o finalización.[/ul]
+
+[ul][b]Exactitud:[/b] deben indicar un orden claro, específico y lógico de instrucciones para la ejecución de cada paso, sin que exista espacio para la ambigüedad.[/ul]
+
+[ul][b]Secuencia:[/b] deben seguir una serie de pasos ordenados, entendibles y previamente establecidos.[/ul]
+
+[ul][b]Completos:[/b] deben tener en cuenta todas las posibilidades y presentaciones del problema para ejecutar la solución exacta.[/ul]
+
+[ul][b]Finitos:[/b] el número de pasos para ejecutar la tarea debe ser finito para darla por concluida.[/ul]
+
+[ul][b]Abstractos:[/b] representan una guía o modelo para ordenar procesos.[/ul]
+
+[center][img=150]res://sprites/encyclopedia/algoritmo.png[/img][/center]"
+
+[node name="Condicionales" type="RichTextLabel" parent="PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_xo2wy")
+theme_override_fonts/bold_font = ExtResource("3_41wci")
+theme_override_fonts/italics_font = ExtResource("6_55lro")
+theme_override_fonts/bold_italics_font = ExtResource("7_cxdel")
+theme_override_fonts/mono_font = ExtResource("5_dc8vi")
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 10
+theme_override_font_sizes/italics_font_size = 10
+theme_override_font_sizes/bold_italics_font_size = 10
+theme_override_font_sizes/mono_font_size = 10
+bbcode_enabled = true
+text = "[center]Los condicionales en programación permiten tomar decisiones y ejecutar diferentes bloques de código según estas.[/center]
+
+[ul][b]Estructura básica:[/b]
+[ul][b]Si (if):[/b] ejecuta un bloque de código si la condición es verdadera.
+[ul][b]Si no (else):[/b] ejecuta un bloque de código si la condición del \"si\" es falsa.
+[ul][b]Si no si (else if / elif):[/b] añade condiciones adicionales si la condición original es falsa.[/ul][/ul]
+
+[center][img=250]res://sprites/encyclopedia/condicionales.png[/img][/center]"
+
+[node name="TiposDeDatos" type="RichTextLabel" parent="PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_xo2wy")
+theme_override_fonts/bold_font = ExtResource("3_41wci")
+theme_override_fonts/italics_font = ExtResource("6_55lro")
+theme_override_fonts/bold_italics_font = ExtResource("7_cxdel")
+theme_override_fonts/mono_font = ExtResource("5_dc8vi")
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 10
+theme_override_font_sizes/italics_font_size = 10
+theme_override_font_sizes/bold_italics_font_size = 10
+theme_override_font_sizes/mono_font_size = 10
+bbcode_enabled = true
+text = "[center]En programación, los tipos de datos son fundamentales para definir el tipo de información que puede ser almacenada y manipulada en las variables. A continuación, se presentan algunos de los tipos de datos más comunes y su uso:[/center]
+
+[ul][b]Número (number):[/b] representa valores numéricos, tanto enteros como decimales. Se utilizan para realizar cálculos matemáticos y operaciones aritméticas. Ejemplos: 42, 3.14.[/ul]
+
+[ul][b]Cadena de texto (string):[/b] representa una secuencia de caracteres. Se utilizan para almacenar y manipular texto, como palabras, frases y cualquier tipo de datos alfanuméricos. Ejemplos: \"Hola, mundo\", \"12345\".[/ul]
+
+[ul][b]Booleano (boolean):[/b] representa valores lógicos que solo pueden ser verdaderos (true) o falsos (false). Se utilizan para realizar operaciones lógicas y tomar decisiones en el flujo del programa. Ejemplos: true, false.[/ul]
+
+[ul][b]Usos de los tipos de datos:[/b]
+[ul][b]Número:[/b] se usan en cálculos matemáticos, mediciones y cualquier operación que involucre valores numéricos.
+[ul][b]Cadena de texto:[/b] se usan en la manipulación de texto, almacenamiento de nombres, mensajes, y cualquier dato textual.
+[ul][b]Booleano:[/b] se usan en condiciones y decisiones, para evaluar expresiones lógicas y controlar el flujo del programa.[/ul][/ul]
+
+[center]Estos tipos de datos son esenciales para construir y manejar la lógica en cualquier programa, permitiendo la correcta interpretación y procesamiento de la información.[/center]"
+
+[node name="EstructuraDeControl" type="RichTextLabel" parent="PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_xo2wy")
+theme_override_fonts/bold_font = ExtResource("3_41wci")
+theme_override_fonts/italics_font = ExtResource("6_55lro")
+theme_override_fonts/bold_italics_font = ExtResource("7_cxdel")
+theme_override_fonts/mono_font = ExtResource("5_dc8vi")
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 10
+theme_override_font_sizes/italics_font_size = 10
+theme_override_font_sizes/bold_italics_font_size = 10
+theme_override_font_sizes/mono_font_size = 10
+bbcode_enabled = true
+text = "[left]En programación, las estructuras de control permiten definir el flujo de ejecución de un programa, controlando qué instrucciones se ejecutan y en qué orden. A continuación, se presentan algunas de las estructuras de control más comunes:[/left]
+
+[ul][b]Condicional (if):[/b] permite ejecutar un bloque de código solo si se cumple una condición específica. Si la condición es verdadera, se ejecuta el bloque; si es falsa, se puede optar por ejecutar un bloque alternativo usando \"else\".
+[code]
+if (condición) {
+// código a ejecutar si la condición es verdadera
+} else {
+// código a ejecutar si la condición es falsa
+}
+[/code][/ul]
+
+[ul][b]Bucle for (for):[/b] se utiliza para repetir un bloque de código un número específico de veces. Es útil cuando se sabe de antemano cuántas iteraciones se necesitan.
+[code]
+for (inicialización; condición; actualización) {
+// código a ejecutar en cada iteración
+}
+[/code]
+Ejemplo:
+[code]
+for (let i = 0; i < 10; i++) {
+console.log(i);
+}
+[/code]
+Este bucle imprimirá los números del 0 al 9.[/ul]
+
+[ul][b]Bucle while (while):[/b] repite un bloque de código mientras se cumpla una condición específica. Es útil cuando no se sabe cuántas iteraciones serán necesarias y la condición puede cambiar durante la ejecución.
+[code]
+while (condición) {
+// código a ejecutar mientras la condición sea verdadera
+}
+[/code]
+Ejemplo:
+[code]
+let i = 0;
+while (i < 10) {
+console.log(i);
+i++;
+}
+[/code]
+Este bucle también imprimirá los números del 0 al 9.[/ul]"
+
+[node name="SintaxisYSemantica" type="RichTextLabel" parent="PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_xo2wy")
+theme_override_fonts/bold_font = ExtResource("3_41wci")
+theme_override_fonts/italics_font = ExtResource("6_55lro")
+theme_override_fonts/bold_italics_font = ExtResource("7_cxdel")
+theme_override_fonts/mono_font = ExtResource("5_dc8vi")
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 10
+theme_override_font_sizes/italics_font_size = 10
+theme_override_font_sizes/bold_italics_font_size = 10
+theme_override_font_sizes/mono_font_size = 10
+bbcode_enabled = true
+text = "[center] Sintaxis básica de JavaScriptcenter]
+
+[ul][b]Variables:[/b] se utilizan para almacenar datos que puedes usar y manipular en tu programa. Puedes declararlas con `var`, `let` o `const`.
+    [code]
+    let nombre = \"Juan\";
+    const PI = 3.14;
+    var edad = 25;
+    [/code][/ul]
+
+[ul][b]Condicionales (if):[/b] permiten ejecutar diferentes bloques de código según si se cumple una condición. Se utiliza para tomar decisiones en tu programa.
+    [code]
+    if (edad >= 18) {
+        console.log(\"Eres mayor de edad\");
+    } else {
+        console.log(\"Eres menor de edad\");
+    }
+    [/code][/ul]
+
+[ul][b]Bucles (for y while):[/b] permiten repetir un bloque de código múltiples veces. Se usan para ejecutar tareas repetitivas.
+    [code]
+    for (let i = 0; i < 5; i++) {
+        console.log(i); // Imprime del 0 al 4
+    }
+
+    let j = 0;
+    while (j < 5) {
+        console.log(j); // Imprime del 0 al 4
+        j++;
+    }
+    [/code][/ul]
+"
+
+[node name="EntornosDeDesarrollo" type="RichTextLabel" parent="PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_xo2wy")
+theme_override_fonts/bold_font = ExtResource("3_41wci")
+theme_override_fonts/italics_font = ExtResource("6_55lro")
+theme_override_fonts/bold_italics_font = ExtResource("7_cxdel")
+theme_override_fonts/mono_font = ExtResource("5_dc8vi")
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 10
+theme_override_font_sizes/italics_font_size = 10
+theme_override_font_sizes/bold_italics_font_size = 10
+theme_override_font_sizes/mono_font_size = 10
+bbcode_enabled = true
+text = "[left]
+Un entorno de desarrollo es un conjunto de herramientas y programas que facilitan la escritura, prueba y ejecución de código.
+
+ Ejemplos incluyen Visual Studio Code, IntelliJ IDEA , entre otros.
+[/left]"
+
+[node name="DefinicionFunciones" type="RichTextLabel" parent="PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_xo2wy")
+theme_override_fonts/bold_font = ExtResource("3_41wci")
+theme_override_fonts/italics_font = ExtResource("6_55lro")
+theme_override_fonts/bold_italics_font = ExtResource("7_cxdel")
+theme_override_fonts/mono_font = ExtResource("5_dc8vi")
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 10
+theme_override_font_sizes/italics_font_size = 10
+theme_override_font_sizes/bold_italics_font_size = 10
+theme_override_font_sizes/mono_font_size = 10
+bbcode_enabled = true
+text = "[b]Una función[/b] es un bloque de código que realiza una tarea específica y puede ser reutilizado en diferentes partes de un programa. 
+
+En JavaScript, se declara una función de la siguiente manera:
+[code]
+function nombreFuncion(parametro1, parametro2) {
+    // Cuerpo de la función
+    return valorDeRetorno;
+}
+[/code]
+
+[b]Ejemplo:[/b]
+[code]
+function sumar(a, b) {
+    return  a + b;
+}
+[/code]
+
+En este ejemplo, `sumar` es una función que toma dos parámetros y devuelve su suma."
+
+[node name="AlcanceDeLasVariables" type="RichTextLabel" parent="PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_xo2wy")
+theme_override_fonts/bold_font = ExtResource("3_41wci")
+theme_override_fonts/italics_font = ExtResource("6_55lro")
+theme_override_fonts/bold_italics_font = ExtResource("7_cxdel")
+theme_override_fonts/mono_font = ExtResource("5_dc8vi")
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 10
+theme_override_font_sizes/italics_font_size = 10
+theme_override_font_sizes/bold_italics_font_size = 10
+theme_override_font_sizes/mono_font_size = 10
+bbcode_enabled = true
+text = "[b]El scope de las variables[/b] se refiere a la visibilidad y el acceso de las variables dentro del código.
+
+En JavaScript:
+[ul]
+    [b]Variables locales:[/b] definidas dentro de una función, solo son accesibles dentro de esa función.
+    [code]
+    function ejemplo() {
+        let local = \"Hola\";
+        console.log(local); // \"Hola\"
+    }
+    console.log(local); // Error: local no está definida
+    [/code]
+    [b]Variables globales:[/b] definidas fuera de cualquier función, son accesibles desde cualquier parte del código.
+    [code]
+    let global = \"Mundo\";
+    function ejemplo() {
+        console.log(global); // \"Mundo\"
+    }
+    ejemplo();
+    console.log(global); // \"Mundo\"
+    [/code]
+[/ul]
+"
+
+[node name="BusquedaLineal" type="RichTextLabel" parent="PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_xo2wy")
+theme_override_fonts/bold_font = ExtResource("3_41wci")
+theme_override_fonts/italics_font = ExtResource("6_55lro")
+theme_override_fonts/bold_italics_font = ExtResource("7_cxdel")
+theme_override_fonts/mono_font = ExtResource("5_dc8vi")
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 10
+theme_override_font_sizes/italics_font_size = 10
+theme_override_font_sizes/bold_italics_font_size = 10
+theme_override_font_sizes/mono_font_size = 10
+bbcode_enabled = true
+text = "[b]Búsqueda lineal:[/b] es un algoritmo que busca un elemento en una lista revisando cada uno de los elementos secuencialmente hasta encontrar el objetivo o llegar al final de la lista. 
+
+[code]
+let lista = [3, 5, 7, 9, 11];
+let objetivo = 7;
+for i in range(lista.size()):
+    if lista[i] == objetivo:
+        print(\"Elemento encontrado en el índice: \" + str(i));
+        break;
+[/code]
+
+Es un método simple y se utiliza en listas no ordenadas. Su complejidad es O(n), donde n es el número de elementos en la lista.
+"
+
+[node name="VectYMat" type="RichTextLabel" parent="PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_xo2wy")
+theme_override_fonts/bold_font = ExtResource("3_41wci")
+theme_override_fonts/italics_font = ExtResource("6_55lro")
+theme_override_fonts/bold_italics_font = ExtResource("7_cxdel")
+theme_override_fonts/mono_font = ExtResource("5_dc8vi")
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 10
+theme_override_font_sizes/italics_font_size = 10
+theme_override_font_sizes/bold_italics_font_size = 10
+theme_override_font_sizes/mono_font_size = 10
+bbcode_enabled = true
+text = "[b]Array:[/b] es una estructura de datos que almacena una colección de elementos en una secuencia ordenada. Los elementos suelen ser del mismo tipo.
+[code]
+let frutas = [\"manzana\", \"banana\", \"cereza\"];
+[/code]
+
+[b]Matriz:[/b] es una extensión de los arrays, organizada en filas y columnas, formando una tabla bidimensional.
+[code]
+let matriz = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+];
+[/code]
+"
+
+[node name="BusquedaBinaria" type="RichTextLabel" parent="PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_xo2wy")
+theme_override_fonts/bold_font = ExtResource("3_41wci")
+theme_override_fonts/italics_font = ExtResource("6_55lro")
+theme_override_fonts/bold_italics_font = ExtResource("7_cxdel")
+theme_override_fonts/mono_font = ExtResource("5_dc8vi")
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 10
+theme_override_font_sizes/italics_font_size = 10
+theme_override_font_sizes/bold_italics_font_size = 10
+theme_override_font_sizes/mono_font_size = 10
+bbcode_enabled = true
+text = "[b]Búsqueda binaria:[/b] es un algoritmo que busca un elemento en una lista ordenada dividiendo repetidamente el rango de búsqueda en mitades. Comienza comparando el objetivo con el elemento central, y ajusta el rango basado en si el objetivo es menor o mayor.
+
+[code]
+let lista = [3, 5, 7, 9, 11];
+let objetivo = 7;
+var inicio = 0;
+var fin = lista.size() - 1;
+
+while inicio <= fin:
+    var medio = int((inicio + fin) / 2);
+    if lista[medio] == objetivo:
+        print(\"Elemento encontrado en el índice: \" + str(medio));
+        break;
+    elif lista[medio] < objetivo:
+        inicio = medio + 1;
+    else:
+        fin = medio - 1;
+[/code]
+
+Requiere que la lista esté ordenada. Su complejidad es O(log n), donde n es el número de elementos en la lista.
+
+Esto hace que en la mayoria de los casos sea superior temporalmente a la búsqueda lineal.
+"
+
+[node name="Burbujeo" type="RichTextLabel" parent="PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_xo2wy")
+theme_override_fonts/bold_font = ExtResource("3_41wci")
+theme_override_fonts/italics_font = ExtResource("6_55lro")
+theme_override_fonts/bold_italics_font = ExtResource("7_cxdel")
+theme_override_fonts/mono_font = ExtResource("5_dc8vi")
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 10
+theme_override_font_sizes/italics_font_size = 10
+theme_override_font_sizes/bold_italics_font_size = 10
+theme_override_font_sizes/mono_font_size = 10
+bbcode_enabled = true
+text = "[b]Ordenamiento por burbujeo:[/b] es un algoritmo de ordenamiento que compara elementos adyacentes en una lista y los intercambia si están en el orden incorrecto. Repite este proceso hasta que la lista esté ordenada.
+
+[center][img=350]res://sprites/encyclopedia/buble.png[/img][/center]
+
+Este método es fácil de entender pero no es el más eficiente. Su complejidad es O(n^2), donde n es el número de elementos en la lista.
+"
+
+[node name="CodigoLegible" type="RichTextLabel" parent="PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_xo2wy")
+theme_override_fonts/bold_font = ExtResource("3_41wci")
+theme_override_fonts/italics_font = ExtResource("6_55lro")
+theme_override_fonts/bold_italics_font = ExtResource("7_cxdel")
+theme_override_fonts/mono_font = ExtResource("5_dc8vi")
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 10
+theme_override_font_sizes/italics_font_size = 10
+theme_override_font_sizes/bold_italics_font_size = 10
+theme_override_font_sizes/mono_font_size = 10
+bbcode_enabled = true
+text = "[b]Código Mantenible:[/b] Es esencial escribir código que sea fácil de entender y modificar en el futuro. Algo que puede facilitar esto es seguir las siguientes practicas
+[ul]
+    [b]Nombres de Variables Claros:[/b] Utiliza nombres descriptivos para tus variables que indiquen claramente su propósito. Por ejemplo, usa `edadUsuario` en lugar de `x`.
+  
+   [b]No Repetir Código (Usar Funciones):[/b]
+
+    [b]Mantener Líneas Menores a 80 Caracteres:[/b] Para mejorar la legibilidad, trata de mantener cada línea de código con menos de 80 caracteres. Esto facilita la lectura y revisión del código.
+ 
+[/ul]
+
+[b]Nota:[/b] Esta sección está en construcción y se continuará escribiendo para profundizar en más prácticas de código mantenible.
+"
+
+[node name="ModularidadYReutilizacion" type="RichTextLabel" parent="PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_xo2wy")
+theme_override_fonts/bold_font = ExtResource("3_41wci")
+theme_override_fonts/italics_font = ExtResource("6_55lro")
+theme_override_fonts/bold_italics_font = ExtResource("7_cxdel")
+theme_override_fonts/mono_font = ExtResource("5_dc8vi")
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 10
+theme_override_font_sizes/italics_font_size = 10
+theme_override_font_sizes/bold_italics_font_size = 10
+theme_override_font_sizes/mono_font_size = 10
+bbcode_enabled = true
+text = "[center]Completar....[/center]"
+
+[node name="PruebaYDepuracion" type="RichTextLabel" parent="PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_xo2wy")
+theme_override_fonts/bold_font = ExtResource("3_41wci")
+theme_override_fonts/italics_font = ExtResource("6_55lro")
+theme_override_fonts/bold_italics_font = ExtResource("7_cxdel")
+theme_override_fonts/mono_font = ExtResource("5_dc8vi")
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 10
+theme_override_font_sizes/italics_font_size = 10
+theme_override_font_sizes/bold_italics_font_size = 10
+theme_override_font_sizes/mono_font_size = 10
+bbcode_enabled = true
+text = "[center]Completar....[/center]"
+
+[node name="GestionDeVersiones" type="RichTextLabel" parent="PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_xo2wy")
+theme_override_fonts/bold_font = ExtResource("3_41wci")
+theme_override_fonts/italics_font = ExtResource("6_55lro")
+theme_override_fonts/bold_italics_font = ExtResource("7_cxdel")
+theme_override_fonts/mono_font = ExtResource("5_dc8vi")
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 10
+theme_override_font_sizes/italics_font_size = 10
+theme_override_font_sizes/bold_italics_font_size = 10
+theme_override_font_sizes/mono_font_size = 10
+bbcode_enabled = true
+text = "[center]Completar....[/center]"
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/MarginContainer/PanelContainer2/TextureButton" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/MarginContainer2/PanelContainer2/TextureButton" to="." method="_on_close_pressed"]

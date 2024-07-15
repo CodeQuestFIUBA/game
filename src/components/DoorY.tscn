@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://c716xyg7otdm7"]
+
+[ext_resource type="Script" path="res://components/DoorY.gd" id="1_im7ac"]
+
+[node name="DoorY" type="Area2D"]
+script = ExtResource("1_im7ac")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

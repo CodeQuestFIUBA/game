@@ -4,14 +4,14 @@ extends Node2D
 @onready var ninja = $Ninja
 @onready var blockTarget = $BlockTarget
 @onready var mainButton = $PlayButton
-
+var nextLevel = "res://levels/puzzles/Block/level_2.tscn"
 const solution = [
-	{"value" : "Mover Arriba","target": Vector2(95,161) },
-	{"value" : "Mover Izquierda", "target": Vector2(34,157) },
-	{"value": "Mover Arriba", "target": Vector2(33,96) },
-	{"value": "Mover Derecha", "target": Vector2(127,93) },
-	{"value": "Mover Arriba", "target": Vector2(126,48) },
-	{"value" : "Mover Izquierda", "target": Vector2(47,45) },
+	{"value" : "Mover Arriba","target": Vector2(95,160) },
+	{"value" : "Mover Izquierda", "target": Vector2(15,157) },
+	{"value": "Mover Arriba", "target": Vector2(15,112) },
+	{"value": "Mover Derecha", "target": Vector2(153,112) },
+	{"value": "Mover Arriba", "target": Vector2(153,62) },
+	{"value" : "Mover Izquierda", "target": Vector2(50,62) },
 	{"value": "Mover Arriba", "target": Vector2(48,30) },
 ]
 
@@ -21,46 +21,24 @@ func _ready():
 	$moveLeft.setAction("Mover Izquierda")
 	$moveRight.setAction("Mover Derecha")
 	start_Level()
-	
-	
-	ModalManager.open_modal({
-		'title': "Titulo",
-		'description': "Esta es una description de lo que me esta diciendo este modal ...",
-		'title_font_size': 12,
-		'description_font_size': 9,
-		'primary_button_label': "Aceptar",
-		'secondary_button_label': "Cancelar"
-		})
-		
-	ModalManager.on_modal_primary_pressed.connect(handle_primary_click)
-	ModalManager.on_modal_secondary_pressed.connect(handle_secondary_click)
-	
-	ModalManager.close_modal()
-	
-	
 
 func _on_play_button_pressed():
 	validate_instructions()
-	ModalManager.open_modal()
-	ModalManager.on_modal_secondary_pressed.connect(handle_secondary_click)
-
-func handle_primary_click () :
-	print("apreto el boton primario")
-	
-func handle_secondary_click () :
-	print ("apreto el boton secundario")
 
 func start_Level () :
 	load_introduction_dialogs()
 
 func load_introduction_dialogs():
 	const intruction_dialogs : Array[String] = [
-		"Hola!!!",
-		"El siguiente paso en tu camino ..",
-		".. es una tarea muy simple",
-		"Encastra los bloques para llegar al aldeano",
-		"POR FAVOR NO PISES EL CESPED",
-		"Desde la nevada de 2007 que vengo renegando"
+		"Hola Bitama !",
+		"Para comenzar tu camino Ninja ..",
+		".. introducimos el concepto de algoritmo",
+		"Un Algoritmo es una secuencia...",
+		"...finita de instrucciones",
+		"... con el fin de realizar una tarea.",
+		"Teniendo esto en cuenta, ...",
+		"Llega al aldeano sin tocar el agua"
+		
 	]
 	talk_as_master(intruction_dialogs)
 
@@ -69,19 +47,17 @@ func validate_instructions():
 	var inserted_len = len(inserted_elements)
 	var solution_len = len(solution)
 	if (inserted_len > solution_len):
-		talk_as_master([".MMMMM","Creo que estas poniendo instrucciones de mas"])
+		talk_as_master([".MMMMM","Creo que estas poniendo instrucciones demás"])
 	elif (solution_len > inserted_len):
 		talk_as_master([".MMMMM","Creo que te faltan algunas instrucciones ..."])
 	elif ( is_valid_solution(inserted_elements) ):
-		talk_as_master(["Siiiii ...", "Con ese camino no pisarias el pasto"])
+		talk_as_master(["Siiiii ...", "Con ese camino no estas pisando el agua!"])
 		caminar_a_objectivo()
 	else:
-		talk_as_master([".MMMM", "Esa combinacion no es valida..", "... Fijate bien :("])
-	
-
+		talk_as_master([".MMMM", "Esa combinación no es válida..", "... Fijate bien :("])
 
 func talk_as_master(dialogs :Array[String]):
-	DialogManager.start_dialog(Vector2(152,30),dialogs, {'auto_play_time': 0.7})
+	npcExplainer.update_phrases(dialogs,Vector2(185, 45),true, {'auto_play_time': 1, 'close_by_signal':true})
 
 func is_valid_solution(inserted : Array) -> bool :
 	for x in len (solution) :
@@ -95,3 +71,15 @@ func caminar_a_objectivo():
 		positions.append(x["target"])
 	ninja.update_destination(positions)
 	mainButton.disabled = true
+	await ninja.npcArrived
+	complete_level()
+	next()
+
+
+func complete_level():
+	ApiService.send_request("{}", HTTPClient.METHOD_PUT, "score/complete/introduction/0", "COMPLETE_LEVEL")
+
+
+func next():
+	get_tree().change_scene_to_file(nextLevel)
+

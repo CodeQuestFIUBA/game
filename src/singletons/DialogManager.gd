@@ -103,7 +103,5 @@ func _unhandled_input(event):
 	press_next_dialog = event.is_action_pressed("advance_dialog")
 	close_dialog()
 
-
 func _on_close_dialog():
 	emit_signal("signalCloseDialog")
-

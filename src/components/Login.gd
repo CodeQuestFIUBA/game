@@ -1,5 +1,5 @@
 extends Control
-
+#
 @onready var pwd = $Container/Inputs/PasswordInput/PasswordInput;
 @onready var email = $Container/Inputs/EmailInput/EmailInput;
 @onready var loginButton = $LoginButton/Button;
@@ -27,6 +27,7 @@ func _on_button_pressed():
 	pwdSent = pwd.text
 	GLOBAL.startLoading.emit();
 	ApiService.login(emailSent, pwdSent);
+	#ApiService.login("gonza@test.com", "Test123123");
 	isLoading = true;
 	loginButton.disabled = true;
 	email.editable = false;
@@ -34,12 +35,12 @@ func _on_button_pressed():
 	spinner.visible = true;
 	inputUpdated = false;
 	
-func _process_response(response):
+func _process_response(response, extraArg):
 	GLOBAL.stopLoading.emit();
 	isLoading = false;
 	spinner.visible = false;
 	if (response.code == ApiService.HTTP_OK):
-		Session.update_session(response.data);
+		Session.update_session(response.data, extraArg);
 	else: 
 		errorMessage.visible = true;
 		loginButton.disabled = false;

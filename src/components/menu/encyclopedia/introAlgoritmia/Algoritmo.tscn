@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://cuox8xxtlttah"]
+
+[ext_resource type="FontFile" uid="uid://cfh2dierldqgj" path="res://fonts/Montserrat-Regular.ttf" id="1_e08ns"]
+[ext_resource type="FontFile" uid="uid://d0x3g1xocrvel" path="res://fonts/Montserrat-Bold.ttf" id="2_ruxqm"]
+[ext_resource type="FontFile" uid="uid://cwam20v5n1rlx" path="res://fonts/Montserrat-Italic.ttf" id="3_4i6i3"]
+[ext_resource type="FontFile" uid="uid://crshinptiuvm1" path="res://fonts/Montserrat-SemiBoldItalic.ttf" id="4_37nnm"]
+
+[node name="Algoritmo2" type="RichTextLabel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
+theme_override_colors/selection_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/table_odd_row_bg = Color(0, 0, 0, 1)
+theme_override_colors/table_even_row_bg = Color(0, 0, 0, 1)
+theme_override_colors/table_border = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("1_e08ns")
+theme_override_fonts/bold_font = ExtResource("2_ruxqm")
+theme_override_fonts/italics_font = ExtResource("3_4i6i3")
+theme_override_fonts/bold_italics_font = ExtResource("4_37nnm")
+theme_override_fonts/mono_font = ExtResource("1_e08ns")
+theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/bold_font_size = 16
+theme_override_font_sizes/italics_font_size = 16
+theme_override_font_sizes/bold_italics_font_size = 16
+theme_override_font_sizes/mono_font_size = 16
+bbcode_enabled = true
+text = "[center][font_size=12][b]Instrucciones[/b][/font_size][/center]
+
+Debes completar la función [color=red][b]buscarJutsu(jutsus)[/b][/color] la cual recibe por parámetro el array jutsus, conformado por enteros. Deberás programar un algoritmo que encuentre el valor más rápido que una búsqueda lineal, recomendamos búsqueda binaria.
+
+Deberás utilizar la función [color=red][b]probarJutsu(posicion)[/b][/color] el cual recibe la posición retorna true en caso de que el jutsu buscado este en esa posición y false en caso contrario.
+
+También dispones de dos funciones auxiliares:
+
+[color=red][b]- esMenor(posicion):[/b][/color] retorna true si para el jutsu en esa posición es menor al jutsu buscado
+[color=red][b]- esMayor(posicion):[/b][/color] retorna false si para el jutsu en esa posición es mayor al jutsu buscado
+"

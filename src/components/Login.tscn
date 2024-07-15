@@ -37,7 +37,7 @@ anchor_bottom = 0.5
 offset_left = -115.0
 offset_top = -76.0
 offset_right = 115.0
-offset_bottom = 76.0
+offset_bottom = 92.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_qs7kc")
@@ -55,9 +55,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -68.0
-offset_top = -32.0
+offset_top = -40.0
 offset_right = 68.0
-offset_bottom = 28.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -181,8 +181,45 @@ text = "INICIAR SESIÓN"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="RegisterButton" type="Control" parent="."]
+layout_mode = 2
+anchors_preset = 0
+offset_left = -65.0
+offset_top = 2.0
+offset_right = 71.0
+offset_bottom = 2.0
+
+[node name="Button" type="Button" parent="RegisterButton"]
+layout_mode = 0
+offset_left = -3.0
+offset_top = 42.0
+offset_right = 133.0
+offset_bottom = 58.0
+theme = ExtResource("5_6brta")
+
+[node name="Label" type="Label" parent="RegisterButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.0
+offset_top = 34.0
+offset_right = 49.0
+offset_bottom = 62.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.156863, 0.156863, 0.156863, 1)
+theme_override_fonts/font = ExtResource("5_x8k4l")
+theme_override_font_sizes/font_size = 18
+text = "REGISTRARSE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Spinner" parent="." instance=ExtResource("6_busnw")]
-position = Vector2(0, 56)
+position = Vector2(0, 72)
 scale = Vector2(0.5, 0.5)
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -203,9 +240,9 @@ stretch_mode = 4
 [node name="Error" type="Label" parent="."]
 layout_mode = 0
 offset_left = -45.0
-offset_top = 50.0
+offset_top = 64.0
 offset_right = 45.0
-offset_bottom = 61.0
+offset_bottom = 78.0
 theme_override_colors/font_color = Color(0.941176, 0.403922, 0.2, 1)
 theme_override_fonts/font = ExtResource("5_x8k4l")
 theme_override_font_sizes/font_size = 12

@@ -4,6 +4,7 @@ extends Node2D
 @onready var player = $Player
 @onready var base_sprite = $Sprite2D
 @onready var master = $Master
+var nextLevel = "res://levels/IntroProgramming/level_2.tscn"
 
 
 var box_1_textures_index = 0
@@ -74,6 +75,9 @@ var box3_type = null
 
 
 func _ready():
+	if ApiService:
+		ApiService.connect("signalApiResponse", process_response)
+	#ApiService.login("mafvidal35@gmail.com", "Asd123456+", "LOGIN");
 	var phrases: Array[String] = [
 		"Bienvenido, es hora de aprender los principios de la programación", 
 		"Tenemos tres cajas con diferentes tipos de objetos",
@@ -85,6 +89,10 @@ func _ready():
 
 
 func _process(delta):
+	pass
+
+
+func process_response(res, extraArg):
 	pass
 
 
@@ -202,4 +210,13 @@ func end_game():
 		"Así como organizaste los objetos, las variables nos ayudan a organizar y almacenar datos.",
 		"Recuerda, una variable es como una mesa donde guardas cosas específicas para usarlas fácilmente."
 	]
+	complete_level()
 	await show_master_messages(phrases)
+	next()
+
+func complete_level():
+	ApiService.send_request("{}", HTTPClient.METHOD_PUT, "score/complete/bases_de_la_programacion/0", "COMPLETE_LEVEL")
+
+
+func next():
+	get_tree().change_scene_to_file(nextLevel)

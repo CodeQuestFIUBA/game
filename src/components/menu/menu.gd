@@ -8,6 +8,7 @@ extends Control
 @onready var container = $"."
 @onready var scores = $scores
 @onready var encyclopedia = $Encyclopedia
+var home_loby = "res://main.tscn"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -75,3 +76,8 @@ func _on_button_doc_pressed():
 	panelContainer.visible = false
 	menu.visible = false
 	back.visible = true
+
+
+func _on_button_back_pressed():
+	get_tree().change_scene_to_file(home_loby)
+

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmhy74pcbolwc"]
+
+[ext_resource type="Script" path="res://components/DoorX.gd" id="1_abniy"]
+
+[node name="Door" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_abniy")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

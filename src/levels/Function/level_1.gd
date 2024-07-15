@@ -7,6 +7,7 @@ extends Node2D
 @onready var master = $Master
 @onready var player = $Player
 @onready var IDE = $CanvasLayer/IDE
+var nextLevel = "res://levels/Function/level_2.tscn"
 
 var playerSteps: Array[Vector2] = [ Vector2(86,180), Vector2(208,180) ]
 var playerFinish: Array[Vector2] = [ Vector2(86,180), Vector2(86,216) ]
@@ -24,17 +25,13 @@ var secondTablePosition: Array[Vector2] = [Vector2(178,170)]
 var thirdTablePosition: Array[Vector2] = [Vector2(240,170)]
 var fourthTablePosition: Array[Vector2] = [Vector2(288,170)]
 var finalPosition: Array[Vector2] = [Vector2(208,180)]
+var master_msg_position: Vector2 = Vector2(56,155)
 const VEN: String = 'VEN'
 const ESPERA: String = 'ESPERA'
 var movedSaiMaster = false
 
 var result = {}
-const TEST_RESULT = {
-	'sai': ['VEN', 'ESPERA', 'ESPERA', 'ESPERA'],
-	'katana': ['ESPERA', 'VEN', 'ESPERA', 'ESPERA'],
-	'ninjaku': ['ESPERA', 'ESPERA', 'VEN', 'ESPERA'],
-	'whip': ['ESPERA', 'ESPERA', 'ESPERA', 'VEN']
-}
+
 var orderResult: Array[String] = []
 var gunsByTable: Array[String] = ['sai', 'katana', 'ninjaku', 'whip']
 var move_masters = {
@@ -46,22 +43,36 @@ var move_masters = {
 
 var executing_code = false
 
-func test_result():
-	result[orderResult[0]] = TEST_RESULT[orderResult[0]].duplicate(true)
-	result[orderResult[1]] = TEST_RESULT[orderResult[1]].duplicate(true)
-	result[orderResult[2]] = TEST_RESULT[orderResult[2]].duplicate(true)
-	result[orderResult[3]] = TEST_RESULT[orderResult[3]].duplicate(true)
-
 
 func _ready():
-	orderResult = gunsByTable.duplicate(true)
-	randomize()
-	orderResult.shuffle()
 	ApiService.connect("signalApiResponse", process_response)
 	IDE.connect("executeCodeSignal", sendCode)
-	ModalManager.on_modal_primary_pressed.connect(closeModal) 
-	ModalManager.on_modal_secondary_pressed.connect(closeModal) 
 	await process_intro()
+
+
+func process_response(res, extraArg):
+	match extraArg:
+		"LOGIN": pass
+		"COMPLETE_LEVEL": pass
+		"ADD_ATTEMPT": pass
+		"SEND_CODE": 
+			if !res || res["code"] != 200:
+				show_error_response(res["message"])
+				return;
+			process_result(res["data"]["result"])
+
+
+func show_error_response(error: String):
+	var phrases: Array[String] = [
+		"Lo siento Bitama, pero no logre ejecutar tu código",
+		"Me retorno el siguiente mensaje",
+		error,
+		"¡Corrigelo y vuelve a intentarlo!"
+	]
+	master.update_phrases(phrases, master_msg_position, true, {'auto_play_time': 1, 'close_by_signal': true})
+	await DialogManager.signalCloseDialog
+	executing_code = false
+	loadHelp()
 
 
 func process_intro():
@@ -96,15 +107,19 @@ func process_intro():
 	]
 	master.update_phrases(phrases, Vector2(56,155), true, {'auto_play_time': 1, 'close_by_signal': true})
 	await DialogManager.signalCloseDialog
+	loadHelp()
+	set_code()
+	
+func set_code():
 	var codeLines: Array[String] = ["function avisarMaestro(pedido, arma) {", "	const ESPERA = \"ESPERA\"", "	const VEN = \"VEN\"", "	", "}"]
 	IDE.set_code(codeLines)
-	phrases = [
-		"Presiona la tecla M para ver la consigna",
+
+func loadHelp():
+	var phrases: Array[String] = [
 		"Puedes utilizar un if para evaluar si las armas son iguales",
 		"Intenta retornar las constantes 'ESPERA' y 'VEN'"
 	]
-	master.update_phrases(phrases, Vector2(56,155), false, {'auto_play_time': 1, 'close_by_signal': true})
-
+	master.update_phrases(phrases, master_msg_position, false, {'auto_play_time': 1, 'close_by_signal': true})
 
 func openModal():
 	ModalManager.open_modal({
@@ -121,18 +136,17 @@ func closeModal():
 	ModalManager.close_modal()
 
 
-func process_result(valid: bool):
-	if !valid:
-		print("invalid")
-		return
+func process_result(data):
+	var result = data["pedido"]
+	var orderResult = data["armas"]
 	for i in range(orderResult.size()):
 		var gun = orderResult[i]
 		await master_say_gun(gun)
 		var response = result[gun]
 		for j in range(response.size()):
 			var msg = response[j]
-			var result = await process_move_player(j, gun, response[j])
-			if !result:
+			var resultRequest = await process_move_player(j, gun, response[j])
+			if !resultRequest:
 				return
 			if msg == VEN:
 				break
@@ -140,10 +154,12 @@ func process_result(valid: bool):
 		"Felicitaciones!!! Lograste completar el nivel", 
 		"Ahora estas listo para el siguiente desafio"
 	]
-	master.update_phrases(phrases, Vector2(56,155), true, {'auto_play_time': 1, 'close_by_signal': true})
+	complete_level()
+	master.update_phrases(phrases, master_msg_position, true, {'auto_play_time': 1, 'close_by_signal': true})
 	await DialogManager.signalCloseDialog
 	player.update_destination(playerFinish)
 	await player.npcArrived
+	next()
 
 func master_say_gun(gun: String):
 	var phrases: Array[String] = []
@@ -177,6 +193,7 @@ func process_move_player(table: int, gun: String, msg: String) -> bool:
 
 
 func process_error_result(gun: String):
+	add_attempt()
 	var phrases: Array[String] = []
 	phrases = ["No es mi arma"]
 	var msg_position = get_msg_gun_position(gun)
@@ -265,10 +282,6 @@ func _unhandled_input(event):
 func restart_all():
 	movedSaiMaster = false
 	executing_code = false
-	orderResult = gunsByTable.duplicate(true)
-	randomize()
-	orderResult.shuffle()
-	test_result()
 
 
 func return_all():
@@ -318,40 +331,18 @@ func get_master(gun: String):
 func sendCode(code):
 	if executing_code:
 		return
-	var orderCalls = "["
-	for value in orderResult:
-		orderCalls += "'" + value + "', "
-		print(value)
-	orderCalls += "]"
-	var globalVariables = "
-	function process(result) {
-	var guns = ['sai', 'katana', 'ninjaku', 'whip'];
-	var orderCalls = " + orderCalls
-	var initialSegmentCode = "
-		for (let i = 0; i <= orderCalls.length - 1 ; i++) {
-			var msgs = [];
-			for (let j = 0; j <= guns.length - 1 ; j++) {
-				var msg = avisarMaestro(orderCalls[i], guns[j])
-				msgs.push(msg.trim().toUpperCase())
-			}
-			result[orderCalls[i]] = msgs;
-		}
-
-		return result
-	}
-	"
-	var finalSegmentCode = "
-	let result = {}
-	process(result);
-	"
-	var finalCode = globalVariables + "\n" + initialSegmentCode + "\n" + code  + "\n" + finalSegmentCode
 	executing_code = true
-	#TODO: REMOVE
-	test_result()
-	process_result(true)
+	ApiService.send_request(code, HTTPClient.METHOD_POST, "functions/intro", "SEND_CODE")
+	
 
-
-func process_response(resp):
-	#TODO: ADD resp to result
-	process_result(true)
+func add_attempt():
+	ApiService.send_request("{}", HTTPClient.METHOD_PUT, "score/attempts/funciones_y_operadores/0", "ADD_ATTEMPT")
+	
+func complete_level():
+	ApiService.send_request("{}", HTTPClient.METHOD_PUT, "score/complete/funciones_y_operadores/0", "COMPLETE_LEVEL")
+	
+	
+func next():
+	get_tree().change_scene_to_file(nextLevel)
+	
 

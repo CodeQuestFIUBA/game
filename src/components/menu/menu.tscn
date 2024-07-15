@@ -8,7 +8,7 @@
 [ext_resource type="Theme" uid="uid://p2q1fmewhw78" path="res://themes/ButtonsClose.tres" id="5_elcxh"]
 [ext_resource type="Theme" uid="uid://bml45j5216uci" path="res://themes/ButtonsMenu.tres" id="6_ysbxx"]
 [ext_resource type="PackedScene" uid="uid://4l8vqt7tk3qj" path="res://components/menu/scores.tscn" id="8_i1pi6"]
-[ext_resource type="PackedScene" uid="uid://db1wgbk5mniqm" path="res://components/encyclopedia.tscn" id="9_32nl7"]
+[ext_resource type="PackedScene" uid="uid://db1wgbk5mniqm" path="res://components/menu/encyclopedia/encyclopedia.tscn" id="9_32nl7"]
 [ext_resource type="Texture2D" uid="uid://dsykis0r8qtcr" path="res://sprites/ArrowRight.png" id="9_r8mw1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2djy7"]
@@ -227,6 +227,7 @@ texture_normal = ExtResource("9_r8mw1")
 
 [connection signal="pressed" from="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/PointsButton/Button" to="." method="_on_points_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/DocumentationButton/Button" to="." method="_on_button_doc_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/GoBackButton/Button" to="." method="_on_button_back_pressed"]
 [connection signal="pressed" from="Close" to="." method="_on_close_pressed"]
 [connection signal="pressed" from="Menu" to="." method="_on_menu_pressed"]
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

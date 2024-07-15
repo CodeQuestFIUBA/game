@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4bfb265qei0n"]
+
+[ext_resource type="Script" path="res://levels/puzzles/Block/blockParts/boat.gd" id="1_gh1c3"]
+[ext_resource type="Texture2D" uid="uid://ckwbr5utywv7b" path="res://sprites/boat.png" id="2_luvsk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2dhrh"]
+size = Vector2(31, 13.5)
+
+[node name="Boat" type="CharacterBody2D"]
+script = ExtResource("1_gh1c3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_luvsk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_2dhrh")
+disabled = true

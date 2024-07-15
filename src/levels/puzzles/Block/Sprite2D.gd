@@ -3,7 +3,6 @@ extends TextureRect
 var dragging = false;
 var off = Vector2(0,0)
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
@@ -21,7 +20,6 @@ func _get_drag_data(at_position):
 	
 	var preview = Control.new();
 	preview.add_child(preview_texture);
-	print("Hola")
 	
 	set_drag_preview(preview);
 	
