@@ -7,7 +7,7 @@ var containPlayer = true;
 func _process (delta):
 	#if (ApiService.token):
 		playerContainer.disabled = true;
-		login.visible = false;
+		login.visible = true;
 		
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
