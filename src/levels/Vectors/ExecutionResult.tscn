@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbr5iyg0q0vdg"]
+
+[ext_resource type="Script" path="res://levels/Vectors/ExecutionResult.gd" id="1_4kw4o"]
+[ext_resource type="Texture2D" uid="uid://dn73ul2oxqa23" path="res://sprites/DialogBox.png" id="1_kk45m"]
+[ext_resource type="PackedScene" uid="uid://bh5gexjtndsjd" path="res://components/TextBox.tscn" id="3_0g4ub"]
+
+[node name="ExecutionResult" type="Node2D"]
+script = ExtResource("1_4kw4o")
+
+[node name="Textura" type="NinePatchRect" parent="."]
+offset_left = -100.0
+offset_top = -55.0
+offset_right = 100.0
+offset_bottom = 54.0
+texture = ExtResource("1_kk45m")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="ContinuarButton" type="Button" parent="."]
+offset_left = -85.0
+offset_top = 21.0
+offset_right = -18.0
+offset_bottom = 41.0
+theme_override_font_sizes/font_size = 8
+text = "Continuar"
+
+[node name="ReintentarButton" type="Button" parent="."]
+offset_left = 18.0
+offset_top = 21.0
+offset_right = 85.0
+offset_bottom = 41.0
+theme_override_font_sizes/font_size = 8
+text = "Reintentar"
+
+[node name="TextBoxTitulo" parent="." instance=ExtResource("3_0g4ub")]
+offset_left = -45.0
+offset_top = -49.0
+offset_right = 33.0
+offset_bottom = -19.0
+
+[node name="NinePatchRect" parent="TextBoxTitulo" index="0"]
+visible = false
+
+[node name="TextBoxTexto" parent="." instance=ExtResource("3_0g4ub")]
+offset_left = -94.0
+offset_top = -28.0
+offset_right = 93.0
+offset_bottom = 8.0
+
+[node name="NinePatchRect" parent="TextBoxTexto" index="0"]
+visible = false
+
+[editable path="TextBoxTitulo"]
+[editable path="TextBoxTexto"]
