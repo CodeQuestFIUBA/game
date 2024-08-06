@@ -8,7 +8,9 @@ var destination_position
 
 @onready var ide = $IDE
 
-@onready var ExecutionResult = $"ExecutionResult"
+@onready var ideInstructions = $IDE/Instructions/MarginContainer/Instructions
+
+#@onready var ExecutionResult = $"ExecutionResult"
 
 @onready var BoxPosition_Inicio_1 = $"Vector/BoxPosition-Inicio-1"
 @onready var BoxPosition_Inicio_2 = $"Vector/BoxPosition-Inicio-2"
@@ -39,16 +41,9 @@ var isReturningFromBox = true
 
 var waiting_to_begin = true
 
-enum {
-	INIT_DIALOG,
-	FIRST_DIALOG_MASTER,
-	FIRST_GUN_MASTER,
-	SECOND_GUN_MASTER,
-	THIRD_GUN_MASTER,
-	FOURTH_GUN_MASTER,
-	SECOND_DIALOG_MASTER
-}
-
+var vector_sorted_message: Array[String] = [
+	"¡Excelente! La clave es correcta!!!.",
+];
 
 var box_states : Array = [
 	[1,2,5,4,3],
@@ -125,25 +120,31 @@ func randomize_vector():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var array_of_arrays : Array
+	ideInstructions.bbcode_text = """[center][font_size=12][b]Instrucciones[/b][/font_size][/center]
+	Bitama usa la llave que encontró para abrir la puerta de los aposentos.
+Allí, se encuentra con que hay una trampa que corta el paso hacia el final de la habitación. Para desactivarla, deberá introducir el código secreto, el cual se forma ingresando los valores de la caja presentes en la sala de manera ascendente. El usuario deberá implementar un algoritmo para ordenar las cajas y obtener la clave.
 
-	var array1 : Array = []
-	array1 = [1,9,6]
-	
-	ExecutionResult.set_visible(false)
-	
+Tu tarea consiste en implementar la función [color=red]ordenarVector()[/color], la cual recibe como parámetros el
+vector con diferentes números en un estado desordenado. Este debe idear un algoritmo que ordene los números del vector.
+
+Siguiendo esta lógica, por ejemplo, el siguiente vector:
+
+[b][ 15, 8, 1, 5, 12 ][/b]
+
+Debería dejarlo en el estado:
+
+[b][ 1, 5, 8, 12, 15 ][/b]
+"""
+
+	var codeLines: Array[String] =[
+		"function ordenarVector(vector) {",
+		"",
+		"}"
+	]
+	ide.set_code(codeLines)
+	ide.set_ide_visible(false)
 	ApiService.connect("signalApiResponse", process_response)
-	
-	var array2 = [[4, 7, 6], [4, 8, 6]]
-	array_of_arrays.append(array1)
-	array_of_arrays.append(array2[0].duplicate(true))
-	#array_of_arrays.insert(0, array1)
-	#array_of_arrays.append(array2)
-	#array1.append_array(array2)
-	print(array_of_arrays)
-	print(array1) # Prints [1, 2, 3, 4, 5, 6].
-	print(array2)
-	#DialogManager.connect('signalCloseDialog', close_dialog)
+
 	ide.connect("executeCodeSignal", send_code)
 	
 	destination_position = $"Vector/BoxPosition-5".global_position
@@ -160,17 +161,18 @@ func _ready():
 	player.connect("npcArrived",player_arrived)
 	talk_master()
 
-	const intruction_dialogs : Array[String] = [
-			"Hola!!!",
-			"El siguiente paso en tu camino ..",
-			".. es una tarea un poco mas compleja",
-			"Programa una función para ordenar los numeros de las cajas",
-		]
-	DialogManager.start_dialog(Vector2(115,160),intruction_dialogs, {'auto_play_time': 0.7})
-	var codeLines: Array[String] = ["function ordenarVector(pedido, arma) {}"]
-	await DialogManager.signalCloseDialog
+	#const intruction_dialogs : Array[String] = [
+	#		"Hola!!!",
+	#		"El siguiente paso en tu camino ..",
+	#		".. es una tarea un poco mas compleja",
+	#		"Programa una función para ordenar los numeros de las cajas",
+	#	]
+	#DialogManager.start_dialog(Vector2(115,160),intruction_dialogs, {'auto_play_time': 0.7})
 
-	ide.set_code(codeLines)
+	await DialogManager.signalCloseDialog
+	
+	ide.set_ide_visible(true)
+
 
 func set_boxes(values: Array):
 	Box_1.set_number(values[0])
@@ -181,23 +183,8 @@ func set_boxes(values: Array):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
-	#go_there(delta)
 	pass
-
-func openModal():
-	ModalManager.open_modal({
-		'title': "Instrucciones",
-		'description': "Escribe una función que recibe como parametro el arma pedida por el maestro y el arma de la mesa\nSi coinciden retornar 'VEN'\nSi no coincide retornar 'ESPERA'",
-		'title_font_size': 8,
-		'description_font_size': 6,
-		'primary_button_label': "Aceptar",
-		'secondary_button_label': "Cancelar"
-	})
-
-func closeModal():
-	ModalManager.close_modal()
-
+	
 func player_arrived():
 	
 	if isReturningFromBox:
@@ -211,6 +198,11 @@ func player_arrived():
 		number_current_box += 1
 		isReturningFromBox = false
 		player.update_destination(playerSteps)
+		
+		if (number_current_box == box_states.size()):
+			
+			master.update_phrases(vector_sorted_message, Vector2(110,140), true, {'auto_play_time': 1, 'close_by_signal': true})
+			print("Finished sort")
 
 	elif number_current_box < box_states.size():
 		print("Not First Call")
@@ -223,9 +215,10 @@ func player_arrived():
 		
 		isReturningFromBox = true
 	
-	if (number_current_box == box_states.size()):
-		ExecutionResult.set_visible(true)
-		ExecutionResult.setContratulations()
+	#&& !isReturningFromBox):
+		
+		#ExecutionResult.set_visible(true)
+		#ExecutionResult.setContratulations()
 	
 
 func first_different_position(array1: Array, array2: Array) -> int:
@@ -242,11 +235,10 @@ func talk_master():
 
 	phrases = [
 		"Bienvenido, es hora de masterizar tus habilidades de ordenamiento", 
-		"Para eso los maestros te enseñaran a utilizarlas",
-		"Pero antes debes reconocer cada arma",
-		"Cada maestro te dira su arma"
+		"Para eso deberas crear un algoritmo que ordene estas cajas mágicas",
+		"Donde inicialmente no sabes que valor tiene cada una"
 	]
-	master.update_phrases(phrases, Vector2(56,155), true, {'auto_play_time': 1, 'close_by_signal': true})
+	master.update_phrases(phrases, Vector2(110,140), true, {'auto_play_time': 1, 'close_by_signal': true})
 
 func move_to_box_by_number(box_number: int):
 	print(box_number)
@@ -290,6 +282,13 @@ func send_code(code):
 	
 	
 	waiting_to_begin = false
+	
+	var phrases: Array[String] = []
+	phrases = [
+		"Las cajas estan adquiriendo un valor!!!!!"
+	]
+	master.update_phrases(phrases, Vector2(110,140), true, {'auto_play_time': 1, 'close_by_signal': true})
+
 	await randomize_vector()
 	
 	print("SENDCODE")
