@@ -57,19 +57,22 @@ func send_request(body = null):
 func process_response(res, extraArg):
 	if extraArg != "MATRIX": return
 	if !res: 
-		_show_error("Esto es raro. Ocurrió un error desconocido.");
+		_show_error(["Esto es raro. Ocurrió un error desconocido."]);
 		return;
 
 	if res.code != 200:
-		_show_error(res.message);
+		_show_error([
+			"Lo siento, pero no logré ejecutar tu código.",
+			"Me retornó el siguiente mensaje.", 
+			res.message]);
 		return;
 	
 	if !(typeof(res.data.result) == TYPE_DICTIONARY) || !res.data.result.has("x") || !res.data.result.has("y"):
-		_show_error("El valor retornado no tiene el formato esperado.");
+		_show_error(["El valor retornado no tiene el formato esperado."]);
 		return;
 	
 	if res.data.variableTrace.size() == 0:
-		_show_error("Mmmm, parece que tu solución no está recorriendo la matriz.");
+		_show_error(["Mmmm, parece que tu solución no está recorriendo la matriz."]);
 		return;
 		
 	var numeric_coordinates: Array[Vector2i] = [];
@@ -116,8 +119,9 @@ func on_matrix_iterated(coords: Vector2i, success: bool):
 	await get_tree().create_timer(3).timeout
 	_run_outro()
 	
-func _show_error(message: String):
-	var error_message: Array[String] = [message, "Inténtalo de nuevo"]
+func _show_error(message: Array[String]):
+	var error_message: Array[String] = message.duplicate()
+	error_message.append("Inténtalo de nuevo")
 	slave.update_phrases(
 		error_message, 
 		sensei_dialog_position, 
