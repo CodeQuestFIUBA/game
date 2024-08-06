@@ -80,19 +80,19 @@ var jutsus = []
 func _ready():
 	if ApiService:
 		ApiService.connect("signalApiResponse", process_response)
-	#ApiService.login("mafvidal35@gmail.com", "Asd123456+", "LOGIN");
+		#ApiService.login("mafvidal35@gmail.com", "Asd123456+", "LOGIN")
 	IDE.connect("executeCodeSignal", sendCode)
 	var phrases: Array[String] = [
-		"Hola Bitama, Kuzumi quiere robarnos nuestro jutsu maestro",
-		"Para ello lo va a buscar en uno de las dos copias de pergaminos que tenemos",
-		"Por suerte el solo sabe realizar una busqueda lineal",
-		"Debes encontrar el jutsu en el pergamino antes que el y utilizarlo para vencerlo",
-		"Vas a tener que realizar una busqueda binaria y asi encontrarlo antes que el",
-		"Los jutsus estan identificados con un numero y ordenados, pero no sabemos cual es el buscado",
-		"Para ello utiliza la funcion probarJutsu(posicion) para verificar si es el jutsu encontrado en la posicion es el buscado",
-		"Puedes utilizar la funcion esMenor(posicion) para verificar si es el jutsu en la posicion es menor al buscado",
-		"Puedes utilizar la funcion esMayor(pos) para verificar si es el jutsu en la posicion es mayor al buscado",
-		"Vamos apurate y ganale a Kuzumi"
+		"Hola, Bitama. Kuzumi quiere robarnos nuestro jutsu maestro.",
+		"Para ello, lo va a buscar en una de las dos copias de pergaminos que tenemos.",
+		"Por suerte, él solo sabe realizar una búsqueda lineal.",
+		"Debes encontrar el jutsu en el pergamino antes que él y utilizarlo para vencerlo.",
+		"Vas a tener que realizar una búsqueda binaria para encontrarlo antes que él.",
+		"Los jutsus están identificados con un número y ordenados, pero no sabemos cuál es el buscado.",
+		"Para ello, utiliza la función probarJutsu(posicion) para verificar si el jutsu en la posición es el buscado.",
+		"Puedes utilizar la función esMenor(posicion) para verificar si el jutsu en la posición es menor al buscado.",
+		"Puedes utilizar la función esMayor(pos) para verificar si el jutsu en la posición es mayor al buscado.",
+		"¡Vamos, apúrate y gánale a Kuzumi!"
 	]
 	await show_messages(phrases, master_msg_position)
 	player.update_destination(player_first_steps)
@@ -103,11 +103,12 @@ func _ready():
 	await master.npcArrived
 	set_code()
 	phrases = [
-		"Recueda utilizar la función probarJutsu(pos) para verificar si es el jutsu buscado",
-		"Recueda utilizar la función esMenor(pos) si quieres verificar si el poder del jutsu es menor al buscado",
-		"Recueda utilizar la función esMayor(pos) si quieres verificar si el poder del jutsu es mayor al buscado",
+		"Recuerda utilizar la función probarJutsu(pos) para verificar si es el jutsu buscado.",
+		"Recuerda utilizar la función esMenor(pos) si quieres verificar si el poder del jutsu es menor al buscado.",
+		"Recuerda utilizar la función esMayor(pos) si quieres verificar si el poder del jutsu es mayor al buscado."
 	]
 	master.update_phrases(phrases, master_msg_position, false, {'auto_play_time': 1, 'close_by_signal': true})
+
 
 func process_code(res):
 	if !executing_code:

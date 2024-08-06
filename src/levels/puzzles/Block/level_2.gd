@@ -36,34 +36,35 @@ func start_Level () :
 	set_boat_positions()
 
 func load_introduction_dialogs():
-	const intruction_dialogs : Array[String] = [
-	"¡Hola Bitama!",
-	"En esta sección vamos a ver los condicionales, ¿te suena?",
-	"Un condicional te deja tomar decisiones en tu programa.",
-	"Es como decirle al programa: 'Si pasa esto, entonces hacé esto otro.'",
-	"En este caso, tenés que esperar a que el bote esté en la orilla para tomarlo.",
-	"Para eso, vas a usar el operador IF y luego vas a cerrar la acción con el operador END IF.",
-	"Te espero en esta plataforma para continuar nuestra aventura."
+	const introduction_dialogs : Array[String] = [
+		"¡Hola, Bitama!",
+		"En esta sección vamos a ver los condicionales, ¿te suena?",
+		"Un condicional te deja tomar decisiones en tu programa.",
+		"Es como decirle al programa: 'Si pasa esto, entonces haz esto otro.'",
+		"En este caso, tienes que esperar a que el bote esté en la orilla para tomarlo.",
+		"Para eso, vas a usar el operador IF y luego vas a cerrar la acción con el operador END IF.",
+		"Te espero en esta plataforma para continuar nuestra aventura."
 	]
-	talk_as_master(intruction_dialogs)
+	talk_as_master(introduction_dialogs)
 
 func set_boat_positions():
-	boat.setPositions([Vector2(177, 57), Vector2(64, 25)]);
-	boat.start();
+	boat.setPositions([Vector2(177, 57), Vector2(64, 25)])
+	boat.start()
 
 func validate_instructions():
 	var inserted_elements = blockTarget.getPuzzle()
 	var inserted_len = len(inserted_elements)
 	var solution_len = len(solution)
 	if (inserted_len > solution_len):
-		talk_as_master([".MMMMM","Creo que estas poniendo instrucciones demás"])
+		talk_as_master(["MMMMM", "Creo que estás poniendo instrucciones demás."])
 	elif (solution_len > inserted_len):
-		talk_as_master([".MMMMM","Creo que te faltan algunas instrucciones ..."])
-	elif ( is_valid_solution(inserted_elements) ):
-		talk_as_master(["Siiiii ...", "Con ese camino no te caes al agua!!"])
+		talk_as_master(["MMMMM", "Creo que te faltan algunas instrucciones..."])
+	elif (is_valid_solution(inserted_elements)):
+		talk_as_master(["¡Siiii!", "¡Con ese camino no te caes al agua!"])
 		mover_a_objectivo()
 	else:
-		talk_as_master([".MMMM", "Esa combinación no es válida..", "... Fijate bien :("])
+		talk_as_master(["MMMM", "Esa combinación no es válida...", "...¡Fíjate bien! :("])
+
 
 func talk_as_master(dialogs :Array[String]):
 	npcExplainer.update_phrases(dialogs,Vector2(30, 15),true, {'auto_play_time': 1, 'close_by_signal':true})

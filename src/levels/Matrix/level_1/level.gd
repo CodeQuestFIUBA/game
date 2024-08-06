@@ -19,7 +19,7 @@ var player_position: Array[Vector2] = [Vector2(12,128)]
 var sensei_position: Array[Vector2] = [Vector2(240,64), Vector2(296,88)]
 var sensei_intro_dialog: Array[String] = [
 	"Kimono se encuentra detrás de esa puerta.",
-	"Ya no tiene dónde huir.",	
+	"Ya no tiene dónde huir.",
 	"Tenemos que hallar la manera de abrirnos camino."
 ];
 var slave_intro_dialog: Array[String] = [
