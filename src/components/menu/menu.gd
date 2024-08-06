@@ -79,5 +79,5 @@ func _on_button_doc_pressed():
 
 
 func _on_button_back_pressed():
-	get_tree().change_scene_to_file(home_loby)
+	LevelManager.load_scene(get_tree().current_scene.scene_file_path, home_loby)
 

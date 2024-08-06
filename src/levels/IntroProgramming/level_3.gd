@@ -186,4 +186,4 @@ func complete_level():
 	ApiService.send_request("{}", HTTPClient.METHOD_PUT, "score/complete/bases_de_la_programacion/2", "COMPLETE_LEVEL")
 
 func next():
-	get_tree().change_scene_to_file(nextLevel)
+	LevelManager.load_scene(get_tree().current_scene.scene_file_path, nextLevel)

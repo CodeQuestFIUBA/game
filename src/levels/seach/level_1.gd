@@ -224,4 +224,4 @@ func complete_level():
 
 
 func next():
-	get_tree().change_scene_to_file(nextLevel)
+	LevelManager.load_scene(get_tree().current_scene.scene_file_path, nextLevel)
