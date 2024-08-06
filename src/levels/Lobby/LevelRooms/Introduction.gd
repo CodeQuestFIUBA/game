@@ -2,9 +2,9 @@ extends Node2D
 
 const LEVELS = {
 	"level_1": "res://levels/puzzles/Block/level_1.tscn",
-	"level_2": "",
-	"level_3": "",
-	"boss": ""
+	"level_2": "res://levels/puzzles/Block/level_2.tscn",
+	"level_3": "res://levels/puzzles/Block/level_3.tscn",
+	"boss": "res://levels/Bosses/VectorsBoss.tscn"
 }
 
 @onready var doors = [

@@ -6,7 +6,7 @@ const LEVELS = {
 	"level_3": "res://levels/IntroProgramming/level_3.tscn",
 	"level_4": "res://levels/IntroProgramming/level_4.tscn",
 	"level_5": "res://levels/IntroProgramming/level_5.tscn",
-	"boss": "",
+	"boss": "res://levels/Bosses/VectorsBoss.tscn",
 }
 
 @onready var firstDoor = $Door1

@@ -1,6 +1,6 @@
 extends Node2D
 
-const boss_level = "res://levels/GoodPractices/boss.tscn"
+const boss_level = "res://levels/Bosses/VectorsBoss.tscn"
 
 @onready var challengesDoor = $ChallengeDoor
 @onready var practicesDoor = $PracticesDoor
