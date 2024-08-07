@@ -41,6 +41,7 @@ var current_question = 0
 @onready var buttonB = $Control/ScrollContainer/VBoxContainer/Options/OptionB/Button
 @onready var buttonC = $Control/ScrollContainer/VBoxContainer/Options/OptionC/Button
 @onready var buttonD = $Control/ScrollContainer/VBoxContainer/Options/OptionD/Button
+@onready var buttonContinue = $Control/ScrollContainer/VBoxContainer/Options/Continue/Button
 
 @onready var labelA = $Control/ScrollContainer/VBoxContainer/Options/OptionA/RichTextLabel
 @onready var labelB = $Control/ScrollContainer/VBoxContainer/Options/OptionB/RichTextLabel
@@ -81,7 +82,9 @@ func _ready():
 	buttonB.connect("pressed", _on_AnswerButton_pressed.bind(1))
 	buttonC.connect("pressed", _on_AnswerButton_pressed.bind(2))
 	buttonD.connect("pressed", _on_AnswerButton_pressed.bind(3))
+
 	
+	buttonContinue.visible = false
 	quest.visible = true
 	
 	show_question()
@@ -148,6 +151,27 @@ func _on_AnswerButton_pressed(answer_index):
 	
 	var correct_answer = questions[current_question]["correct"]
 	
+	if answer_index == 0 && answer_index != correct_answer:
+		labelA.bbcode_text="[color=#FF0000]" + questions[current_question]["answers"][0] + "[/color]"
+	elif answer_index == 1 && answer_index != correct_answer:
+		labelB.bbcode_text="[color=#FF0000]" + questions[current_question]["answers"][1] + "[/color]"
+	elif answer_index == 2 && answer_index != correct_answer:
+		labelC.bbcode_text="[color=#FF0000]" + questions[current_question]["answers"][2] + "[/color]"
+	elif answer_index == 3 && answer_index != correct_answer:
+		labelD.bbcode_text="[color=#FF0000]" + questions[current_question]["answers"][3] + "[/color]"
+	
+	if correct_answer == 0:
+		labelA.bbcode_text="[color=#008000]" + questions[current_question]["answers"][0] + "[/color]"
+	elif correct_answer == 1:
+		labelB.bbcode_text="[color=#008000]" + questions[current_question]["answers"][1] + "[/color]"
+	elif correct_answer == 2:
+		labelC.bbcode_text="[color=#008000]" + questions[current_question]["answers"][2] + "[/color]"
+	elif correct_answer == 3:
+		labelD.bbcode_text="[color=#008000]" + questions[current_question]["answers"][3] + "[/color]"
+	
+	buttonContinue.visible = true
+	
+	await buttonContinue.pressed
 	quest.visible = false
 	
 	if answer_index == correct_answer:
@@ -177,6 +201,7 @@ func _on_AnswerButton_pressed(answer_index):
 		pass
 	else:
 		quest.visible = true
+		buttonContinue.visible = false
 		
 func run_last_phase():
 	print("Start Last Phase")

@@ -2204,7 +2204,6 @@ theme_override_font_sizes/bold_italics_font_size = 10
 theme_override_font_sizes/mono_font_size = 10
 bbcode_enabled = true
 text = "Question
-[center][img=150]res://sprites/encyclopedia/algoritmo.png[/img][/center]
 "
 fit_content = true
 
@@ -2301,7 +2300,19 @@ bbcode_enabled = true
 text = "Response 1"
 fit_content = true
 
+[node name="Continue" type="HBoxContainer" parent="Control/ScrollContainer/VBoxContainer/Options"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Control/ScrollContainer/VBoxContainer/Options/Continue"]
+custom_minimum_size = Vector2(305, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("16_0ugbw")
+text = "Continue"
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="IDE" parent="CanvasLayer" instance=ExtResource("17_g0hea")]
 offset_top = 1.0

@@ -41,21 +41,14 @@ var post_quiz_phrases: Array[String] = [
 	]
 
 var codeLines: Array[String] = [
-	"function pelear(cantidadEnemigos, armaEnemigo) {",
-	"	//Ninjaku gana a Sai",
-	"	//Sai gana a Whip",
-	"	//Whip gana a Katana",
-	"	//Katana gana a Ninjaku",
-	"	",
-	"	return {",
-	"		arma: ''",
-	"		total: 0",
-	"	}",
-	"}"]
+	"function cantidadAtaques(energiaJutsus, energiaBitama) {",
+	"",
+	"}"
+	]
 
 var questions = [
 	{
-		"question": "¿Qué devuelve la propiedad \"length\" de un arreglo? \n[center][img=150]res://sprites/encyclopedia/algoritmo.png[/img][/center]",
+		"question": "¿Qué devuelve la propiedad \"length\" de un arreglo? \n",
 		"answers": [
 			"El número máximo de elementos que puede contener el arreglo",
 			"El número de elementos que actualmente tiene el arreglo",

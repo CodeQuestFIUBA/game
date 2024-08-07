@@ -1211,6 +1211,15 @@ script = ExtResource("1_6pvcm")
 
 [node name="Boss" parent="." instance=ExtResource("1_3snk4")]
 
+[node name="TileMap" parent="Boss" index="0"]
+visible = false
+
+[node name="CanvasLayer" parent="Boss" index="6"]
+visible = true
+
+[node name="IDE" parent="Boss/CanvasLayer" index="0"]
+visible = false
+
 [node name="Map" type="TileMap" parent="Boss"]
 show_behind_parent = true
 tile_set = SubResource("TileSet_5owvy")
@@ -1231,12 +1240,6 @@ layer_2/y_sort_enabled = false
 layer_2/y_sort_origin = 0
 layer_2/z_index = 0
 layer_2/tile_data = PackedInt32Array(720897, 1048578, 11, 786433, 1048578, 12, 720898, 1114114, 11, 786434, 1114114, 12, 720899, 1048578, 11, 786435, 1048578, 12, 720900, 1114114, 11, 786436, 1114114, 12)
-
-[node name="TileMap" parent="Boss" index="1"]
-visible = false
-
-[node name="CanvasLayer" parent="Boss" index="7"]
-visible = false
 
 [editable path="Boss"]
 [editable path="Boss/Player"]
