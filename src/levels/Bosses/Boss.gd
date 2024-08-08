@@ -62,7 +62,7 @@ var enemy_defeated: Array[String] = [
 
 func _ready():
 	
-	ApiService.login("ezequiel@gmail.com", "123asd", "LOGIN");
+	#ApiService.login("ezequiel@gmail.com", "123asd", "LOGIN");
 	if ApiService:
 		ApiService.connect("signalApiResponse", process_response)
 	IDE.connect("executeCodeSignal", sendCode)

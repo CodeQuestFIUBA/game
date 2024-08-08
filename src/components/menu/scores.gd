@@ -37,10 +37,11 @@ func process_points(res):
 		addUserPoint(scores[i], i + 1)
 
 func process_response(res, extraArg):
-	if !res || res["code"] != 200:
-		return
 	match extraArg:
-		"GET_POINTS": process_points(res)
+		"GET_POINTS": 
+			if !res || res["code"] != 200:
+				return
+			process_points(res)
 
 func addPoint(point):
 	var pointsContainer = pointsContainerLevel.duplicate()
