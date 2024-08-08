@@ -26,7 +26,8 @@ func _start_level(level_key: String) -> void:
 		print("Error: Level key not found.")
 
 func _on_level_1_body_entered(body):
-	_start_level("level_1")
+	#_start_level("level_1")
+	LevelManager.load_demo_scene(get_tree().current_scene.scene_file_path, LEVELS["level_1"], "INTRO", "Nivel I", "Cruzando el charco")
 
 func _on_level_2_body_entered(body):
 	_start_level("level_2")

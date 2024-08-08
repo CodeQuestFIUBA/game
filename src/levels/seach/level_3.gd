@@ -11,6 +11,7 @@ extends Node2D
 @onready var label: RichTextLabel = $RichTextLabel
 @onready var label_enemy = $RichTextLabel2
 var executing_code = false
+var nextLevel = "res://levels/Vectors/Vector.tscn"
 
 var master_msg_position: Vector2 = Vector2(80, 152)
 var box_with_scroll = 4
@@ -181,6 +182,7 @@ func win_player():
 	]
 	await show_messages(phrases, master_msg_position)
 	player.update_destination(player_final_steps)
+	LevelManager.load_demo_scene(get_tree().current_scene.scene_file_path, nextLevel, "VECTORES", "Nivel VI", "Ordenando las cosas")
 	
 
 

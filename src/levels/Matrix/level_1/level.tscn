@@ -3127,7 +3127,7 @@ text = "[center][font_size=12][b]Instrucciones[/b][/font_size][/center]
 
 Bitama tiene en frente suyo los canastos con las provisiones de Kimono y compañía. Sin embargo, escondida dentro de uno de ellos se encuentra la llave de repuesto hacia los aposentos del villano.
 
-Tu tarea consiste en implementar la función [color=red]buscarLlave() [/color], la cual recibe como parámetros la matriz, el alto y ancho de la misma, y la llave a buscar. Este debe iterar por la matriz hasta hallar la posición en la que se encuentra la llave y retornar un objeto con la siguiente estructura: [color=red]{x: number, y: number}[/color], donde x e y corresponden a los índices de la matriz en la que se halla el elemento.
+Tu tarea consiste en implementar la función [color=red]buscarLlave() [/color], la cual recibe como parámetros la matriz, el alto y ancho de la misma. Este debe iterar por la matriz hasta hallar la posición en la que se encuentra la llave (aparece en la matriz como [color=red]\"llave\"[/color]) y retornar un objeto con la siguiente estructura: [color=red]{x: number, y: number}[/color], donde x e y corresponden a los índices de la matriz en la que se halla el elemento.
 
 Siguiendo esta lógica, por ejemplo, en la siguiente matriz:
 

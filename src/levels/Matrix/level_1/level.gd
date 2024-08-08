@@ -140,4 +140,5 @@ func _make_npc_talk(messages: Array[String], npc, dialog_position):
 func _run_outro():
 	door.visible = true
 	await get_tree().create_timer(0.4).timeout
-	LevelManager.load_scene(get_tree().current_scene.scene_file_path, "res://levels/Bosses/VectorsBoss.tscn")
+	#LevelManager.load_scene(get_tree().current_scene.scene_file_path, "res://levels/Bosses/VectorsBoss.tscn")
+	LevelManager.load_demo_scene(get_tree().current_scene.scene_file_path, "res://levels/Bosses/VectorsBoss.tscn", "VECTORES", "Jefe", "Quickslash Kimono")

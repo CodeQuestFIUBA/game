@@ -3,6 +3,8 @@ extends Node2D
 var move_speed = 50
 var destination_position
 
+var nextLevel = "res://levels/Matrix/level_1/level.tscn";
+
 @onready var player = $Player
 @onready var master = $Master
 
@@ -203,6 +205,8 @@ func player_arrived():
 			
 			master.update_phrases(vector_sorted_message, Vector2(110,140), true, {'auto_play_time': 1, 'close_by_signal': true})
 			print("Finished sort")
+			await DialogManager.signalCloseDialog
+			LevelManager.load_demo_scene(get_tree().current_scene.scene_file_path, nextLevel, "VECTORES", "Nivel VII", "Buscando la llave")
 
 	elif number_current_box < box_states.size():
 		print("Not First Call")

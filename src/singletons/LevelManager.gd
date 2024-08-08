@@ -1,6 +1,7 @@
 extends Node
 
 signal progress_updated
+signal load_demo_screen(level, sublevel, title, callback)
 
 @export var loading_screen_path: String = "res://components/LoadingScreen.tscn"
 @export var level_progress = [] 
@@ -32,6 +33,15 @@ func load_scene(prev_scene: String, next_scene: String):
 	await get_tree().create_timer(1.25).timeout
 	get_tree().change_scene_to_file(next_scene)
 	hide_loading_screen()
+	
+func load_demo_scene(prev_scene: String, next_scene: String, level: String, sublevel: String, title: String):
+	show_loading_screen()
+	await get_tree().create_timer(1.25).timeout
+	load_demo_screen.emit(level, sublevel, title, 
+		func(): 
+			get_tree().change_scene_to_file(next_scene)
+			hide_loading_screen()
+	)
 
 func update_levels():
 	ApiService.send_request("", HTTPClient.METHOD_GET, "levels/actual", "UPDATE_PROGRESS")

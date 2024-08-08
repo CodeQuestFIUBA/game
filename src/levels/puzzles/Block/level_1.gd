@@ -4,7 +4,9 @@ extends Node2D
 @onready var ninja = $Ninja
 @onready var blockTarget = $BlockTarget
 @onready var mainButton = $PlayButton
-var nextLevel = "res://levels/puzzles/Block/level_2.tscn"
+#var nextLevel = "res://levels/puzzles/Block/level_2.tscn"
+var nextLevel = "res://levels/seach/level_3.tscn"
+
 const solution = [
 	{"value" : "Mover Arriba","target": Vector2(95,160) },
 	{"value" : "Mover Izquierda", "target": Vector2(15,157) },
@@ -37,7 +39,7 @@ func load_introduction_dialogs():
 		"...finita de instrucciones",
 		"...con el fin de realizar una tarea.",
 		"Teniendo esto en cuenta...",
-		"Llega al aldeano sin tocar el agua."
+		"Llega hasta el cofre sin tocar el agua."
 	]
 	talk_as_master(introduction_dialogs)
 
@@ -81,5 +83,6 @@ func complete_level():
 
 
 func next():
-	LevelManager.load_scene(get_tree().current_scene.scene_file_path, nextLevel)
+	LevelManager.load_demo_scene(get_tree().current_scene.scene_file_path, nextLevel, "VECTORES", "Nivel III", "Batalla de Velocidad")
+	#LevelManager.load_scene(get_tree().current_scene.scene_file_path, )
 

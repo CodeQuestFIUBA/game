@@ -5,8 +5,8 @@ const LEVELS = {
 	"level_2": "res://levels/seach/level_2.tscn",
 	"level_3": "res://levels/seach/level_3.tscn", 
 	"level_4": "res://levels/seach/level_1.tscn",
-	"level_5": "res://levels/puzzles/Vectors/sort.tscn",
-	"level_6": "res://levels/puzzles/Vectors/sort.tscn",
+	"level_5": "res://levels/Vectors/Vector.tscn",
+	"level_6": "res://levels/Vectors/Vector.tscn",
 	"level_7": "res://levels/Matrix/level_1/level.tscn",
 	"boss": "res://levels/Bosses/VectorsBoss.tscn",
 }

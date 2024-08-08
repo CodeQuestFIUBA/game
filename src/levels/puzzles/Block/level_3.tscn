@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://d2dpxeg2j43lq"]
+[gd_scene load_steps=33 format=3 uid="uid://d2dpxeg2j43lq"]
 
 [ext_resource type="Script" path="res://levels/puzzles/Block/level_3.gd" id="1_nt0od"]
 [ext_resource type="Texture2D" uid="uid://th6ag8sbqr6r" path="res://sprites/TilesetHouse.png" id="2_crm55"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://ce8nlxqw6tyxx" path="res://sprites/ninjas/OldMan3.png" id="19_iq8sr"]
 [ext_resource type="Texture2D" uid="uid://daxlhd4mbegmd" path="res://sprites/SpriteSheet.png" id="20_o7jwe"]
 [ext_resource type="PackedScene" uid="uid://mb607q8lctbo" path="res://components/Weather/Raylight.tscn" id="21_8no8v"]
+[ext_resource type="PackedScene" uid="uid://cn8vfh00qa1gr" path="res://components/menu/menu.tscn" id="22_2k52u"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nq42x"]
 texture = ExtResource("2_crm55")
@@ -2512,6 +2513,10 @@ z_index = 200
 
 [node name="Raylight" parent="." instance=ExtResource("21_8no8v")]
 z_index = 4096
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" parent="CanvasLayer" instance=ExtResource("22_2k52u")]
 
 [connection signal="onBlockDeleted" from="BlockSpawn" to="BlockTarget" method="_on_block_spawn_on_block_deleted"]
 [connection signal="mouse_entered" from="PlayButton" to="PlayButton" method="_on_mouse_entered"]

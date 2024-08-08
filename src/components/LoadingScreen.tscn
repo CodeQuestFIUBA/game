@@ -1,10 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://7bf3wwk1i5om"]
+[gd_scene load_steps=11 format=3 uid="uid://7bf3wwk1i5om"]
 
 [ext_resource type="Texture2D" uid="uid://doyf8djt4piqw" path="res://assets/loading2.png" id="1_qn1n4"]
+[ext_resource type="Script" path="res://components/LoadingScreen.gd" id="1_t1ibf"]
 [ext_resource type="Texture2D" uid="uid://b1w5a1t4rnkgv" path="res://sprites/logo.png" id="2_b37w6"]
 [ext_resource type="PackedScene" uid="uid://c85uch07swpxi" path="res://components/Spinner.tscn" id="3_iupsy"]
+[ext_resource type="Texture2D" uid="uid://fahrd2tfq0ec" path="res://sprites/ui/nine_path_3.png" id="4_irpem"]
+[ext_resource type="FontFile" uid="uid://8n7eoa5gi3en" path="res://fonts/pansyhand.ttf" id="5_17dio"]
+[ext_resource type="Theme" uid="uid://cmqaxsejj61g2" path="res://themes/Buttons.tres" id="6_xyju4"]
+
+[sub_resource type="FontVariation" id="FontVariation_u8vrj"]
+base_font = ExtResource("5_17dio")
+spacing_top = -5
+spacing_bottom = -5
+
+[sub_resource type="FontVariation" id="FontVariation_gr1yr"]
+base_font = ExtResource("5_17dio")
+spacing_top = -4
+spacing_bottom = 4
+
+[sub_resource type="FontVariation" id="FontVariation_7d58e"]
+base_font = ExtResource("5_17dio")
+spacing_top = -2
 
 [node name="LoadingScreen" type="Node2D"]
+script = ExtResource("1_t1ibf")
 
 [node name="Background" type="TextureRect" parent="."]
 offset_right = 432.0
@@ -21,3 +40,62 @@ texture = ExtResource("2_b37w6")
 [node name="Spinner" parent="." instance=ExtResource("3_iupsy")]
 position = Vector2(200, 160)
 scale = Vector2(0.519998, 0.519998)
+
+[node name="Modal" type="NinePatchRect" parent="."]
+visible = false
+offset_left = 112.0
+offset_top = 32.0
+offset_right = 296.0
+offset_bottom = 184.0
+texture = ExtResource("4_irpem")
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="Container" type="VBoxContainer" parent="Modal"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.5
+offset_top = -28.0
+offset_right = 49.5
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Level" type="Label" parent="Modal/Container"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.941176, 0.403922, 0.2, 1)
+theme_override_fonts/font = ExtResource("5_17dio")
+theme_override_font_sizes/font_size = 36
+text = "PLACEHOLDER"
+horizontal_alignment = 1
+
+[node name="Sublevel" type="Label" parent="Modal/Container"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.607843, 0.317647, 0.235294, 1)
+theme_override_fonts/font = SubResource("FontVariation_u8vrj")
+theme_override_font_sizes/font_size = 24
+text = "Nivel X"
+horizontal_alignment = 1
+
+[node name="Title" type="Label" parent="Modal/Container"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.678431, 0.333333, 1)
+theme_override_fonts/font = SubResource("FontVariation_gr1yr")
+theme_override_font_sizes/font_size = 24
+text = "Nombre"
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="Modal/Container"]
+layout_mode = 2
+theme = ExtResource("6_xyju4")
+theme_override_fonts/font = SubResource("FontVariation_7d58e")
+theme_override_font_sizes/font_size = 18
+text = "COMENZAR"
+
+[connection signal="pressed" from="Modal/Container/StartButton" to="." method="_on_start_button_pressed"]
