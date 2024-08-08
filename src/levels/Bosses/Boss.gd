@@ -55,6 +55,11 @@ var current_question = 0
 @onready var BossPosition = $"BossPosition"
 @onready var BossAttackPosition = $"BossAttackPosition"
 
+var enemy_defeated: Array[String] = [
+	"Oh NO!!! La solución es correcta",
+	"Me has derrotado"
+];
+
 func _ready():
 	
 	ApiService.login("ezequiel@gmail.com", "123asd", "LOGIN");
@@ -185,7 +190,7 @@ func _on_AnswerButton_pressed(answer_index):
 	print(lifeBarPlayer.life)
 	print(lifeBarBoss.life)
 	
-	#if lifeBarPlayer < 
+
 	if current_question < questions.size():
 		show_question()
 	else:
@@ -236,10 +241,44 @@ func process_response(res, extraArg):
 		"COMPLETE_LEVEL": pass
 		"ADD_ATTEMPT": pass
 		"SEND_CODE": 
-			if !res || res["code"] != 200:
-				show_error_response(res["message"])
-				return;
-			process_result(res["data"]["result"])
+	#		if !res || res["code"] != 200:
+	#			show_error_response(res["message"])
+	#			return;
+	#		process_result(res["data"]["result"])
+	
+			boss.update_phrases(enemy_defeated, enemy_msg_position, true, {'auto_play_time': 1, 'close_by_signal': true})
+			
+			await DialogManager.signalCloseDialog
+			
+			var npcSteps: Array[Vector2] = []
+			npcSteps = [
+				NinjaAttackPosition.global_position,
+				NinjaAttackPosition.global_position
+			]
+			player.update_destination(npcSteps)
+			
+			await player.npcArrived
+			
+			lifeBarBoss.life -= 1
+			player.attack("right")
+
+			await boss.dead()
+
+			await player.npcFinishAttack
+			
+			var victory_phrases: Array[String] = [
+				"La victoria es nuestra",
+			];
+
+			player.update_phrases(victory_phrases, Vector2(140,130), true, {'auto_play_time': 1, 'close_by_signal': true})
+			
+			await DialogManager.signalCloseDialog
+						
+			await get_tree().create_timer(2).timeout
+			
+			
+			var home_loby = "res://main.tscn"
+			LevelManager.load_scene(get_tree().current_scene.scene_file_path, home_loby)
 
 func process_result(result):
 	var is_correct: bool = check_if_result_is_correct.call()

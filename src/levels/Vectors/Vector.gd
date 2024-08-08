@@ -103,21 +103,14 @@ func randomize_vector():
 			rand_pos_5 = rng.randi_range(1, 30)
 		elif actual_time - start_time == 4:
 			rand_pos_5 = rng.randi_range(1, 30)
-		print("RAND")
 		await get_tree().create_timer(0.05).timeout
 
 		rand_positions = [rand_pos_1, rand_pos_2, rand_pos_3, rand_pos_4, rand_pos_5]
 		set_boxes(rand_positions)
 	
-	print("rand_positions:", rand_positions)
-	
 	var new_box_states : Array = []
 	new_box_states.append(rand_positions.duplicate(true))
-	#new_box_states.append(rand_positions)
-	print("new_box_states:", new_box_states)
 	bubbleSort(new_box_states, rand_positions)
-	#new_box_states.insert(0, rand_positions.duplicate(true))
-	print(new_box_states)
 	box_states = new_box_states
 
 # Called when the node enters the scene tree for the first time.
@@ -163,14 +156,6 @@ Debería dejarlo en el estado:
 	player.connect("npcArrived",player_arrived)
 	talk_master()
 
-	#const intruction_dialogs : Array[String] = [
-	#		"Hola!!!",
-	#		"El siguiente paso en tu camino ..",
-	#		".. es una tarea un poco mas compleja",
-	#		"Programa una función para ordenar los numeros de las cajas",
-	#	]
-	#DialogManager.start_dialog(Vector2(115,160),intruction_dialogs, {'auto_play_time': 0.7})
-
 	await DialogManager.signalCloseDialog
 	
 	ide.set_ide_visible(true)
@@ -204,26 +189,13 @@ func player_arrived():
 		if (number_current_box == box_states.size()):
 			
 			master.update_phrases(vector_sorted_message, Vector2(110,140), true, {'auto_play_time': 1, 'close_by_signal': true})
-			print("Finished sort")
 			await DialogManager.signalCloseDialog
 			LevelManager.load_demo_scene(get_tree().current_scene.scene_file_path, nextLevel, "VECTORES", "Nivel VII", "Buscando la llave")
 
 	elif number_current_box < box_states.size():
-		print("Not First Call")
-		print(box_states[number_current_box])
-		print(box_states[number_current_box -1])
-
 		var pos_changed = first_different_position(box_states[number_current_box], box_states[number_current_box - 1])
-		print("pos changed: ", pos_changed)
 		move_to_box_by_number(pos_changed + 1)
-		
 		isReturningFromBox = true
-	
-	#&& !isReturningFromBox):
-		
-		#ExecutionResult.set_visible(true)
-		#ExecutionResult.setContratulations()
-	
 
 func first_different_position(array1: Array, array2: Array) -> int:
 	print(array1, array2)
@@ -274,17 +246,7 @@ func send_code(code):
 	print(code)
 	ApiService.send_request(code, HTTPClient.METHOD_POST, "sort-vector")
 	await ApiService.signalApiResponse
-	
-	print("RESPUESTA DESDE SEND CODE")
-	print(response)
-	
-	##if response.code == 500:
-	#	ExecutionResult.set_visible(true)
-	#	ExecutionResult.setCompilationError(response.message)
-		#return
-	
-	
-	
+
 	waiting_to_begin = false
 	
 	var phrases: Array[String] = []
@@ -295,8 +257,6 @@ func send_code(code):
 
 	await randomize_vector()
 	
-	print("SENDCODE")
-	print(box_states)
 	number_current_box = 1
 	var pos_changed = first_different_position(box_states[number_current_box], box_states[0])
 	move_to_box_by_number(pos_changed + 1)
@@ -320,8 +280,5 @@ func process_response(resp):
 	print("RESPUESTA:")
 	print(resp)
 	response = resp
-	#emit_signal(response_ready)
-	#ExecutionResult.set_visible(true)
-	#ExecutionResult.setContratulations()
 	print(resp.code)
 	pass
